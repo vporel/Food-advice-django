@@ -1,0 +1,127 @@
+@import "./utils/variables";
+
+#aliment-title{
+    background:$primary-color;
+    color:white;
+    text-shadow: 1px 1px 1px black;
+    font-family: $title-font;
+    padding:20px 0;
+    text-align:center;
+}
+.value{
+    font-family:$global-font-bold;
+    color:black;
+}
+
+#aliment-image{
+    width:100%;
+}
+
+#details{
+    font-size: 15px;
+
+}
+
+#composition{
+    margin:5px 0;
+    padding:10px;
+    background:rgba($primary-color,.2);
+    box-shadow :0 0 5px darken($primary-color, 5%);
+    border-radius:10px;
+    h5{
+        color:$primary-color;
+        font-family: $global-font-bold;
+    }
+}
+
+#detail-preparation{
+    font-size:17px;
+    padding:20px;
+    background:rgba($secondary-color,.3);
+    margin: 0 0 10px 0;
+}
+
+#ratings{
+    font-size:20px;
+    #stars{
+        .star{
+            font-size:25px;
+            color:rgb(180,180,180);
+            &.active{color:gold;}
+        }
+    }
+    .star{
+        color:rgb(180,180,180);
+        font-size:25px;
+        &.active{
+            color:gold;
+        }
+    }
+
+    #user-note{
+        font-size:16px;
+        a{
+            cursor: pointer;
+        }
+    }
+}
+
+.ingredient{
+    position:relative;
+    text-align: center;
+    .image-div{
+        height:100px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        img{
+            height:98%;
+            transition:all .5s ease;
+        }
+    }
+    &::after{
+        position:absolute;
+        top:100%;
+        width:100%;
+        left:0;
+        height:3px;
+        border-radius:50%;
+        box-shadow: 0 0 4px black;
+        content:"";
+    }
+
+    .composition{
+        position:absolute;
+        top:0;left:0;
+        background:rgba(white, .8);
+        width:100%;
+        height:100%;
+        padding:5px;
+        font-size:16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity:0;
+        transition:all .3s ease;
+    }
+
+    &:hover{
+        .composition{
+            opacity:1;
+        }
+        img{transform:scale(1.5)}
+    }
+}
+
+#new-comment-form{
+    textarea{
+        border:1px solid lightgray;
+        border-radius: 5px;
+        width:100%;
+        height:100px;
+        font-family: $global-font;
+        padding:3px;
+    }
+}

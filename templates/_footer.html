@@ -1,0 +1,44 @@
+<!--
+    Les styles et les scripts du footer sont définis dans le fichier base.html
+    PAreil pour le header
+ -->
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12 col-md-4 text-center text-md-left">
+            <h4 class="title">S'abonner à la newsletter</h4>
+            <h6>Les derniers repas et restaurants par mail</h6>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <form action="{% url "subscribe-to-newsletter" %}" method="post" id="newsletter-form">
+                <input type="email" name="newsletter-email" id="newsletter-email" placeholder="Votre adresse e-mail" required>
+                <input type="submit" value="S'abonner" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start align-items-center" id="newsletter-links">
+            <!-- Icones et liens vers les réseaux sociaux où Food-advice est abonné-->
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12 col-md-4 text-center text-md-left">
+            <a href="/" class="logo">
+                <img src="{% static 'images/logo.png' %}" alt=""/>
+                Food-advice
+            </a>
+            <a href="{% url 'help' %}"><h6 class="c-black">Besoin d'aide ?</h6></a>
+        </div>
+        <!-- Creation du lien vers la page de recommendation-->
+        <div class="col-12 col-md-4 text-center text-md-right">
+            <h6 class="title m-5">Cliquez <a class="text-primary" href="{% url 'recommend' %}">ici</a> pour faire une recommandation</h6>
+        </div>
+        <!-- creation du boutton de retour en debut de page-->
+        <div class="col-12 col-md-4  text-center text-md-right">
+            <a href="#">
+                <h1> <i class="fas fa-arrow-up text-primary m-5"></i></h1>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: block;
+  src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/CenturyGothic.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic Bold';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/gothicb.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Godfeem';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/godfeem/Godfeem.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Mayeka';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/mayeka/Mayeka Regular Demo.otf") format("truetype"); }
+@font-face {
+  font-family: 'Kitahara Script';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+#slide {
+  height: 500px;
+  overflow: hidden;
+  position: relative; }
+  #slide .slide-element {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; }
+    #slide .slide-element .slide-element-text {
+      position: absolute;
+      left: 15%;
+      z-index: 2;
+      top: 30%; }
+      #slide .slide-element .slide-element-text h4 {
+        font-size: 50px;
+        font-family: "Kitahara Script"; }
+      #slide .slide-element .slide-element-text p {
+        font-size: 23px;
+        font-style: italic; }
+    #slide .slide-element img {
+      position: absolute;
+      right: 20%;
+      height: 300px;
+      bottom: 10%;
+      z-index: 1; }
+  #slide #radios {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px; }
+    #slide #radios span {
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      background: white;
+      margin: 0 5px;
+      cursor: pointer;
+      box-shadow: 0 0 5px black;
+      transition: all .5s black; }
+      #slide #radios span.active {
+        background: #54ab00; }
+  @media screen and (max-width: 768px) {
+    #slide {
+      height: 450px; }
+      #slide .slide-element {
+        width: 100%; }
+        #slide .slide-element .slide-element-text {
+          width: 100%;
+          left: 0;
+          text-align: center;
+          top: 30%; }
+        #slide .slide-element img {
+          position: absolute;
+          right: 10%;
+          height: 250px;
+          bottom: 10%; } }
+
+.elements-set {
+  margin-top: 30px; }
+
+/*# sourceMappingURL=home.css.map */

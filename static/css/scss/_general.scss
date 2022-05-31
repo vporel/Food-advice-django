@@ -1,0 +1,83 @@
+
+a{
+  text-decoration: none; color:inherit;cursor:pointer;
+  &:hover{text-decoration: none;color:inherit;}
+}
+
+.text-blue{
+  color:blue;
+}
+
+.text-primary{
+  color:$primary-color!important;
+}
+.bg-primary{
+  background-color:$primary-color!important;
+}
+
+
+.border-2{
+  border-width:2px!important;
+}
+.border-3{
+  border-width:3px!important;
+}
+.border-4{
+  border-width:4px!important;
+}
+
+@import './components/controls';
+
+
+#breadcrumb{
+  width:100%; padding:0;
+  margin:0;display:flex;
+  align-items: center;
+  .breadcrumb-right{
+    display:flex;justify-content: flex-end;margin-left:auto;
+  }
+  @media #{$mobile}{
+    .breadcrumb-right{width:100%;justify-content: center;border-top:1px solid lightgray;}
+  }
+  a{ 
+        font-weight:bold;
+        display:inline-block;padding:7px 5px;
+        color:rgb(180,180,180);
+        &:hover, &.active{color:inherit!important;}
+    }
+} 
+body {
+    font-size: 13px;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width:100%!important;
+    font-family: $global-font;
+}
+
+.title {
+  font-family: $title-font;
+  font-weight:bold;
+  color:black;
+}
+
+.c-black{
+  color:black;
+}
+strong{
+  font-family:$global-font-bold;
+}
+
+#content{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.icon{
+  cursor:pointer;
+  transition:all .2s ease;
+  &:hover{
+    color:$primary-color;
+  }
+}

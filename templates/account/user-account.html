@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% modelsObjectsEquals appUser user as isCurrentUser %}
+{% block title %}Mon compte | Food-advice{% endblock %}
+
+{% block styles %} 
+    <!-- Inclusions css ici -->   
+    {% css "css/user-account.css" %}
+
+{% endblock %}
+
+{% block body %}
+    <!-- Contenu de la page ici -->
+    <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <span id="user-icon-span" class="d-flex justify-content-center">
+                <i class="fas fa-user" id="user-icon"></i>
+            </span>
+            <div class=" text-center mt-3">
+                <h5 id="user-name">{{ user.nom }}</h5>
+                <h6 class="text-primary">{{ user.nomUtilisateur }}</h6>
+                <h6>{% if user.email is not null %}{{ user.email }}{%endif%}</h6>
+                {% if user.professionnelSante %}
+                    <span class="badge mt-2" id="badge-professionnel">Professionnel de la santé</span>
+                    {% if isCurrentUser %}
+                        <button class="btn btn-action mt-2" onclick="openChat(0, '{{ user.nom }}', {{ user.id }})">Envoyer un message</button>
+                    
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if isCurrentUser %}
+                <hr>
+                <nav id="menu">
+                    <a id="show-messages-btn" onclick="openMessagesBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
+                    <a id="show-alimentation-tracking-btn" onclick="openAlimentationTrackingBox()"><i class="fas fa-bowl-food"></i> Suivre mon alimentation</a>
+                </nav>
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-8 mt-3 mt-md-0">
+            <h4 class="title text-center text-md-start mb-3 mb-md-1">{% if isCurrentUser %}Vos recommandations{% else %}Recommandations{% endif %}</h4>
+            <div class="recommandations" data-aos="fade-in-up">
+                <h6 class="title">
+                    Repas
+                    {% if isCurrentUser %}
+                        <a href="{% url "recommend-food" %}">Recommander</a>
+                    {% endif %}
+                </h6>
+                
+                {% if user.repas_set > 0 %}
+                    <div class="row">
+                        {% for repas in user.repas_set.all %}
+                            {% if isCurrentUser and repas.approuve %}
+                                {% include "macros/_food-little-presentation.php" with repas=repas %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Aucun repas recommandé
+                    </div>
+                {% endif %}
+            </div>
+            <div class="recommandations" data-aos="fade-in-up">
+                <h6 class="title">
+                    Aliments
+                    {% if isCurrentUser %}
+                        <a href="{% url "recommend-aliment" %}">Recommander</a>
+                    {% endif %}
+                </h6>
+                
+                {% if user.aliments_set > 0 %}
+                    <div class="row">
+                        {% for aliment in user.aliment_set.all %}
+                            {% if isCurrentUser and aliment.approuve %}
+                                {% include "macros/_food-little-presentation.php" with aliment=aliment %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Aucun aliment recommandé
+                    </div>
+                {% endif %}
+            </div>
+            <div class="recommandations" data-aos="fade-in-up">
+                <h6 class="title">
+                    Restaurants
+                    {% if isCurrentUser %}
+                        <a href="{% url "recommend-restaurant" %}">Recommander</a>
+                    {% endif %}
+                </h6>
+                
+                {% if user.restaurant_set > 0 %}
+                    <div class="row">
+                        {% for restaurant in user.restaurant_set.all %}
+                            {% if isCurrentUser and restaurant.approuve %}
+                                {% include "macros/_food-little-presentation.php" with restaurant=restaurant %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Aucun restaurant recommandé
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

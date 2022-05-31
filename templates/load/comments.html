@@ -1,0 +1,14 @@
+
+{% for commentaire in commentaires%}
+                
+    <div class="comment comment-load">
+        <div>
+            <span class="contributor-name">{{ commentaire.contributeur }}</span> 
+            <span class="date">{{ commentaire.formattedDate }}</span>
+        </div>
+        <p>
+            {{ commentaire.texte | linebreaks | safe }}
+        </p>
+    </div>
+    
+{% endfor %}

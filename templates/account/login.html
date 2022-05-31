@@ -1,0 +1,23 @@
+
+{% extends "account/login-signin-base.html"%}
+{%block title %}Connexion | Food-advice {% endblock%}; 
+{% block form_section %}
+    <!-- Contenu de la page ici -->
+
+    <h4 class="title text-center text-md-start">Connectez-vous</h4>
+    {% if msg %}
+        <div class="alert alert-warning">{{msg}}</div>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="d-flex justify-content-center justify-content-md-end mt-2">
+            <button type="submit" class="btn btn-primary">
+                Se connecter
+            </button>
+        </div>
+        <p class="text-center c-black">
+            Vous n'avez pas de compte ? <a  class="text-primary" href="{% url 'signin' %}">Inscrivez-vous</a>
+        </p>
+    </form>
+{% endblock %}

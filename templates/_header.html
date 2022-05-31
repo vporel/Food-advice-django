@@ -1,0 +1,80 @@
+<!--
+    Les styles et les scripts du header sont définis dans le fichier base.html
+    PAreil pour le footer
+
+ -->
+ 
+<div id="navbar" class="row">
+    <a href="/" class="navbar-brand col-8 col-md-3 m-0">
+        <img src="{% static 'images/logo.png' %}" alt=""/>
+        Food-advice
+    </a>
+    <div class="{% if appUser is null %}col-md-5{% else %}col-md-4{% endif %} m-0" id="nav-links">
+        <div class="link-div">
+            <a class="" href="/">Accueil</a>
+        </div>
+        <div class="link-div">
+            <a class="" href="{% url 'foods-list' %}">Repas</a>
+        </div>
+        <div class="link-div">
+            <a class="" href="{% url 'aliments-list' %}">Aliments</a>
+        </div>
+        <div class="link-div">
+            <a class="" href="{% url 'restaurants-list' %}">Restaurants</a>
+        </div>
+        {% if appUser is null %}
+            <div class="link-div d-none d-md-flex" id="login-link"><!-- Bouton qui dirige vers la page de connexion -->
+                <a class="" href="{% url 'login' %}">Se connecter</a>
+            </div>
+        {% else %}
+            <div class="link-div d-block d-md-none ">
+                <a class="" href="{% url 'logout' %}">Se deconnecter</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-6 {% if appUser is null %}col-md-4{% else %}col-md-5{% endif %}  m-0" id="navbar-right">
+        <i class="fas fa-search icon" id="nav-search-form-opener" onclick="$('#nav-search-form').show(200);"></i>
+            
+        <div id="nav-search-form">
+            <h4>Rechercher un Repas / Restaurant 
+                <i class="fas fa-times" id="nav-search-form-closer"  onclick="$('#nav-search-form').hide(200);"></i>
+            </h4>
+            <!-- Le script qui traite ce formulaire est dans la section scripts du fichier base.html -->
+            <form method="get">
+                <input class="form-control" type="search" id="nav-search-form-searchText"placeholder="Search">
+                <select id="nav-search-form-elementType">
+                    <option value="repas">Repas</option>
+                    <option value="aliments">Aliment</option>
+                    <option value="restaurants">Restaurant</option>
+                    <option value="professionnels">Professionnel</option>
+                </select>
+                <button class="btn btn-outline-success ml-1" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        
+        {% if appUser is not null %}
+            <a href="{% url 'myaccount' %}"style="margin-left:10px;">
+                <i class="fas fa-user icon"></i>
+                <font>Mon compte</font>
+            </a>
+            <a id="show-messages-link" onclick="openMessagesBox()">
+                <i class="fas fa-message icon"></i>
+                <span class="badge bg-secondary">0</span>
+                <font>Messages</font>
+            </a>
+            <a onclick="openAlimentationTrackingBox()">
+                <i class="fas fa-bowl-food icon"></i>
+                <font>Mon alimentation</font>
+            </a>
+            <a href="{% url 'logout' %}" class="d-none d-md-flex">
+                <i class="fas fa-sign-out icon"></i>
+                <font>Se déconnecter</font>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="d-flex d-md-none">
+                <i class="fas fa-sign-in icon"></i>
+            </a>
+        {% endif %}
+        <i class="fas fa-bars icon d-block d-md-none" id="show-nav-links-btn" style="margin-left:10px;"></i>
+    </div>
+</div>

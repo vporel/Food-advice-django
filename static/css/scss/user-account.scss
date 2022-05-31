@@ -1,0 +1,63 @@
+@import "./utils/variables";
+
+#user-icon{
+    font-size:170px;
+    @media #{$mobile}{
+        font-size:100px;
+    }
+}
+#user-name{
+    @media #{$mobile}{
+        font-size:18px;
+    }
+}
+#badge-professionnel{
+    background:linear-gradient(darken($secondary-color, 15%), $primary-color);
+    font-family:$global-font-bold;
+    font-size:16px;
+    color:white;
+    display:block;
+    text-align:center;
+    width:80%;
+    margin:auto;
+}
+
+#menu{
+    a{
+        display:block;
+        padding:10px;
+        border-left:2px solid $text-color;
+        background:linear-gradient(90deg, rgba($text-color, .1),transparent);
+        margin-top:5px;
+        font-size:15px;
+        &:hover{
+            background:linear-gradient(90deg, rgba($text-color, .3),transparent)
+        }
+        @media #{$mobile}{
+            background:linear-gradient(90deg, transparent, rgba($text-color, .2),transparent);
+            text-align: center;
+            border:none;
+            &:hover{
+                background:linear-gradient(90deg,transparent, rgba($text-color, .3),transparent)
+            }
+        }
+    }
+    
+}
+
+.recommandations{
+    .title{
+        font-family:$global-font!important;
+        background:rgba($primary-color, .3);
+        border-bottom:2px solid $primary-color;
+        padding:10px;
+        @media #{$mobile}{
+            border-bottom:none;
+            padding:10px;
+        }
+        a{
+            float:right;
+            color:$primary-color;
+        }
+    }
+}

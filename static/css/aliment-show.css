@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: block;
+  src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/CenturyGothic.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic Bold';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/gothicb.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Godfeem';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/godfeem/Godfeem.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Mayeka';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/mayeka/Mayeka Regular Demo.otf") format("truetype"); }
+@font-face {
+  font-family: 'Kitahara Script';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+#aliment-title {
+  background: #54ab00;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  font-family: "mayeka";
+  padding: 20px 0;
+  text-align: center; }
+
+.value {
+  font-family: "century gothic Bold";
+  color: black; }
+
+#aliment-image {
+  width: 100%; }
+
+#details {
+  font-size: 15px; }
+
+#composition {
+  margin: 5px 0;
+  padding: 10px;
+  background: rgba(84, 171, 0, 0.2);
+  box-shadow: 0 0 5px #479200;
+  border-radius: 10px; }
+  #composition h5 {
+    color: #54ab00;
+    font-family: "century gothic Bold"; }
+
+#detail-preparation {
+  font-size: 17px;
+  padding: 20px;
+  background: rgba(255, 255, 0, 0.3);
+  margin: 0 0 10px 0; }
+
+#ratings {
+  font-size: 20px; }
+  #ratings #stars .star {
+    font-size: 25px;
+    color: #b4b4b4; }
+    #ratings #stars .star.active {
+      color: gold; }
+  #ratings .star {
+    color: #b4b4b4;
+    font-size: 25px; }
+    #ratings .star.active {
+      color: gold; }
+  #ratings #user-note {
+    font-size: 16px; }
+    #ratings #user-note a {
+      cursor: pointer; }
+
+.ingredient {
+  position: relative;
+  text-align: center; }
+  .ingredient .image-div {
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap; }
+    .ingredient .image-div img {
+      height: 98%;
+      transition: all .5s ease; }
+  .ingredient::after {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    height: 3px;
+    border-radius: 50%;
+    box-shadow: 0 0 4px black;
+    content: ""; }
+  .ingredient .composition {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transition: all .3s ease; }
+  .ingredient:hover .composition {
+    opacity: 1; }
+  .ingredient:hover img {
+    transform: scale(1.5); }
+
+#new-comment-form textarea {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 100%;
+  height: 100px;
+  font-family: "century gothic";
+  padding: 3px; }
+
+/*# sourceMappingURL=aliment-show.css.map */

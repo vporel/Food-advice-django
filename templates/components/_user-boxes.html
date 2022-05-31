@@ -1,0 +1,89 @@
+<!-- 
+    Boites où les utilisateurs peuvent 
+    s'envoyer des messages
+    Suivre leur alimentation
+-->
+
+<div class="user-box" id="messages-box">
+    <div class="user-box-frame">
+        <div class="user-box-topbar">
+            <div class="user-box-topbar-left">
+                <i class="fas fa-arrow-left user-box-btn-back icon"></i> 
+                <h6 class="user-box-title">Messages</h6>  
+            </div>
+            <div class="user-box-topbar-right">  
+                <i class="fas fa-times user-box-btn-close icon"></i>  
+                <i class="fas fa-arrow-down user-box-btn-min-max icon"></i>  
+            </div>
+        </div>
+        <div class="user-box-content">
+            <div class="user-box-screen user-box-first-screen"id="messages-home-screen">
+                <div id="messages-conversations">
+                        <!-- Liste des conversations -->
+                </div>
+                <div id="messages-professional-search">
+                    <div id="messages-professional-search-result">
+                        <div class="elements">
+                            <!-- 
+                                Résutat de la recherche des professionnels
+                            -->
+                        </div>
+                    </div>
+                    <form class="h-100 w-100">
+                        <input type="text" class="h-100" placeholder="Chercher un professionnel"/>
+                        <button class="btn" type="button"><i class="fas fa-times icon"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="user-box-screen user-box-second-screen" id="messages-chat-screen">
+                <div id="messages">
+                    
+                </div>
+                <form>
+                    <textarea id="message-text"placeholder="Votre message ici"></textarea>
+                    <button type="button"class="btn btn-primary" id="message-send-btn"><i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="user-box" id="alimentation-tracking-box">
+    <div class="user-box-frame">
+        <div class="user-box-topbar">
+            <div class="user-box-topbar-left">
+                <i class="fas fa-arrow-left user-box-btn-back icon"></i>   
+                <h6 class="user-box-title">Mon alimentation</h6>  
+            </div>
+            <div class="user-box-topbar-right">  
+                <i class="fas fa-times user-box-btn-close icon"></i>  
+                <i class="fas fa-arrow-down user-box-btn-min-max icon"></i>  
+            </div>
+        </div>
+        <div vlass="user-box-content">
+            <div class="user-box-screen user-box-first-screen">
+                <div id="alimentation-foods">
+                    <h6>Derniers repas consommés</h6>
+                </div>
+                <div id="alimentation-recommendations">
+                    
+                    <button class="btn btn-primary">Voir les recommendations</button>
+                </div>
+                <form class="h-100 w-100">
+                    <input type="date" class="h-100"/>
+                    <input type="text" class="h-100" placeholder="Nom du repas"/>
+                    <button class="btn btn-primary h-100" type="button"><i class="fas fa-plus icon"></i><span>Nouveau repas</span></button>
+                    <button class="btn btn-primary h-100" type="button"><i class="fas fa-save icon"></i><span>Enregistrer</span></button>
+                </form>
+                <div id="alimentation-recommendations">
+                    
+                    <button class="btn btn-primary">Voir les recommendations</button>
+                </div>
+            </div>
+            <div class="user-box-screen user-box-second-screen">
+                
+            </div>
+
+        </div>
+    </div>
+</div>

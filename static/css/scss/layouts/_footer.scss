@@ -1,0 +1,67 @@
+footer{
+	background:rgba(150,150,150,.15);
+	padding-top:40px!important;
+	padding-bottom:40px!important;
+
+	#newsletter-form{
+		display:flex;
+		border:1px solid lightgray;
+		border-radius: 20px;
+		overflow: hidden;
+		width:100%;
+		input[type="email"]{
+			width:80%;
+			border:none;
+			text-indent:10px;
+			border-radius:0;
+		}
+		input[type="submit"]{
+			width:20%;
+			border-radius:0 20px 20px 0;
+		}
+		@media #{$mobile}{
+			flex-direction: column;
+			align-items: center;
+			border:none;
+			border-radius: 0;
+			input[type="email"]{
+				border:1px solid lightgray;
+				text-indent:10px;
+				border-radius:20px;
+				height:40px;
+				margin-bottom:5px;
+			}
+			input[type="submit"]{
+				width:auto;
+				border-radius:20px;
+			}
+		}
+	}
+
+	#newsletter-links{
+		a{
+			font-size:1.5em;
+			margin:5px;
+			&:hover{
+				color:$primary-color;
+			}
+		}
+	}
+
+	.logo{
+		display:flex;
+		align-items: center;
+		font-size:30px;
+		color:black;
+		img{
+			width:80px;
+		}
+		@media #{$mobile}{
+			font-size:18px;
+			justify-content: center;
+			img{
+				width:50px;
+			}
+		}
+	}
+}

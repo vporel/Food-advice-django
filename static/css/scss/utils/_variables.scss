@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: block;
+    src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype"); 
+}
+
+@font-face {
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: normal bold;
+    font-display: block;
+    src: url("./fonts/century-gothic/CenturyGothic.ttf") format("truetype"); 
+}
+
+@font-face {
+    font-family: 'Century Gothic Bold';
+    font-style: normal;
+    font-weight: normal bold;
+    font-display: block;
+    src: url("./fonts/century-gothic/gothicb.ttf") format("truetype"); 
+}
+
+@font-face {
+    font-family: 'Godfeem';
+    font-style: normal;
+    font-weight: normal bold;
+    font-display: block;
+    src: url("./fonts/godfeem/Godfeem.ttf") format("truetype"); 
+}
+
+@font-face {
+    font-family: 'Mayeka';
+    font-style: normal;
+    font-weight: normal bold;
+    font-display: block;
+    src: url("./fonts/mayeka/Mayeka Regular Demo.otf") format("truetype"); 
+}
+
+@font-face {
+    font-family: 'Kitahara Script';
+    font-style: normal;
+    font-weight: normal bold;
+    font-display: block;
+    src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); 
+}
+  
+
+//===================================================================================*/
+//  Variables
+//===================================================================================*/
+
+$text-color:rgb(80, 80, 80);
+
+$primary-color : #54ab00;; 
+$secondary-color: yellow;
+
+$pc : "screen and (min-width:768px)";
+$mobile : "screen and (max-width:768px)";
+
+$title-font:"mayeka";
+$global-font:"century gothic";
+$global-font-bold:"century gothic Bold";
+$extra-font:"Kitahara Script";
+
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+// Note: Deprecated $screen-xs and $screen-phone as of v3.0.1
+$screen-xs:                  480px;
+$screen-xs-min:              $screen-xs;
+$screen-phone:               $screen-xs-min;
+
+// Small screen / tablet
+// Note: Deprecated $screen-sm and $screen-tablet as of v3.0.1
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+// Note: Deprecated $screen-md and $screen-desktop as of v3.0.1
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+$screen-desktop:             $screen-md-min;
+
+// Large screen / wide desktop
+// Note: Deprecated $screen-lg and $screen-lg-desktop as of v3.0.1
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+$screen-lg-desktop:          $screen-lg-min;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);

@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: block;
+  src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/CenturyGothic.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic Bold';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/gothicb.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Godfeem';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/godfeem/Godfeem.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Mayeka';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/mayeka/Mayeka Regular Demo.otf") format("truetype"); }
+@font-face {
+  font-family: 'Kitahara Script';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+#user-icon {
+  font-size: 170px; }
+  @media screen and (max-width: 768px) {
+    #user-icon {
+      font-size: 100px; } }
+
+@media screen and (max-width: 768px) {
+  #user-name {
+    font-size: 18px; } }
+
+#badge-professionnel {
+  background: linear-gradient(#b3b300, #54ab00);
+  font-family: "century gothic Bold";
+  font-size: 16px;
+  color: white;
+  display: block;
+  text-align: center;
+  width: 80%;
+  margin: auto; }
+
+#menu a {
+  display: block;
+  padding: 10px;
+  border-left: 2px solid #505050;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.1), transparent);
+  margin-top: 5px;
+  font-size: 15px; }
+  #menu a:hover {
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.3), transparent); }
+  @media screen and (max-width: 768px) {
+    #menu a {
+      background: linear-gradient(90deg, transparent, rgba(80, 80, 80, 0.2), transparent);
+      text-align: center;
+      border: none; }
+      #menu a:hover {
+        background: linear-gradient(90deg, transparent, rgba(80, 80, 80, 0.3), transparent); } }
+
+.recommandations .title {
+  font-family: "century gothic" !important;
+  background: rgba(84, 171, 0, 0.3);
+  border-bottom: 2px solid #54ab00;
+  padding: 10px; }
+  @media screen and (max-width: 768px) {
+    .recommandations .title {
+      border-bottom: none;
+      padding: 10px; } }
+  .recommandations .title a {
+    float: right;
+    color: #54ab00; }
+
+/*# sourceMappingURL=user-account.css.map */

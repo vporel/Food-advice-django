@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %}</title>
+    {% css 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}
+	{% css 'node_modules/aos/dist/aos.css' %}
+	{% css 'node_modules/@fortawesome/fontawesome-free/css/all.min.css' %}
+	{% css 'css/main.css' %}
+	{% js 'node_modules/jquery/dist/jquery.min.js' %}
+	{% block styles %}{% endblock %}
+</head>
+<body>
+    {% include "components/_dialog-boxes.html" %}
+    {% include "components/_user-boxes.html" %}
+
+    <header class="container-fluid">
+        {% include "_header.html" %}
+        <!-- Element qui sera sous la barre de navigation (header-background) -->
+        <div id="header-background">{% block header_background %}{% endblock %}</div>
+        <script language="javascript">
+            if($('#header-background').text().trim() == ""){
+                $('#header-background').addClass("empty");
+            }
+        </script>
+    </header>
+    
+    <section id="content">
+        {% block body %}{% endblock %}
+    </section>
+    <footer class="container-fluid">
+        {% include "_footer.html" %}
+    </footer>
+    
+    {% js 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}
+    {% js 'node_modules/aos/dist/aos.js' %}
+    {% js 'node_modules/@fortawesome/fontawesome-free/js/all.min.js' %}
+    {% js 'js/dialog-boxes.js' %}
+    {% js 'js/UserBox.class.js' %}
+    {% js 'js/user-boxes.js' %}
+    <script type="text/javascript">
+        /**
+         * Définitions des constantes qui peuevent être utilisées par toutes les autres scripts
+         */
+
+        const USER_CONNECTED = ("<?= ($app->user == null) ? 0 : 1 ?>" == "1") ? true : false;
+        const ON_MOBILE = window.innerWidth < 768;
+        
+	</script>
+
+	<script async type="text/javascript">
+		AOS.init({
+			anchorPlacement:"top-center",
+            once: true,
+		});
+	</script>
+
+    <script type="text/javascript">
+        // Gestion de l'affichage de la barre de navigation lorsqu'on défile
+        $(document).scroll(function(e){
+            if(parseInt($(document).scrollTop())+35 >= parseInt($('#navbar').height())){
+                $('#navbar').addClass("over-page");
+            }else{
+                $('#navbar').removeClass("over-page");
+            }
+        })
+
+        /**
+         * Affichage des liens - verisons mobile
+         */
+        $('header').delegate('#show-nav-links-btn' ,'click',function(){
+            if($('header #nav-links').hasClass("shown"))
+                $('header #nav-links').removeClass("shown");
+            else
+                $('header #nav-links').addClass("shown");
+        });
+
+        
+        if(USER_CONNECTED){
+            function loadNbreMessagesNonLus(){
+                //#show-messages-btn (sur la page user-account)
+                $("#show-messages-link .badge, #show-messages-btn .badge").load("/nbre-messages-non-lus");
+            }
+            loadNbreMessagesNonLus();
+            setInterval(loadNbreMessagesNonLus, 3000);
+        }
+
+        $("#nav-search-form form").submit(e => {
+            e.preventDefault();
+            let searchText = $("#nav-search-form-searchText").val().trim();
+            let elementType = $("#nav-search-form-elementType").val();
+            if(searchText != ""){
+                window.location = "/"+elementType+"?nom="+searchText;
+            }
+        });
+	</script>
+	{% block scripts %}{% endblock %}
+</body>
+</html>

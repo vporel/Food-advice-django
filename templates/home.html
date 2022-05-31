@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{%block title %}Accueil | Food-advice{% endblock %}
+
+{% block styles %}
+    {% css "css/home.css"%}
+
+{% endblock %}
+
+{% block header_background %}
+
+<!-- Slideshow -->
+<div id="slide">
+    <div class="slide-element" style="background:linear-gradient(rgb(226, 225, 225),white)">
+        <div class="slide-element-text">
+            <h4>"Le lait"</h4>
+            <p>
+                Riche en phosphore <br>
+                Essentielpour la minéralisation <br>des os et des dents.
+            </p>
+        </div>
+        <img src="{% static 'images/fruits/lait.png' %}"/>
+    </div>
+    <div class="slide-element" style="background:linear-gradient(rgb(180, 245, 180),rgb(248, 248, 156))">
+        <div class="slide-element-text">
+            <p> 
+                Avec sa teneur en glucide,
+            </p>
+            <h4>"La banane"</h4>
+            <p> 
+                donne de l'énergie
+            </p>
+        </div>
+        <img src="{% static 'images/fruits/banane.png' %}"/>
+    </div>
+    <div class="slide-element" style="background:linear-gradient(white, rgba(88,41,0,.2))">
+        <div class="slide-element-text">
+            <h4>"Le spagetti"</h4>
+            <p>
+                Dérivé du blé, <br>
+                Riche en nutriments ...
+            </p>
+        </div>
+        <img src="{% static 'images/fruits/spagetti.png' %}" style="height:400px;"/>
+    </div>
+    <div class="slide-element" style="background:linear-gradient(white,rgba(255,255,0,.4))">
+        <div class="slide-element-text">
+            <p>
+                Particulièrement aprécié par tous
+            </p>
+            <h4>"La Macédoine"</h4>
+            <p>
+                a des vertus antioxydantes.
+            </p>
+        </div>
+        <img src="{% static 'images/fruits/macedoine.png' %}"/>
+    </div>
+    <div class="slide-element" style="background:linear-gradient(rgba(255,0,0,.4), rgb(255,255,0,.3))">
+        <div class="slide-element-text">
+            <h4>"Le jus d'ananas"</h4>
+            <p>
+                Contient de la Vitamine C <br>
+                Renforcer le systeme immunitaure.
+            </p>
+        </div>
+        <img src="{% static 'images/fruits/jus-ananas.png' %}"/>
+    </div>
+    <div id="radios">
+        <!-- Boutons générés en javascript -->
+    </div>
+
+    
+ </div>
+
+{% endblock %}
+
+{%block body %}
+    <!-- Contenu de la page ici -->
+<div class="container">
+    <div class="elements-set" id="repas">
+        <h4 class="title text-center">Repas</h4>
+        {% include "components/_custom-line.html" %}
+        {% include "load/foods.html" %}
+    </div>
+    <div class="elements-set" id="aliments">
+        <h4 class="title text-center">Aliments</h4>
+        {% include "components/_custom-line.html" %}
+        {% include "load/aliments.html" %}
+    </div>
+    <div class="elements-set" id="restaurants">
+        <h4 class="title text-center">Restaurants</h4>
+        {% include "components/_custom-line.html" %}
+        {% include "load/restaurants.html" %}
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %} 
+    {% js "js/home-slide.js" %}
+{% endblock %}

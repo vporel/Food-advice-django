@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Recommendation | Food-advice{% endblock %}
+{% block body %}
+<div class="container">
+    <h1 class="title text-center mb-5">Que voulez-vous recommender?</h1>
+    <div class="row">
+        <div class="col-12 col-md-4 text-center mb-2">
+            <a class="btn btn-primary" href="{% url "recommend-food" %}">Recommender un repas</a>
+        </div>
+        <div class="col-12 col-md-4 text-center mb-2">
+            <a class="btn btn-primary" href="{% url "recommend-aliment" %}">Recommender un aliment</a>
+        </div>
+        <div class="col-12 col-md-4 text-center mb-5">
+            <a class="btn btn-primary" href="{% url "recommend-restaurant" %}">Recommender un restaurant</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

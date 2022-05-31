@@ -1,0 +1,27 @@
+<a href="{% url "show-aliment" aliment.id %}" class="col-4 col-md-3 aliment aliment-little-presentation text-center" data-aos="zoom-in">
+    {% if aliment.approuve is true %}
+        <span class="badge-non-approuve">Non approuvé</span>
+    {% endif %}
+    <div class="image-div">
+        <img src="/{{ aliment.image }}" alt="" class="aliment-image">
+    </div>
+    <h4 class="aliment-title">{{ aliment.nom }}</h4>
+    <div class="composition">
+        <div>
+            <span class="label">Lipides : </span>
+            <span class="value">{{ aliment.tauxLipides }}</span>
+        </div>
+        <div>
+            <span class="label">Glucides : </span>
+            <span class="value">{{ aliment.tauxGlucides }}</span>
+        </div>
+        <div>
+            <span class="label">Proteines : </span>
+            <span class="value">{{ aliment.tauxProteines }}</span>
+        </div>
+        <div>
+            <span class="label">Calories : </span>
+            <span class="value">{{ aliment.calories }} Kcal</span>
+        </div>
+    </div>
+</a>

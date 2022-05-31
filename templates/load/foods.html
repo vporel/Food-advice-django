@@ -1,0 +1,12 @@
+<?php 
+    //Un seule variable php attendue : $repass
+?>
+<div class="row" class="foods-list">
+    {% if repass.count > 0 %}
+        {% for repas in repass %}
+            {% include "macros/_food-little-presentation.html" with repas=repas %}
+        {% endfor %}
+    {% else %}
+    <div class="col-12 alert alert-warning mt-3">Aucun résultat</div>
+    {% endif %}
+</div>

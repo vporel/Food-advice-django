@@ -1,0 +1,15 @@
+<?php 
+    //Un seule variable php attendue : $messages
+    // Style défini dans le fichier _loads.scss
+?>
+<?php foreach($messages as $message){ ?>
+                
+    <div class="message message-load <?= $message->objetExpediteur->id == $app->user->id ? "by-user" : "" ?>">
+        
+        <p>
+            <?= htmlentities(nl2br($message->message)) ?>
+        </p>
+        <span class="date"><?= $message->formattedDate ?></span>
+    </div>
+    
+<?php } ?>

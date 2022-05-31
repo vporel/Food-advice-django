@@ -1,0 +1,227 @@
+header{
+	padding:0!important;
+	#navbar{
+		position:absolute;
+		z-index:50;
+		width:90%;
+		left:5%;
+		top:25px;
+		margin:0!important;
+		color:rgb(50,50,50);
+		transition: all .2s ease;
+		align-items: center;
+
+		&.over-page{
+			
+			background:linear-gradient(white, rgba(white, .9), rgba(white, .8), transparent);
+			position:fixed;
+			padding:0 50px;
+			top:0;
+			left:0;
+			width:100%;
+		}
+		
+		.navbar-brand, .navbar-brand:hover{
+		  color:inherit;
+		  font:bold 30px $global-font;
+		  img{
+			  width:60px;
+		  }
+		
+		}
+		#nav-links{
+			display:flex;
+			align-items: center;
+			.link-div{
+				padding:0 10px;
+				transition: all .2s ease;
+				position: relative;
+				>a{
+					font-size:1.1em;
+					transition: all .2s ease;
+					
+				}
+				.submenu-container
+				{
+					position:absolute;
+					background-color: white;
+					border-radius: 10px;
+					box-shadow: 0 0 5px gray;
+					top: 110%;
+					left: 0%;
+					width: auto;
+					padding: 10px;
+					opacity: 0;
+					visibility: hidden;
+					display: flex;
+					transition: all .2s ease;
+					.submenu{
+						margin:10px;
+					}
+				}
+				&:hover{
+					.submenu-container
+					{
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+				&:hover,&.active{
+					>a{color:$primary-color};
+				}
+			}
+		}
+		#login-link{ /* Style du bouton qui dirige vers la page de connexion */
+			border-radius:20px;
+			padding:8px 12px!important;
+			border:none;
+			background:$primary-color;
+			&:hover{
+				background:darken($primary-color, 5%);
+			}
+			box-shadow:0 0 2px gray;
+			a, a:hover{
+				color:white!important;
+			}
+			
+		}
+		#navbar-right{
+			display:flex;
+			align-items: center;
+			justify-content: flex-end;
+			>a{
+				margin:5px;
+				font-size:1em;
+				transition: all .2s ease;
+				display:flex;
+				align-items: center;
+				flex-direction: column;
+				position:relative;
+				font{
+					margin:3px;
+				}
+				.badge{
+					position:absolute;
+					top:-4px;right:12px;
+					color:$secondary-color;
+					font-family: $global-font-bold;
+				}
+				&:hover, &.active{
+					color:$primary-color;
+				}
+			}
+			.icon{
+				font-size:20px!important;
+			}
+		}
+		#nav-search-form-opener{
+		}
+		#nav-search-form{
+			background:white;position:absolute;
+			display:none;
+			width:40%; right:2%; top:60px;
+			min-height:150px;
+			padding: 30px 40px 40px 40px;
+			box-shadow: 0 0 3px gray;
+			#nav-search-form-closer{
+				float:right;
+				font-size:1.1em;
+				cursor: pointer;
+				transition:all .2s ease;
+				&:hover{
+					color:$primary-color;
+					transform:scale(1.3);
+				}
+			}
+			form{
+				margin-top:25px;
+				display:flex;
+				border:1px solid lightgray;
+				border-radius:20px;
+				overflow:hidden;
+				input{
+					text-indent:10px;
+					border:0;
+					height:40px;
+				}
+				select{
+					border:0;background:transparent;
+				}
+				button{
+					border:0;
+					border-radius:0;
+				}
+			}
+		}
+		@media #{$mobile}{
+			position:fixed;
+			width:100%;
+			top:0;
+			left:0;
+			padding-top:10px;
+			&.over-page{
+				padding:0;
+				background:white;
+				box-shadow: 0px 0 8px gray;
+			}
+			.navbar-brand, .navbar-brand:hover{
+				font-size:22px;
+				img{width:40px;}
+			}
+			#nav-links{
+				
+				position:fixed;
+				background:white;
+				width:60%;
+				right:20px;
+				top:50px;
+				opacity:0;
+				visibility: hidden;
+				box-shadow: 0 0 3px gray;
+				border-radius:10px;
+				z-index:51;
+				flex-direction: column;
+				align-items: flex-start;
+				transition: all .35s ease;
+				padding:5px 10px;
+				.link-div{
+					padding:5px;
+					border-bottom:1px solid rgba(lightgray, .7);
+					width:100%;
+					.submenu-container
+					{
+						display:none;
+					}
+				}
+				&.shown{
+					opacity:1;
+					visibility: visible;
+				}
+			}
+			#navbar-right{
+				position:fixed;
+				right:0px;
+				z-index:50;
+				>a{
+					padding:0 5px;
+					font{display:none;}
+					.badge{
+						top:-6px;right:-7px;
+					}
+				}
+			}
+		}
+		
+	}
+
+	#header-background.empty{
+		height:110px;
+		@media #{$mobile}{
+			height:60px;
+		}
+	}
+	  
+}
+
+
+

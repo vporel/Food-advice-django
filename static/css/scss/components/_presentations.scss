@@ -1,0 +1,194 @@
+.badge-non-approuve{
+    position:absolute;
+    top:10px;
+    left:15px;
+    transform:rotate(-40deg);
+    background:rgba(red, .7);
+    font-family: $global-font-bold;
+    color:white;
+    padding:5px;
+    display:block;
+    font-size:9px;
+    z-index:2;
+}
+
+.food-little-presentation{
+    margin:5px 0;
+    position:relative;
+    
+    .image-div{
+        overflow: hidden;
+        height:100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            height: 98%;
+            transition:all .3s ease;
+            cursor: pointer;
+        }
+    }
+    .food-title{
+        font-size:18px;
+    }
+    .description{
+        max-height:100px;
+        padding:5px;
+        text-align: left;
+        background:rgb(230,250,230);
+        border-radius:10px;
+        bottom:100%;
+        left:5%;
+        width:90%;
+        box-shadow:0 0 2px black;
+        position:absolute;
+        opacity:0;
+        transition:all .3s ease;
+        visibility: hidden;
+        z-index:3;
+    }
+    &:hover{
+        img{
+            transform:scale(1.2); //agrandissement de l'image
+        }
+        @media #{$pc}{
+            .description{
+                opacity:1;
+                visibility: visible;
+            }
+        }
+    }
+    
+}
+
+.aliment-little-presentation{
+    position:relative;
+    text-align: center;
+    .value{
+        font-family:$global-font-bold;
+        color:black;
+    }
+    .image-div{
+        height:100px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        img{
+            height:98%;
+            transition:all .5s ease;
+        }
+    }
+    .aliment-title{
+        font-size:18px;
+    }
+
+    .composition{
+        position:absolute;
+        top:0;left:0;
+        background:rgba(white, .8);
+        width:100%;
+        height:100%;
+        padding:5px;
+        font-size:16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity:0;
+        transition:all .3s ease;
+    }
+
+    &:hover{
+        .composition{
+            opacity:1;
+        }
+        img{transform:scale(1.5)}
+    }
+}
+
+.restaurant-little-presentation{
+    margin:5px 0;
+    position:relative;
+    
+    .image-div{
+        overflow: hidden;
+        height:100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            height: 98%;
+            transition:all .3s ease;
+            cursor: pointer;
+        }
+    }
+    .restaurant-title{
+        font-size:18px;
+        margin:0;
+    }
+    .restaurant-address{
+        font-size:12px;margin:0;
+        font-style:italic;
+    }
+    .description{
+        max-height:100px;
+        padding:5px;
+        text-align: left;
+        background:rgb(230,250,230);
+        border-radius:10px;
+        bottom:100%;
+        left:5%;
+        width:90%;
+        box-shadow:0 0 2px black;
+        position:absolute;
+        opacity:0;
+        transition:all .3s ease;
+        visibility: hidden;
+        z-index:3;
+    }
+    &:hover{
+        img{
+            transform:scale(1.2); //agrandissement de l'image
+        }
+        @media #{$pc}{
+            .description{
+                opacity:1;
+                visibility: visible;
+            }
+        }
+    }
+    
+}
+
+.professional-little-presentation{
+    margin:3px 0;
+    padding:5px;
+    background:rgb(240,240,240);
+    transition: all .2s ease!important;
+    display:flex;
+    align-items: center;
+    border-radius:10px;
+    justify-content: space-between;
+    .name{
+        display: flex;
+        align-items: center;
+    }
+    .icon{
+        font-size:20px;
+        margin:0 8px 0 4px;
+    }
+    .nom-utilisateur{
+        color:gray;
+        font-size:13px;
+        margin-left:5px;
+        color:inherit;
+    }
+    .send-message-btn:hover{
+        color:white;
+    }
+    &:hover{
+        background:$primary-color;
+        .name{color:white;}
+    }
+}

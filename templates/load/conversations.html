@@ -1,0 +1,38 @@
+<?php 
+    //Un seule variable php attendue : $messages
+    // Style défini dans le fichier _loads.scss
+?>
+<?php foreach($conversations as $conversation){ ?>
+                
+    <div class="conversation conversation-load" data-id="<?= $conversation->id ?>" data-nom="<?= $conversation->professionnel->id == $app->user->id ? $conversation->contributeur->nom : $conversation->professionnel->nom ?>">
+        <div class="content">
+            <i class="fas fa-user icon"></i>
+            <div >
+                <div class="name">
+                    <?= $conversation->professionnel->id == $app->user->id ? $conversation->contributeur->nom : $conversation->professionnel->nom ?>
+                    <?php 
+                        $nbreMessagesNonLus = count($conversation->getMessagesNonLus($app->user)); 
+                        if($nbreMessagesNonLus > 0){
+                    ?>
+                        <span class="badge bg-primary unread-messages-count"><?= $nbreMessagesNonLus ?></span>
+                    <?php } ?>
+                </div>
+                <div class="last-message">
+                    <?php
+                        if($conversation->dernierMessage != null){
+                            $lastMessage = $conversation->dernierMessage->message;
+                            echo strlen($lastMessage) > 18 ? substr($lastMessage, 0, 18)."..." : $lastMessage;
+                        }
+                    ?>    
+                </div>
+            </div>
+        </div> 
+        <div class="btns">
+            <i class="fas fa-ellipsis-vertical icon show-more-options"></i>
+        </div>
+        <div class="more-options">
+            <button class="delete-btn"><i class="fas fa-trash icon"></i>Supprimer</button>
+        </div>
+    </div>
+    
+<?php } ?>
