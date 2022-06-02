@@ -2,3 +2,4 @@ static/node_modules
 static/images/aliments
 static/images/repas
 static/images/restaurants
+db.sqlite3

@@ -191,7 +191,7 @@ class TypeAliment(models.Model):
     detailApports = models.TextField(null=True, blank=True)
 
 class Aliment(Commentable):
-    uniteComptage = models.CharField(max_length=30)
+    uniteComptage = models.CharField(max_length=30, null=True, blank=True)
     masseUnite = models.FloatField()
     image = models.FileField(upload_to="static/images/aliments/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     tauxProteines = models.FloatField(default=0)
