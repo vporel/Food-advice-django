@@ -1,0 +1,101 @@
+<!--
+    Page affichaant la liste des repas
+-->
+{% extends 'base.html' %}
+{% block title %}Accueil | Food-advice{% endblock %}
+
+{% block styles %}
+    <!-- Inclusions css ici -->  
+    {% css "css/repas-liste.css" %}
+
+{% endblock %}
+
+{% block body %}
+<!-- Contenu de la page ici -->
+<div class="container mt-2" id="list">
+    <h5 class="title">Filtres</h5>
+    <div id="filtres" class="row">
+        <div class="col-12 col-md-3">
+            <label>Nom </label>
+            <input type="text" id="filtre-nom"class="form-control" value="{{nom}}">
+        </div>
+        
+        <div class="col-12 col-md-3">
+            <label>Composition</label> 
+            <select id="filtre-composition" class="form-select">
+                <option value="">Peu importe</option>
+                <option value="TGC">Taux de glucides croissant</option>
+                <option value="TGD">Taux de glucides décroissant</option>
+                <option value="TLC">Taux de lipides croissant</option>
+                <option value="TLD">Taux de lipides décroissant</option>
+                <option value="TPC">Taux de proteines croissant</option>
+                <option value="TPD">Taux de proteines décroissant</option>
+                <option value="ACC">Apport calorifique croissant</option>
+                <option value="ACD">Apport calorifique décroissant</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-2">
+            <label>Pays origine</label> 
+            <select id="filtre-pays-origine" class="form-select">
+                <option value="">Peu importe</option>
+                {% for origineRepas in originesRepas %}
+                    <option value="{{ origineRepas.pays }}">{{ origineRepas.pays }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <label>Region origine</label> 
+            <select id="filtre-region-origine" class="form-select">
+                <option "">Choisissez un pays</option>
+                {% for origineRepas in originesRepas %}
+                    <option value="{{ origineRepas.region }}" data-pays="{{ origineRepas.pays }}" hidden>{{ origineRepas.region }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12 col-md-1 d-flex align-items-end">
+            <button class="btn btn-primary" onclick="filter()">Appliquer</button>
+        </div>
+    </div>
+    {% include "components/_loading.html" %}
+    <div id="repass">
+        {% include "load/foods.html" with repass=repass %}
+    </div>
+    <hr>
+</div>
+{% endblock %}
+{% block scripts %}
+    <!-- Code javascript ici -->
+    <script>
+        /**
+         * Fonction pour l'application du filtre
+         */
+        function filter(){
+            $('#list .loading').show(200);
+            $('#list #repass').html("");
+            $.post("/repas/filtre", {
+                nom:$("#filtre-nom").val().trim(),
+                composition:$("#filtre-composition").val()
+                paysOrigine:$("#filtre-pays-origine").val()
+                regionOrigine:$("#filtre-region-origine").val()
+            }, function(response){
+                $('#list #repass').html(response);
+            $('#list .loading').hide(200);
+            });
+        }
+
+        /*
+            LORSQU'ON CHANGE LE PAYS D'ORIGINE
+        */
+        $('#filtre-pays-origine').change(function(){
+            let pays = $(this).val();
+            $("#filtre-region-origine option").eq(0).text("Peu importe"); //changement du texte du premier element
+            $("#filtre-region-origine option").each(function(){
+                $(this).attr("hidden", true);
+            });
+            $("#filtre-region-origine option[data-pays='"+pays+"'").each(function(){
+                $(this).removeAttr("hidden");
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,29 +1,23 @@
-<?php 
-    //Un seule variable php attendue : $messages
-    // Style défini dans le fichier _loads.scss
-?>
-<?php foreach($conversations as $conversation){ ?>
-                
+{% for conversation in conversations %}  
     <div class="conversation conversation-load" data-id="<?= $conversation->id ?>" data-nom="<?= $conversation->professionnel->id == $app->user->id ? $conversation->contributeur->nom : $conversation->professionnel->nom ?>">
         <div class="content">
             <i class="fas fa-user icon"></i>
             <div >
                 <div class="name">
-                    <?= $conversation->professionnel->id == $app->user->id ? $conversation->contributeur->nom : $conversation->professionnel->nom ?>
-                    <?php 
-                        $nbreMessagesNonLus = count($conversation->getMessagesNonLus($app->user)); 
-                        if($nbreMessagesNonLus > 0){
-                    ?>
-                        <span class="badge bg-primary unread-messages-count"><?= $nbreMessagesNonLus ?></span>
-                    <?php } ?>
+                    {% if conversation.professionnel.id == appUser.id %}
+                        {{ conversation.contributeur.nom }}
+                    {% else %}
+                        {{ conversation.professionnel.nom }}
+                    {% endif %}
+                    {% call_method conversation 'nbreMessagesNonLus' appUser as nbreMessagesNonLus %}
+                    {% if nbreMessagesNonLus > 0 %}
+                            <span class="badge bg-primary unread-messages-count">{{ nbreMessagesNonLus }}</span>
+                    {% endif %}
                 </div>
                 <div class="last-message">
-                    <?php
-                        if($conversation->dernierMessage != null){
-                            $lastMessage = $conversation->dernierMessage->message;
-                            echo strlen($lastMessage) > 18 ? substr($lastMessage, 0, 18)."..." : $lastMessage;
-                        }
-                    ?>    
+                    {% if conversation.dernierMessage is not null %}
+                        {{ conversation.dernierMessage.message }}
+                    {% endif %}    
                 </div>
             </div>
         </div> 
@@ -35,4 +29,4 @@
         </div>
     </div>
     
-<?php } ?>
+{% endfor %}

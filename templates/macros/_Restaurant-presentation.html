@@ -1,20 +1,16 @@
-<?php 
-    //Un seule variable php attendue : $Restaurants
-    //permet d'afficher les restaurants
-?>
 
-<a href="<?= $url("show-restaurant", ["id" => $restaurant->id]) ?>" class="col-4 col-md-3 restaurant restaurant-little-presentation text-center" data-aos="zoom-in">
-    <?php if(!$restaurant->isApprouve){ ?>
+<a href="{% url "show-restaurant" restaurant.id %}" class="col-4 col-md-3 restaurant restaurant-little-presentation text-center" data-aos="zoom-in">
+    {% if restaurant.approuve%}
         <span class="badge-non-approuve">Non approuvé</span>
-    <?php } ?>
+    {% endif %}
     <div class="image-div">
-        <img src="<?= $asset("images/restaurants/".$restaurant->image) ?>" alt="">
+        <img src="/{{ restaurant.image }}" alt="">
     </div>
-    <h4 class="restaurant-title"><?= $restaurant->nom ?></h4>
-    <h5 class="restaurant-address title">Situé à <?= $restaurant->adresse ?></h5>
-    <?php if(trim($restaurant->description) != ""){ ?>
+    <h4 class="restaurant-title">{{ restaurant.nom }}</h4>
+    <h5 class="restaurant-address title">Situé à {{ restaurant.adresse }}</h5>
+    {% if restaurant.description.strip != "" %}
         <div class="description">
-            <?= $restaurant->description ?>
+            {{ restaurant.description }}
         </div>
-    <?php } ?>
+    {% endif %}
 </a>

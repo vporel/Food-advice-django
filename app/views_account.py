@@ -87,11 +87,11 @@ def signin(request):
 def professionalsList(request):
     nom = request_get(request, "nom")
     if nom != None:
-        professionals = Contributeur.professionnels.filter(nom__contains=nom)
+        professionnels = Contributeur.objects.filter(professionnelSante=True, nom__contains=nom)
     else:
-        professionals = Contributeur.professionnels
+        professionnels = Contributeur.professionnels
     return render(request,template_name="account/professionals-list.html", context={
-        "professionals":professionals,
+        "professionnels":professionnels,
         "nom": nom
     })
 
@@ -103,9 +103,9 @@ def professionalsFilter(request, nom):
     messagesBox = request_get(request, "messagesBox")
     nom = request_get(request, "nom")
     if nom != None:
-        professionals = Contributeur.professionnels.filter(nom__contains=nom)
+        professionnels = Contributeur.objects.filter(professionnelSante=True, nom__contains=nom)
     else:
-        professionals = Contributeur.professionnels
+        professionnels = Contributeur.professionnels
     if messagesBox != None and messagesBox == True: #Si le filtre est demandé pour la boite des messages
-        return render(request, template_name="load/professionals-for-messages-box.php", context={"professionals":professionals});
-    return render(request, template_name="load/professionals.php", context={"professionals":professionals});
+        return render(request, template_name="load/professionals-for-messages-box.html", context={"professionnels":professionnels})
+    return render(request, template_name="load/professionals.html", context={"professionnels":professionnels})

@@ -6,9 +6,9 @@ urlpatterns = [
     #Route page d'accueil
     path("", views.index, name="home"),
 
-    path("contributeur/<nomUtilisateur>", views_account.userAccount, "contributor"), 
-    path("professionnels", views_account.professionalsList, "professionals-list"), 
-    path("filtre-professionnels", views_account.professionalsFilter, "professionals-filter"),
+    path("contributeur/<nomUtilisateur>", views_account.userAccount, name="contributor"), 
+    path("professionnels", views_account.professionalsList, name="professionals-list"), 
+    path("filtre-professionnels", views_account.professionalsFilter, name="professionals-filter"),
 
     path('mon-compte/', include([
         path("", views_account.myaccount, name="myaccount"), #Page de gestion du compte utilisateur

@@ -25,10 +25,10 @@ class Contributeur(models.Model):
     def nbreMessagesNonLus(self):
         nbreMessagesNonLus = 0
         for conversation in self.conversationsProfessionnels.all():
-            nbreMessagesNonLus += conversation.messagesNonLus(self).count()
+            nbreMessagesNonLus += conversation.nbreMessagesNonLus(self)
         if self.professionnelSante:
             for conversation in self.conversationsContributeurs.all():
-                nbreMessagesNonLus += conversation.messagesNonLus(self).count()
+                nbreMessagesNonLus += conversation.nbreMessagesNonLus(self)
         return nbreMessagesNonLus
 
     def __str__(self):
@@ -73,7 +73,8 @@ class Commentaire(models.Model):
 class OrigineRepas(models.Model):
     pays = models.CharField(max_length=20)
     region = models.CharField(max_length=20)
-    
+    class Meta:
+        unique_together = ["pays", "region"]
     def __str__(self) -> str:
         return self.pays+", "+self.region
 
@@ -139,9 +140,8 @@ class Repas(Commentable):
             return None
         return round(self.calories() / self.recette.nombrePersonnes, 2);
 
-"""
-    def Mineraux():string
-    {
+    def minerauxText(self):
+        """
         if($this.recette == null)
             return "";
         $mineraux = [];
@@ -154,10 +154,11 @@ class Repas(Commentable):
             }
         }
         return implode(", ", $mineraux);
-    }
+        """
+        pass
 
-    def Vitamines():string
-    {
+    def vitaminesText(self):
+        """
         if($this.recette == null)
             return "";
         $vitamines = [];
@@ -170,8 +171,12 @@ class Repas(Commentable):
             }
         }
         return implode(", ", $vitamines);
-    }
-"""
+        """
+        pass
+
+    @staticmethod
+    def filterOnList(nom, composition, repasOrigine, regionOrigine):
+        pass
 
 class CommentaireRepas(Commentaire):
     repas = models.ForeignKey(Repas, models.CASCADE)
@@ -192,8 +197,8 @@ class Aliment(Commentable):
     tauxProteines = models.FloatField(default=0)
     tauxLipides = models.FloatField(default=0)
     tauxGlucides = models.FloatField(default=0)
-    mineraux = models.JSONField(null=True)
-    vitamines = models.JSONField(null=True)
+    mineraux = models.CharField(max_length=255, null=True, blank=True)
+    vitamines = models.CharField(max_length=255, null=True, blank=True)
     detailApports = models.TextField(null=True, blank=True)
     detailRisques = models.TextField(null=True, blank=True)
     type = models.ForeignKey(TypeAliment, models.CASCADE)
@@ -261,6 +266,9 @@ class Conversation(models.Model):
         else:
             raise Exception("Le contributeur "+contributeur.nomUtilisateur+" ne fait pas partie de cette conversation")
         return None
+    
+    def nbreMessagesNonLus(self, contributeur):
+        return self.messagesNonLus(contributeur).count()
 
     """
         Supprime la conversation pour $contributeur

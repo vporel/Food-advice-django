@@ -195,7 +195,7 @@ $MESSAGES_BOX.find("#messages-professional-search form button").click(closeMessa
 /**
  * Lorsqu'on clique sur un professionnel dans les résultats d ela recherche
  */
-$MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".professionnal", "click", function(){
+$MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".professional", "click", function(){
     openChat(0, $(this).attr("data-id"), $(this).attr("data-nom"));
     closeMessagesProfessionalSearch();
 });
@@ -203,7 +203,7 @@ $MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".
 /**
  * Lorsqu'on clique sur un professionnel dans les résultats d ela recherche
  */
- $MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".professionnal a", "click", function(e){
+ $MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".professional a", "click", function(e){
     e.stopPropagation();
 });
 

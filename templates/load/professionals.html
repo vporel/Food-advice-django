@@ -1,10 +1,6 @@
-
-<?php 
-    /**
-     * Variable attendu $professionals
-     */
-
-    foreach($professionals as $professionnel){
-        include VIEW_DIR."/macros/_professionnal-little-presentation.php";
-    } 
-?>
+<!--
+    Affiche les elements d'un tableau professionnels
+-->
+{% for professionel in professionnels %}
+    {% include "macros/_professionnal-little-presentation.html" with professionnel=professionnel %}
+{% endfor %}

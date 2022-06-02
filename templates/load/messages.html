@@ -1,15 +1,12 @@
-<?php 
-    //Un seule variable php attendue : $messages
-    // Style défini dans le fichier _loads.scss
-?>
-<?php foreach($messages as $message){ ?>
+
+{% for message in messages %}
                 
-    <div class="message message-load <?= $message->objetExpediteur->id == $app->user->id ? "by-user" : "" ?>">
+    <div class="message message-load {%if message.objetExpediteur.id == appUser.id %}by-user{%endif%}">
         
         <p>
-            <?= htmlentities(nl2br($message->message)) ?>
+            {{ message.message|linebreaks }}
         </p>
-        <span class="date"><?= $message->formattedDate ?></span>
+        <span class="date">{{ message.formattedDate }}</span>
     </div>
     
-<?php } ?>
+{% endfor %}
