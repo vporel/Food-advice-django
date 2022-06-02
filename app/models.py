@@ -1,14 +1,37 @@
-from ast import Str
+"""
+    FICHIER DE DEFINITIONS DE TOUTES LES CLASSES UTILISEES DANS LE PROJET
+"""
+
 from django.db import models
 from django.core.validators import FileExtensionValidator
 
 class Contributeur(models.Model):
-    nom = models.CharField(max_length=50)
-    nomUtilisateur = models.CharField(max_length=30)
-    motDePasse = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, null=True, blank=True)
+    nom = models.CharField(max_length=50, verbose_name="Nom complet")
+    nomUtilisateur = models.CharField(max_length=30, verbose_name="Nom d'utilisateur", unique=True)
+    motDePasse = models.CharField(max_length=255, verbose_name="Mot de passe")
+    email = models.CharField(max_length=255, null=True, blank=True, verbose_name="Adresse email")
+    professionnelSante = models.BooleanField(default=False, verbose_name="Professionnel de la santé")
 
-    def __str__(self) -> str:
+    """
+        Retourne les contributeurs professionels
+    """
+    @staticmethod
+    def professionnels():
+        return Contributeur.objects.filter(professionnelSante=True)
+
+    """
+        Nombre total de messages non lus par le contributeur, toutes les conversations confonfues
+    """
+    def nbreMessagesNonLus(self):
+        nbreMessagesNonLus = 0
+        for conversation in self.conversationsProfessionnels.all():
+            nbreMessagesNonLus += conversation.messagesNonLus(self).count()
+        if self.professionnelSante:
+            for conversation in self.conversationsContributeurs.all():
+                nbreMessagesNonLus += conversation.messagesNonLus(self).count()
+        return nbreMessagesNonLus
+
+    def __str__(self):
         return self.nomUtilisateur
 
 IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif"]
@@ -23,7 +46,7 @@ class Commentable(models.Model):
     dateCreation = models.DateTimeField(auto_now=True)
     dateDerniereModification = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self) -> str:
+    def __str__(self):
         return self.nom
 
 class Evaluable(Commentable):
@@ -68,7 +91,7 @@ class Repas(Commentable):
         for m in MOMENTS_JOURNEE:
             if(m[0] == self.momentJournee):
                 return m[1]
-    def getNoteContributeur(self,contributeur) -> int:
+    def getNoteContributeur(self,contributeur):
         try:
             evaluation = EvaluationRepas.objects.get(contributeur=contributeur)
             return evaluation.note
@@ -114,12 +137,12 @@ class Repas(Commentable):
     def caloriesUnePersonne(self):
         if self.recette is None or self.recette.aliments.count()== 0:
             return None
-       
         return round(self.calories() / self.recette.nombrePersonnes, 2);
+
 """
     def Mineraux():string
     {
-        if($this->recette == null)
+        if($this.recette == null)
             return "";
         $mineraux = [];
         for aliment in self.recette.aliments.all():
@@ -135,7 +158,7 @@ class Repas(Commentable):
 
     def Vitamines():string
     {
-        if($this->recette == null)
+        if($this.recette == null)
             return "";
         $vitamines = [];
         for aliment in self.recette.aliments.all():
@@ -148,8 +171,7 @@ class Repas(Commentable):
         }
         return implode(", ", $vitamines);
     }
-    """
-
+"""
 
 class CommentaireRepas(Commentaire):
     repas = models.ForeignKey(Repas, models.CASCADE)
@@ -187,7 +209,7 @@ class Recette(models.Model):
     detailPreparation = models.TextField(null=True, blank=True)
     aliments = models.ManyToManyField(Aliment, through='AlimentRecette', through_fields=("recette", "aliment"))
     
-    def __str__(self) -> str:
+    def __str__(self):
         return str(self.repas)
 
 class AlimentRecette(models.Model):
@@ -224,9 +246,40 @@ class RepasConsomme(models.Model):
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)
     visiblePourProfessionnel = models.BooleanField(default=True)
-    contributeur = models.ForeignKey(Contributeur, models.CASCADE, related_name="contributeur")
-    professionnel = models.ForeignKey(Contributeur, models.CASCADE, related_name="professionnel")
+    contributeur = models.ForeignKey(Contributeur, models.CASCADE, related_name="conversationsProfessionnels")
+    professionnel = models.ForeignKey(Contributeur, models.CASCADE, related_name="conversationsContributeurs")
     dateDernierMessage = models.DateTimeField(null=True)
+
+    """
+        Les messages non lus pour le contributeur en paramètre sil est dans la conversation
+    """
+    def messagesNonLus(self, contributeur):
+        if(self.contributeur == contributeur):
+            return self.message_set.objects.filter(lu=False, expediteur=2)
+        elif self.professionnel == contributeur:
+            return self.message_set.objects.filter(lu=False, expediteur=1)
+        else:
+            raise Exception("Le contributeur "+contributeur.nomUtilisateur+" ne fait pas partie de cette conversation")
+        return None
+
+    """
+        Supprime la conversation pour $contributeur
+        L'enregistrement n'est pas réelement supprimé de la base de donnée mais plutôt masqué pour le contributeur
+    """
+    def supprimer(self, contributeur):
+        if self.contributeur.id == contributeur.id:
+            self.visiblePourContributeur = False
+        elif self.professionnel.id == contributeur.id:
+            self.visiblePourProfessionnel = False
+        else:
+            raise Exception("Le contributeur "+contributeur.nomUtilisateur+" ne fait pas partie de cette conversation")
+    
+    """
+        Le dernier message envoyé dans la conversation
+    """
+    def dernierMessage(self):
+        messages = self.message_set.order_by("-id")
+        return messages[0] if messages.count() > 0 else None
 
 class Message(models.Model):
     message = models.TextField()
@@ -234,6 +287,17 @@ class Message(models.Model):
     conversation = models.ForeignKey(Conversation, models.CASCADE)
     expediteur = models.ForeignKey(Contributeur, models.CASCADE)
     date = models.DateTimeField(auto_now=True)
+
+    def __init__(self, conversation, **args):
+        super().__init__(args)
+        self.conversation = conversation
+    
+    def objetExpediteur(self):
+        if self.expediteur == 1:
+            return self.conversation.contributeur
+        else:
+            return self.conversation.professionnel
+        
 
 class AdresseNewsletter(models.Model):
     email = models.CharField(max_length=255)

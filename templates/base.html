@@ -43,10 +43,10 @@
     {% js 'js/user-boxes.js' %}
     <script type="text/javascript">
         /**
-         * Définitions des constantes qui peuevent être utilisées par toutes les autres scripts
+         * Définitions des constantes qui peuevent être utilisées par tous les autres scripts
          */
 
-        const USER_CONNECTED = ("<?= ($app->user == null) ? 0 : 1 ?>" == "1") ? true : false;
+        const USER_CONNECTED = ("{%if appUser is null %}0{%else%}1{%endif%}" == "1") ? true : false;
         const ON_MOBILE = window.innerWidth < 768;
         
 	</script>
@@ -69,7 +69,8 @@
         })
 
         /**
-         * Affichage des liens - verisons mobile
+         * SUR MOBILE
+         * Affichage des liens dans la barre de navigation
          */
         $('header').delegate('#show-nav-links-btn' ,'click',function(){
             if($('header #nav-links').hasClass("shown"))
@@ -78,7 +79,7 @@
                 $('header #nav-links').addClass("shown");
         });
 
-        
+        /* Affichage du nombre de messages non lus sur l'icone messages dans la barre de navigations */
         if(USER_CONNECTED){
             function loadNbreMessagesNonLus(){
                 //#show-messages-btn (sur la page user-account)

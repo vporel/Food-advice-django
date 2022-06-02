@@ -1,41 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Professionnels | Food-advice{% endblock %}
 
-{% block title %}Professionnels | Food-advice"; //Titre de la page ?{% endblock %}
 
-<?php ob_start(); ?>  
-    <!-- Inclusions css ici -->  
-
-<?php $_STYLES = ob_get_clean(); ?>
-
-<?php ob_start(); ?>
+{% block body %}
 <!-- Contenu de la page ici -->
 <div class="container mt-2" id="list">
     <h5 class="title">Filtres</h5>
     <div id="filtres" class="row">
         <div class="col-12 col-md-4">
             <label>Nom </label>
-            <input type="text" id="filtre-nom"class="form-control"placeholder="Nom du professionnel" value="<?= $nom ?? "" ?>">
+            <input type="text" id="filtre-nom"class="form-control"placeholder="Nom du professionnel" value="{{ nom }}">
         </div>
         <div class="col-12 col-md-1 d-flex align-items-end">
             <button class="btn btn-primary" onclick="filter()">Appliquer</button>
         </div>
     </div>
-    <?php 
-        include VIEW_DIR."/components/_loading.php";
-    ?>
+    {% include "components/_loading.html" %}
     <div id="elements" class="mt-3">
-        <?php 
-            include VIEW_DIR."/load/professionals.php";
-        ?>
+        {% include "load/professionals.html" with professionals=professionals %}
     </div>
     <hr>
 </div>
-     
-<?php $_CONTENT = ob_get_clean(); ?>
 
-<?php ob_start() ?>
-    <!-- Code javascript ici -->
+{% endblock %}
 
-    <?= $js("js/home-slide.js"); ?>
+{% block scripts %}
     <script>
         /**
          * Fonction pour l'application du filtre
@@ -51,7 +40,4 @@
             });
         }
     </script>
-
-<?php $_SCRIPTS = ob_get_clean(); ?>
-
-<?php require VIEW_DIR."/base.php"; ?>
+{% endblock %}

@@ -1,15 +1,12 @@
 
-{% block title %}Accueil | Food-advice"; //Titre de la page ?{% endblock %}
+{% block title %}Alments | Food-advice{% endblock %}
 
-<?php ob_start(); ?>  
-    <!-- Inclusions css ici -->  
-    <?= $css([
-        "css/aliments-liste.css"
+{% block styles %}
+    {% css "css/aliments-liste.css" %}
     ]) ?>
+{% endblock %}
 
-<?php $_STYLES = ob_get_clean(); ?>
-
-<?php ob_start(); ?>
+{%block body%}
 <!-- Contenu de la page ici -->
 <div class="container mt-2" id="list">
     <h5 class="title">Filtres</h5>
@@ -44,23 +41,17 @@
             <button class="btn btn-primary" onclick="filter()">Appliquer</button>
         </div>
     </div>
-    <?php 
-        include VIEW_DIR."/components/_loading.php";
-    ?>
+    {% include VIEW_DIR."components/_loading.html" %}
     <div id="elements" class="mt-3">
-        <?php 
-            include VIEW_DIR."/load/aliments.php";
-        ?>
+        {% include VIEW_DIR."load/aliments.html" %}
     </div>
     <hr>
 </div>
      
-<?php $_CONTENT = ob_get_clean(); ?>
+{% endblock %}
 
-<?php ob_start() ?>
+{% block scripts %}
     <!-- Code javascript ici -->
-
-    <?= $js("js/home-slide.js"); ?>
     <script>
         /**
          * Fonction pour l'application du filtre
@@ -68,7 +59,7 @@
         function filter(){
             $('#list .loading').show(200);
             $('#list #elements').html("");
-            $.post("<?= $url("aliments-filter") ?>", {
+            $.post("{% url "aliments-filter" %}", {
                 nom:$("#filtre-nom").val().trim(),
                 regime:$("#filtre-regime").val(),
                 composition:$("#filtre-composition").val()
@@ -79,6 +70,4 @@
         }
     </script>
 
-<?php $_SCRIPTS = ob_get_clean(); ?>
-
-<?php require VIEW_DIR."/base.php"; ?>
+{%endblock%}

@@ -1,16 +1,33 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views, views_foods, views_aliments, views_restaurants, views_account, views_extra
+from . import views, views_foods, views_aliments, views_restaurants, views_account, views_extra, views_conversations
 
 urlpatterns = [
     #Route page d'accueil
     path("", views.index, name="home"),
+
+    path("contributeur/<nomUtilisateur>", views_account.userAccount, "contributor"), 
+    path("professionnels", views_account.professionalsList, "professionals-list"), 
+    path("filtre-professionnels", views_account.professionalsFilter, "professionals-filter"),
 
     path('mon-compte/', include([
         path("", views_account.myaccount, name="myaccount"), #Page de gestion du compte utilisateur
         path("connexion/", views_account.login, name="login"), #Page de connexion
         path("inscription/", views_account.signin, name="signin"), # Page d'enregistrement
         path("deconnexion/", views_account.logout, name="logout"), 
+    ])),
+
+    #Routes pour les conversations
+    path("conversations/", views_conversations.conversations, name="conversations"), 
+    path("nbre-messages-non-lus/", views_conversations.unreadMessagesCount, name="unread-messages-count"),
+    path("conversation/", include([
+        path("recherche/<int:idProfessionnel>", views_conversations.search, name="search-conversation"),
+        path("nouvelle/<int:idProfessionnel>", views_conversations.new, name="new-conversation"),
+        path("<int:id>/charger/", views_conversations.load, name="load-conversation"), # Renvoie juste le code qui présente la conversation
+        path("<int:id>/envoie-message/", views_conversations.sendMessage, name="send-message"),
+        path("<int:id>/supprimer/",  views_conversations.delete, name="delete-conversation"),
+        path("<int:id>/messages/", views_conversations.messages, name="conversation-messages"),
+        path("<int:id>/messages-non-lus/", views_conversations.unreadMessages, name="conversation-unread-messages"),
     ])),
 
     path('repas/', include([
