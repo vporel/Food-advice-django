@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms'
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 MIDDLEWARE = [
+    'custom_middlewares.authentication_middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,7 +72,8 @@ TEMPLATES = [
             ],
             'builtins':[
                 'django.templatetags.static', #vpnote - Chargement automatique de la librairie static dans les templates (Plus besoin de faire un load static)
-                'app.custom_tags_filters'
+                'app.custom_tags_filters',
+                'crispy_forms.templatetags.crispy_forms_tags'
             ]
         },
     },
@@ -106,6 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+]
+
 
 
 # Internationalization

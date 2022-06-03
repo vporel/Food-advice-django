@@ -49,15 +49,34 @@
     .title{
         font-family:$global-font!important;
         background:rgba($primary-color, .3);
-        border-bottom:2px solid $primary-color;
+       // border-bottom:2px solid $primary-color;
         padding:10px;
+        position: relative;
+        transition: all .3s ease;
+        &::before{
+            position: absolute;
+            bottom:-4px;
+            left:0;
+            content:'';
+            width:0;
+            height:2px;
+            background:$primary-color;
+            transition: all .3s ease;
+            
+        }
+       
         @media #{$mobile}{
-            border-bottom:none;
             padding:10px;
         }
         a{
             float:right;
             color:$primary-color;
         }
+    }
+    &:hover .title{
+        background:rgba($primary-color, .5)
+    }
+    &:hover .title::before{
+        width:25%;
     }
 }

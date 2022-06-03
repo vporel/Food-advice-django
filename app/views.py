@@ -1,12 +1,14 @@
 from django.shortcuts import render
 
 from app.models import Aliment, Repas, Restaurant
+from app.user_session import isUserConnected
 
 """
     Retourne le paramètre 'key' de la requete en cherchant dans POST et GET
 """
 def request_get(request, key):
     return  request.POST.get(key) if request.method == "POST" else request.GET.get(key)
+
 
 
 # Create your views here.

@@ -1,5 +1,5 @@
 {% for conversation in conversations %}  
-    <div class="conversation conversation-load" data-id="<?= $conversation->id ?>" data-nom="<?= $conversation->professionnel->id == $app->user->id ? $conversation->contributeur->nom : $conversation->professionnel->nom ?>">
+    <div class="conversation conversation-load" data-id="{{ conversation.id }}" data-nom="{%if conversation.professionnel.id == appUser.id %}{{ conversation.contributeur.nom }}{%else %} {{conversation.professionnel.nom }}{% endif %}">
         <div class="content">
             <i class="fas fa-user icon"></i>
             <div >

@@ -1,15 +1,19 @@
 
+import json
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 
 from app.models import Contributeur, Conversation, Message
 from app.user_session import getUser
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 def sendMessage(request, id):
     conversation = Conversation.objects.get(pk=id)
-    message = Message(conversation)
+    message = Message()
+    message.conversation = conversation
     message.message = request.POST.get("message")
     message.expediteur = getUser(request.session)
     message.save()
@@ -17,16 +21,18 @@ def sendMessage(request, id):
     conversation.visiblePourContributeur = True
     conversation.visiblePourProfessionnel = True
     conversation.save()
-    return render(request, template_name="load/messages.html", context={"messages":message})
+    return render(request, template_name="load/messages.html", context={"messages":[message]})
 
+@csrf_exempt
 def new(request, idProfessionnel):
     conversation = Conversation()
     conversation.contributeur = getUser(request.session)
-    conversation.professionnel(Contributeur.objects.get(pk=idProfessionnel))
+    conversation.professionnel = Contributeur.objects.get(pk=idProfessionnel)
     conversation.save()
-    return  JsonResponse({"idConversation":conversation.id})
+    return  HttpResponse(json.dumps({"idConversation":conversation.id}))
 
 
+@csrf_exempt
 def messages(request, id):
     conversation = Conversation.objects.get(pk=id)
     messages = conversation.message_set.all()
@@ -38,6 +44,7 @@ def messages(request, id):
         "messages": messages # Les messages seront données dans l'ordre de leur enregistrement dans la base
     })
 
+@csrf_exempt
 def delete(request, id):
     conversation = Conversation.objects.get(pk=id)
     conversation.supprimer(getUser(request.session))
@@ -60,13 +67,19 @@ def conversations(request):
 """
     Rechercher la conversation dans entre le contributeur connecté et le professionnel en paramètre
 """
+@csrf_exempt
 def search(request, idProfessionnel):
-    conversation = Conversation.objects.get(contributeur=getUser(request.session), professionnel=Contributeur.objects.get(pk=idProfessionnel))
-    return JsonResponse({"idConversation":conversation.id if conversation != None else 0})
+    try:
+        conversation = Conversation.objects.get(contributeur=getUser(request.session), professionnel=Contributeur.objects.get(pk=idProfessionnel))
+        idConversation = conversation.id
+    except Conversation.DoesNotExist:
+        idConversation = 0
+    return HttpResponse(json.dumps({"idConversation":idConversation}))
 
 """
     Charger la conversation à l'id passé en paramètre
 """
+@csrf_exempt
 def load(request, id):
     conversation = Conversation.objects.get(pk=id)
     return render(request, template_name="load/conversations.html", context={
@@ -77,10 +90,12 @@ def load(request, id):
     Recupérer le nombre total de messages non lus par le contributeur connecté.
     Toutes les conversations confondues
 """
+@csrf_exempt
 def unreadMessagesCount(request):
     return HttpResponse(getUser(request.session).nbreMessagesNonLus())
 
 
+@csrf_exempt
 def unreadMessages(request, id):
     conversation = Conversation.objects.get(pk=id) 
     messages = conversation.messagesNonLus(getUser(request.session))

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-{% modelsObjectsEquals appUser user as isCurrentUser %}
 {% block title %}Mon compte | Food-advice{% endblock %}
 
 {% block styles %} 
@@ -23,13 +22,13 @@
                 <h6>{% if user.email is not null %}{{ user.email }}{%endif%}</h6>
                 {% if user.professionnelSante %}
                     <span class="badge mt-2" id="badge-professionnel">Professionnel de la santé</span>
-                    {% if isCurrentUser %}
-                        <button class="btn btn-action mt-2" onclick="openChat(0, '{{ user.nom }}', {{ user.id }})">Envoyer un message</button>
+                    {% if appUser != user %}
+                        <button class="btn btn-action mt-2" onclick="openChat(0, {{ user.id }},'{{ user.nom }}')">Envoyer un message</button>
                     
                     {% endif %}
                 {% endif %}
             </div>
-            {% if isCurrentUser %}
+            {% if appUser == user %}
                 <hr>
                 <nav id="menu">
                     <a id="show-messages-btn" onclick="openMessagesBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
@@ -38,11 +37,11 @@
             {% endif %}
         </div>
         <div class="col-12 col-md-8 mt-3 mt-md-0">
-            <h4 class="title text-center text-md-start mb-3 mb-md-1">{% if isCurrentUser %}Vos recommandations{% else %}Recommandations{% endif %}</h4>
+            <h4 class="title text-center text-md-start mb-3 mb-md-1">{% if appUser == user %}Vos recommandations{% else %}Recommandations{% endif %}</h4>
             <div class="recommandations" data-aos="fade-in-up">
                 <h6 class="title">
                     Repas
-                    {% if isCurrentUser %}
+                    {% if appUser == user %}
                         <a href="{% url "recommend-food" %}">Recommander</a>
                     {% endif %}
                 </h6>
@@ -50,7 +49,7 @@
                 {% if user.repas_set > 0 %}
                     <div class="row">
                         {% for repas in user.repas_set.all %}
-                            {% if isCurrentUser and repas.approuve %}
+                            {% if appUser == user and repas.approuve %}
                                 {% include "macros/_food-little-presentation.php" with repas=repas %}
                             {% endif %}
                         {% endfor %}
@@ -64,7 +63,7 @@
             <div class="recommandations" data-aos="fade-in-up">
                 <h6 class="title">
                     Aliments
-                    {% if isCurrentUser %}
+                    {% if appUser == user  %}
                         <a href="{% url "recommend-aliment" %}">Recommander</a>
                     {% endif %}
                 </h6>
@@ -72,7 +71,7 @@
                 {% if user.aliments_set > 0 %}
                     <div class="row">
                         {% for aliment in user.aliment_set.all %}
-                            {% if isCurrentUser and aliment.approuve %}
+                            {% if appUser == user and aliment.approuve %}
                                 {% include "macros/_food-little-presentation.php" with aliment=aliment %}
                             {% endif %}
                         {% endfor %}
@@ -86,7 +85,7 @@
             <div class="recommandations" data-aos="fade-in-up">
                 <h6 class="title">
                     Restaurants
-                    {% if isCurrentUser %}
+                    {% if appUser == user %}
                         <a href="{% url "recommend-restaurant" %}">Recommander</a>
                     {% endif %}
                 </h6>
@@ -94,7 +93,7 @@
                 {% if user.restaurant_set > 0 %}
                     <div class="row">
                         {% for restaurant in user.restaurant_set.all %}
-                            {% if isCurrentUser and restaurant.approuve %}
+                            {% if appUser == user and restaurant.approuve %}
                                 {% include "macros/_food-little-presentation.php" with restaurant=restaurant %}
                             {% endif %}
                         {% endfor %}

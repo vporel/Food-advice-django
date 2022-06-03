@@ -18,6 +18,7 @@ def show(request, id):
         'commentaires':commentaires
     })
 
+@csrf_exempt
 def rate():
     pass
 def addComment():

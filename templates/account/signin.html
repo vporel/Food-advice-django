@@ -10,7 +10,7 @@
     {% endif %}
     <form action="" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <div class="d-flex justify-content-center justify-content-md-end mt-2">
             <button type="submit" class="btn btn-primary">
                 S'enregistrer
