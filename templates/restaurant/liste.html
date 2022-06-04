@@ -1,15 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Accueil | Food-advice{% endblock %}
 
-{% block title %}Accueil | Food-advice"; //Titre de la page ?{% endblock %}
-
-<?php ob_start(); ?>  
+{% block styles %}
     <!-- Inclusions css ici -->  
     <?= $css([
         "css/aliments-liste.css"
     ]) ?>
+    {% endblock %}
 
-<?php $_STYLES = ob_get_clean(); ?>
-
-<?php ob_start(); ?>
+    {%block body%}
 <!-- Contenu de la page ici -->
 <div class="container mt-2" id="list">
     <h5 class="title">Filtres</h5>
@@ -41,9 +40,9 @@
     <hr>
 </div>
      
-<?php $_CONTENT = ob_get_clean(); ?>
+{% endblock %}
 
-<?php ob_start() ?>
+{% block scripts %}
     <!-- Code javascript ici -->
 
     <?= $js("js/home-slide.js"); ?>
@@ -65,6 +64,4 @@
         }
     </script>
 
-<?php $_SCRIPTS = ob_get_clean(); ?>
-
-<?php require VIEW_DIR."/base.php"; ?>
+    {%endblock%}

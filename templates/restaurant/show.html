@@ -1,36 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} $aliment->nom." | Food-advice{%endblock%}
 
-<?php $_TITLE = $aliment->nom." | Food-advice"; //Titre de la page ?>
-
-<?php ob_start(); ?>  
+{% block styles %}
     <!-- Inclusions css ici -->  
-    <?= $css([
+    {{ $css([
         "css/aliment-show.css"
-    ]) ?>
+    ]) }}
 
-<?php $_STYLES = ob_get_clean(); ?>
+{% endblock %}
  
-<?php ob_start(); ?>
+{% block body %}
     <!-- Contenu de la page ici -->
 
     <h2 id="restaurant-title">
-        <?= $restaurant->nom ?>
+        {{ restaurant.nom }}
     </h2>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-5">
-            <img src="<?= $asset("images/restaurants/".$restaurant->image) ?>" alt="" id="restaurant-image">
+            <img src="{{ $asset("images/restaurants/".$restaurant->image) }}" alt="" id="restaurant-image">
         </div>
         <div class="col-12 col-md-7" id="details">
             <div id="description">
-                <?= $restaurant->description ?>
+                {{ $restaurant->description }}
             </div>
             <hr>
-            <?php if($restaurant->contributeur != null){ ?>
+            {% if $restaurant->contributeur != null %}
                 <div>
                     <span class="label">Recommandé par : </span>
-                    <span class="value"><?= $restaurant->contributeur ?></span>
+                    <span class="value">{{ $restaurant->contributeur }}</span>
                 </div>
-            <?php } ?>
+            {% endif %}
             
                 
         </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="col-12 col-md-6 order-1 order-md-2">
             <h5 class="title">Commentaires</h5>
-            <?php if($app->user != null){ ?>
+            {% if $app->user != null %}
                 <span>Ajouter un commentaire</span>
                 <form id="new-comment-form">
                     <textarea id="comment-text" placeholder="Votre commentaire ici"></textarea>
@@ -51,7 +51,7 @@
                 </form>
             <?php }else{ ?>
                 <a id="btn-commenter" class="text-primary">Ajouter un commentaire</a>
-            <?php } ?>
+            {% endif %}
             <div id="commentaires" class="mt-2">
                 <?php include VIEW_DIR."/load/comments.php"; ?>
             </div>
@@ -59,17 +59,15 @@
     </div>
 </div>
      
-<?php $_CONTENT = ob_get_clean(); ?>
+{% endblock %}
 
-<?php ob_start() ?>
+{% block scripts %}
     <!-- Code javascript ici -->
     <script>
-        const ALIMENT_ID = parseInt("<?= $aliment->id ?>");
+        const ALIMENT_ID = parseInt("{{ $aliment->id }}");
     </script>
-    <script src="<?= $asset("js/restaurant-show.js") ?>"></script>
+    <script src="{{ $asset("js/restaurant-show.js") }}"></script>
     <script>
         updateStarsWithAverage(NOTES_AVERAGE);
     </script>
-<?php $_SCRIPTS = ob_get_clean(); ?>
-
-<?php require VIEW_DIR."/base.php"; ?>
+{M endblock %}
