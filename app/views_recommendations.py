@@ -82,6 +82,7 @@ def recommendFoodRecipeAliment(request, id):
         if form.is_valid():
             alimentRecette = form.save(commit=False)
             alimentRecette.recette = recette
+            alimentRecette.save()
             saved = True
     return render(request, template_name="recommendation/recommend-food-recipe-aliment.html", context={
         "form": form,

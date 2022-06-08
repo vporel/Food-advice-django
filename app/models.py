@@ -72,7 +72,7 @@ class Evaluable(Commentable):
         try:
             evaluation = self.evaluations.get(contributeur=contributeur)
             return evaluation.note
-        except Evaluation.DoesNotExist:
+        except Exception:
             return 0
     
 
@@ -247,6 +247,8 @@ class Aliment(Commentable):
     def calories(self):
         return round(((((self.tauxGlucides + self.tauxProteines) * 4) + (self.tauxLipides * 9)) * (self.masseUnite / 100)), 2)
 
+    def __str__(self):
+        return self.nom + (" (en "+self.uniteComptage+")" if self.uniteComptage != None else "")
 class Recette(models.Model):
     repas = models.OneToOneField(Repas, models.CASCADE, primary_key=True)
     nombrePersonnes = models.IntegerField()
