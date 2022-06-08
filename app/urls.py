@@ -53,7 +53,7 @@ urlpatterns = [
         path("<int:id>/commentaires", views_restaurants.getComments, name="restaurant-comments"),
         path("filtre", views_restaurants.filter, name="restaurants-filter")
     ])),
-    path("recommender/", include([
+    path("recommander/", include([
         path("", views_recommendations.index, name="recommend"),
         path("regles/", views_recommendations.rules, name="recommend-rules"), # Page  des regles de recommandations
         path("repas/", views_recommendations.recommendFood, name="recommend-food"), # PAge de recommandation d'un repas
