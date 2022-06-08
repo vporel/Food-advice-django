@@ -68,11 +68,11 @@
                     {% endif %}
                 </h6>
                 
-                {% if user.aliments_set > 0 %}
+                {% if user.aliment_set.count > 0 %}
                     <div class="row">
                         {% for aliment in user.aliment_set.all %}
-                            {% if appUser == user and aliment.approuve %}
-                                {% include "macros/_food-little-presentation.php" with aliment=aliment %}
+                            {% if appUser == user or aliment.approuve == True %}
+                                {% include "macros/_presentation-aliments.html" with aliment=aliment %}
                             {% endif %}
                         {% endfor %}
                     </div>
