@@ -6,6 +6,6 @@
         <h6 class="nom-utilisateur"> - {{ professionnel.nomUtilisateur }}</h6>
     </a>
     <div class="btns">
-        <i class="fas fa-message icon send-message-btn" onclick="openChat(0, '{{ professionnel.nom }}', {{ professionnel.id }})"></i>
+        <i class="fas fa-message icon send-message-btn" onclick="openChat(0, {{ professionnel.id }}, '{{ professionnel.nom }}')"></i>
     </div>
 </div>
