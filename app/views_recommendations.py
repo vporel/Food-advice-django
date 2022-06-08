@@ -61,11 +61,11 @@ def recommendFoodRecipe(request, id):
     if request.method == "POST":
         form = RecommendFoodRecipeForm(request.POST, request.FILES, instance=recette)
         if form.is_valid():
+            print("eeeeee")
             recette = form.save(commit=False)
             recette.repas = repas
             recette.save()
             return redirect("recommend-food-recipe-aliment", repas.id)
-    form.fields["repas"].widget.attrs["disabled"] = True
     return render(request, template_name="recommendation/recommend-food-recipe.html", context={
         "form": form,
         "repas": repas
@@ -82,8 +82,8 @@ def recommendFoodRecipeAliment(request, id):
         if form.is_valid():
             alimentRecette = form.save(commit=False)
             alimentRecette.recette = recette
+            alimentRecette.save()
             saved = True
-    form.fields["recette"].widget.attrs["readonly"] = True
     return render(request, template_name="recommendation/recommend-food-recipe-aliment.html", context={
         "form": form,
         "saved": saved,
