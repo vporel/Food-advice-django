@@ -151,7 +151,7 @@
             </div>
             <span><strong id="notesCount">{{ repas.nombreNotes }}</strong> personne{% if repas.nombreNotes > 1 %}s ont{% else %}a{% endif %} noté</span><br>
             <div id="user-note">
-                {% call_method repas 'getNoteContributeur' appUser as note %}
+                {% call_method repas 'noteContributeur' appUser as note %}
                 {%if appUser is null or note == 0 %}
                     <button class="btn btn-primary btn-noter">Noter</button>
                 {% else %}

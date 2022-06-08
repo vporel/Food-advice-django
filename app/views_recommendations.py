@@ -38,7 +38,7 @@ class RecommendRestaurantForm(forms.ModelForm):
 
 # Create your views here.
 def index(request):
-    return render(request, template_name="recommendation/index.html", context={})
+    return render(request, template_name="recommendation/index.html")
 
 def recommendFood(request):
     form = RecommendFoodForm(instance=Repas())
@@ -51,7 +51,6 @@ def recommendFood(request):
             return redirect("recommend-food-recipe", repas.id)
     return render(request, template_name="recommendation/recommend-food.html", context={
         "form": form,
-        "repas": repas
     })
 
 def recommendFoodRecipe(request, id):
@@ -68,7 +67,8 @@ def recommendFoodRecipe(request, id):
             return redirect("recommend-food-recipe-aliment", repas.id)
     form.fields["repas"].widget.attrs["disabled"] = True
     return render(request, template_name="recommendation/recommend-food-recipe.html", context={
-        "form": form
+        "form": form,
+        "repas": repas
     })
 
 def recommendFoodRecipeAliment(request, id):

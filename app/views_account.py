@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from app.user_session import connectUser, disconnectUser, getUser, isUserConnected
 from app.views import request_get
+from functions import hashPassword
 
 class LoginForm(forms.Form):
     nomUtilisateur = forms.CharField(label="Nom d'utilisateur")
@@ -50,7 +51,7 @@ def login(request):
             if form.is_valid():
                 try:
                     contributeurExistant = Contributeur.objects.get(nomUtilisateur=form.cleaned_data["nomUtilisateur"])
-                    if contributeurExistant.motDePasse == Contributeur.hashPassword(form.cleaned_data["motDePasse"]):
+                    if contributeurExistant.motDePasse == hashPassword(form.cleaned_data["motDePasse"]):
                         connectUser(request.session, contributeurExistant.id)
                         """urlBeforeRedirection = Security::getURLBeforeRedirection()
                         if(urlBeforeRedirection != null)
@@ -82,7 +83,7 @@ def signin(request):
         form = SigninForm(request.POST, instance=contributeur)
         if form.is_valid():
             contributeur = form.save(commit=False)
-            contributeur.motDePasse = Contributeur.hashPassword(contributeur.motDePasse)
+            contributeur.motDePasse = hashPassword(contributeur.motDePasse)
             contributeur.save()
             connectUser(request.session, contributeur.id)
             return redirect("myaccount")

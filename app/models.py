@@ -2,10 +2,11 @@
     FICHIER DE DEFINITIONS DE TOUTES LES CLASSES UTILISEES DANS LE PROJET
 """
 
-from hashlib import sha1
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.db.models import Sum, Count, Case, When, F
+
+IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif"]
 
 class Contributeur(models.Model):
     nom = models.CharField(max_length=50, verbose_name="Nom complet")
@@ -20,10 +21,7 @@ class Contributeur(models.Model):
     @staticmethod
     def professionnels():
         return Contributeur.objects.filter(professionnelSante=True)
-
-    @staticmethod
-    def hashPassword(password):
-        return sha1(password.encode("utf-8")).hexdigest()
+ 
     """
         Nombre total de messages non lus par le contributeur, toutes les conversations confonfues
     """
@@ -39,7 +37,6 @@ class Contributeur(models.Model):
     def __str__(self):
         return self.nomUtilisateur
 
-IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif"]
 class Commentable(models.Model):
     class Meta:
         abstract = True
@@ -71,7 +68,7 @@ class Evaluable(Commentable):
         nombreNotes = self.nombreNotes()
         return self.totalNotes()/nombreNotes if nombreNotes > 0 else 0
 
-    def getNoteContributeur(self,contributeur):
+    def noteContributeur(self,contributeur):
         try:
             evaluation = self.evaluations.get(contributeur=contributeur)
             return evaluation.note
