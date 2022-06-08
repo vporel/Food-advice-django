@@ -8,7 +8,9 @@
     <!-- Contenu de la page ici -->
 <div class="container">
     <h4 class="title">Recommandation de la recette : {{repas}}</h4>
-    
+    {% if error is not None %}
+        <div class="alert alert-warning">{{ error }}</div>
+    {% endif %} 
     <form method="post" enctype="multipart/form-data" class="row row-cols-1 row-cols-md-2"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
         {% csrf_token %}        
         {{ form|crispy}}

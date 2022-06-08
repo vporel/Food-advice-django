@@ -44,7 +44,7 @@ class Commentable(models.Model):
     description = models.TextField(null=True, blank=True)
     image = models.FileField()
     approuve = models.BooleanField(default=False)
-    contributeur = models.ForeignKey(Contributeur, models.CASCADE, null=True, blank=True, editable=False)
+    contributeur = models.ForeignKey(Contributeur, models.CASCADE, null=True, blank=True)
     dateCreation = models.DateTimeField(auto_now=True)
     dateDerniereModification = models.DateTimeField(auto_now_add=True)
     

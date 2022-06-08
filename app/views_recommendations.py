@@ -58,17 +58,22 @@ def recommendFoodRecipe(request, id):
     repas = Repas.objects.get(pk=id)
     recette.repas = repas
     form = RecommendFoodRecipeForm(instance=recette)
+    error = None
     if request.method == "POST":
         form = RecommendFoodRecipeForm(request.POST, request.FILES, instance=recette)
         if form.is_valid():
-            print("eeeeee")
             recette = form.save(commit=False)
             recette.repas = repas
             recette.save()
             return redirect("recommend-food-recipe-aliment", repas.id)
+        else:
+            error = form.errors.get("repas")
+            form.errors.a
+        
     return render(request, template_name="recommendation/recommend-food-recipe.html", context={
         "form": form,
-        "repas": repas
+        "repas": repas,
+        "error": error
     })
 
 def recommendFoodRecipeAliment(request, id):
