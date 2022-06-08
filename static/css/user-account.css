@@ -74,14 +74,27 @@
 .recommandations .title {
   font-family: "century gothic" !important;
   background: rgba(84, 171, 0, 0.3);
-  border-bottom: 2px solid #54ab00;
-  padding: 10px; }
+  padding: 10px;
+  position: relative;
+  transition: all .3s ease; }
+  .recommandations .title::before {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    content: '';
+    width: 0;
+    height: 2px;
+    background: #54ab00;
+    transition: all .3s ease; }
   @media screen and (max-width: 768px) {
     .recommandations .title {
-      border-bottom: none;
       padding: 10px; } }
   .recommandations .title a {
     float: right;
     color: #54ab00; }
+.recommandations:hover .title {
+  background: rgba(84, 171, 0, 0.5); }
+.recommandations:hover .title::before {
+  width: 25%; }
 
 /*# sourceMappingURL=user-account.css.map */

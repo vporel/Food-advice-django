@@ -14,6 +14,10 @@ def disconnectUser(session):
 
 def getUser(session):
     if isUserConnected(session):
-        return Contributeur.objects.get(id=session["user_id"])
+        try:
+            return Contributeur.objects.get(id=session["user_id"])
+        except Contributeur.DoesNotExist:
+            disconnectUser(session)
+            return None
     else:
         return None

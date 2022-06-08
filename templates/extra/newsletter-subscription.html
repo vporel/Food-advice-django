@@ -1,7 +1,7 @@
 <!-- 
     Page affichée après que le visiteur ait entré une adresse email et cliqué sur le bouton de souscription à la newsletter
 -->   
-{% bextends "base.html" %}
+{% extends "base.html" %}
 {% block title %}Newsletter | Food-advice{% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
     <p>
         {% if alreadySubscriber == true %}
             L'adresse <strong class='text-primary'>{{email}}</strong> est déjà enregistrée pour la newsletter
-        {% elif %}
+        {% else %}
             Vous avez souscrit avec succès à la newsltter. votre adresse ne sera pas partagée
         {% endif %}
     </p>

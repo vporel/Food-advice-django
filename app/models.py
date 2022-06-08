@@ -2,6 +2,7 @@
     FICHIER DE DEFINITIONS DE TOUTES LES CLASSES UTILISEES DANS LE PROJET
 """
 
+from hashlib import sha1
 from django.db import models
 from django.core.validators import FileExtensionValidator
 
@@ -19,6 +20,9 @@ class Contributeur(models.Model):
     def professionnels():
         return Contributeur.objects.filter(professionnelSante=True)
 
+    @staticmethod
+    def hashPassword(password):
+        return sha1(password.encode("utf-8")).hexdigest()
     """
         Nombre total de messages non lus par le contributeur, toutes les conversations confonfues
     """
@@ -254,15 +258,17 @@ class Conversation(models.Model):
     contributeur = models.ForeignKey(Contributeur, models.CASCADE, related_name="conversationsProfessionnels")
     professionnel = models.ForeignKey(Contributeur, models.CASCADE, related_name="conversationsContributeurs")
     dateDernierMessage = models.DateTimeField(null=True)
+    class Meta:
+        unique_together = ["contributeur", "professionnel"]
 
     """
         Les messages non lus pour le contributeur en paramètre sil est dans la conversation
     """
     def messagesNonLus(self, contributeur):
         if(self.contributeur == contributeur):
-            return self.message_set.objects.filter(lu=False, expediteur=2)
+            return self.message_set.filter(lu=False, expediteur=2)
         elif self.professionnel == contributeur:
-            return self.message_set.objects.filter(lu=False, expediteur=1)
+            return self.message_set.filter(lu=False, expediteur=1)
         else:
             raise Exception("Le contributeur "+contributeur.nomUtilisateur+" ne fait pas partie de cette conversation")
         return None
@@ -293,18 +299,38 @@ class Message(models.Model):
     message = models.TextField()
     lu = models.BooleanField(default=False)
     conversation = models.ForeignKey(Conversation, models.CASCADE)
-    expediteur = models.ForeignKey(Contributeur, models.CASCADE)
+    expediteur = models.IntegerField() # 1 pour le contributeur, 2 pour le professionnel
     date = models.DateTimeField(auto_now=True)
 
-    def __init__(self, conversation, **args):
-        super().__init__(args)
-        self.conversation = conversation
-    
     def objetExpediteur(self):
         if self.expediteur == 1:
             return self.conversation.contributeur
         else:
             return self.conversation.professionnel
+    
+    def __setattr__(self, name:str, value):
+        if name == "expediteur":
+            if value == None:
+                return
+            elif type(value) == int:
+                if value != 1 and value != 2:
+                    raise Exception("Les valeurs entières acceptées pour la propriété expediteur sont 1 (Contributeur) et 2 (professionnel)");
+            elif type(value) == str:
+                value = value.lower()
+                if value == "contributeur":
+                    value = 1
+                elif value == "professionnel": 
+                    value = 2
+                else:
+                    raise Exception("Les chaines acceptées pour la propriété expediteur sont 'contributeur' et 'professionnel'");
+            elif type(value) == Contributeur:
+                if self.conversation.contributeur == value:
+                    value = 1
+                else:
+                    value = 2
+            else:
+                raise Exception("Type de la propriété 'expediteur' non pris en compte");
+        super().__setattr__(name, value)
         
 
 class AdresseNewsletter(models.Model):

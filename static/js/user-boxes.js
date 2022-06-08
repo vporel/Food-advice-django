@@ -55,7 +55,7 @@ function openChat(idConversation, idProfessionnel = 0,name){
     if(idConversation == 0){
         if(idProfessionnel != 0){
             $MESSAGES_CHAT_SCREEN.attr("data-idProfessionnel", idProfessionnel);
-            $.post("/conversation/recherche" ,{idProfessionnel:idProfessionnel}, function(response){
+            $.post("/conversation/recherche/"+idProfessionnel, function(response){
                 response = JSON.parse(response);
                 $MESSAGES_CHAT_SCREEN.attr("data-idConversation", response.idConversation);
                 
@@ -208,7 +208,7 @@ $MESSAGES_BOX.find("#messages-professional-search-result .elements").delegate(".
 });
 
 function sendMessage(idConversation, message){
-    $.post("/conversation/"+idConversation+"/envoie-message", {"message":message}, function(messageCode){
+    $.post("/conversation/"+idConversation+"/envoie-message/", {"message":message}, function(messageCode){
         $MESSAGES_BOX.find("#messages").append(messageCode);
         $MESSAGES_BOX.find("#messages").scrollTop($MESSAGES_BOX.find("#messages").prop("scrollHeight"));
         loadConversations();
@@ -227,7 +227,7 @@ $MESSAGES_BOX.find("#message-send-btn").click(function(){
             if(idProfessionnel == 0 || isNaN(idProfessionnel)){
                 showAlertDialog("Envoie du message", "Une erreur est survenue. Réessayez plus tard");
             }else{
-                $.post("/conversation/nouvelle", {"idProfessionnel":idProfessionnel}, function(response){
+                $.post("/conversation/nouvelle/"+idProfessionnel, function(response){
                     response = JSON.parse(response);
                     $MESSAGES_CHAT_SCREEN.attr("data-idConversation", response.idConversation);
                     sendMessage(response.idConversation, message);
