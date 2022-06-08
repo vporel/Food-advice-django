@@ -60,6 +60,9 @@ a {
 .border-4 {
   border-width: 4px !important; }
 
+/*
+    STYLES DES BOUTONS, FORMULAIRES
+*/
 .btn {
   border-radius: 20px;
   padding: 8px 12px !important;
@@ -91,6 +94,26 @@ a {
   .btn-action:hover, .btn-action:focus {
     background: #54ab00;
     color: white; }
+
+form .asteriskField {
+  color: red; }
+form label {
+  font-size: 15px !important; }
+form .text-muted {
+  position: relative;
+  color: #3b7800 !important;
+  transition: all .2s ease; }
+  form .text-muted:hover {
+    font-size: 14px; }
+  form .text-muted::after {
+    content: "?";
+    background: #54ab00;
+    color: white;
+    font-family: sans-serif;
+    padding: 1px 5px;
+    margin-left: 5px;
+    border-radius: 50%;
+    font-weight: bold; }
 
 #breadcrumb {
   width: 100%;

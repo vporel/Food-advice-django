@@ -1,0 +1,30 @@
+<!-- 
+   recommendation de repas
+-->   
+{% extends 'base.html' %}
+{% block title %}Recommandation aliment recette | Food-advice{% endblock %}
+
+{%block body%}
+    <!-- Contenu de la page ici -->
+<div class="container">
+    <h4 class="title">Aliment dans la recette : {{recette}}</h4>
+    
+    {% if saved %}
+        <div class="alert alert-success">Aliment enregistré avec succès</div>
+    {% endif %} 
+    <form method="post" enctype="multipart/form-data" class="row row-cols-1 row-cols-md-2"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
+        {% csrf_token %}        
+        {{ form|crispy}}
+        <h6 class="text-center pt-2">
+            L'aliment que vous recherchez n'existe pas ? <a class="text-primary" target="_blank" href="{% url 'recommend-aliment' %}">Recommandez-le en cliquant ici</a>
+            <br>
+            Après l'avoir recommandé, rechargez cette page
+        </h6>
+        <div class="mt-2 text-end col-12 col-md-12"><!-- style du boutton "continuer" -->
+            <button type="submit" class="btn btn-primary">Continuer</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,22 @@
+<!-- 
+   recommendation de repas
+-->   
+{% extends 'base.html' %}
+{% block title %}Recommandation recette | Food-advice{% endblock %}
+
+{%block body%}
+    <!-- Contenu de la page ici -->
+<div class="container">
+    <h4 class="title">Recommandation de la recette : {{repas}}</h4>
+    
+    <form method="post" enctype="multipart/form-data" class="row row-cols-1 row-cols-md-2"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
+        {% csrf_token %}        
+        {{ form|crispy}}
+        <div class="mt-2 text-end col-12 col-md-12"><!-- style du boutton "continuer" -->
+            <button type="submit" class="btn btn-primary">Continuer</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+

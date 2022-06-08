@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views, views_foods, views_aliments, views_restaurants, views_account, views_extra, views_conversations
+from . import views, views_foods, views_aliments, views_restaurants, views_account, views_extra, views_conversations, views_recommendations
 
 urlpatterns = [
     #Route page d'accueil
@@ -52,6 +52,15 @@ urlpatterns = [
         path("<int:id>/commenter", views_restaurants.addComment, name="restaurant-add-comment"),
         path("<int:id>/commentaires", views_restaurants.getComments, name="restaurant-comments"),
         path("filtre", views_restaurants.filter, name="restaurants-filter")
+    ])),
+    path("recommender/", include([
+        path("", views_recommendations.index, name="recommend"),
+        path("regles/", views_recommendations.rules, name="recommend-rules"), # Page  des regles de recommandations
+        path("repas/", views_recommendations.recommendFood, name="recommend-food"), # PAge de recommandation d'un repas
+        path("repas/<int:id>/recette", views_recommendations.recommendFoodRecipe, name="recommend-food-recipe"), # PAge de recommandation de la recette d'un repas
+        path("repas/<int:id>/recette/aliment", views_recommendations.recommendFoodRecipeAliment, name="recommend-food-recipe-aliment"), # PAge de recommandation de la recette d'un repas
+        path("restaurant/", views_recommendations.recommendRestaurant, name="recommend-restaurant"), # PAge de recommandation d'un restaurant
+        path("aliment/", views_recommendations.recommendAliment, name="recommend-aliment"), # PAge de recommandation d'un restaurant
     ])),
     path("help/", views_extra.help, name="help",), # Page d'aide
     path("souscription-newsletter/",  views_extra.subscribeToNewsletter, name="subscribe-to-newsletter") #Page d'abonnement à la newsletter

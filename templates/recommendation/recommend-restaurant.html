@@ -1,18 +1,20 @@
 <!-- 
    recommendation de restaurant
 -->   
-{% block title %}Recommendation restaurant | Food-advice {% endblock %}
+{% extends 'base.html' %}
+{% block title %}Recommandation restaurant | Food-advice {% endblock %}
 
 {%block body%}
     <!-- Contenu de la page ici -->
 <div class="container">
     <h4 class="title">Recommandation d'un restaurant</h4>
-    {% if message != "" %}
-        <div class="alert alert-warning">{{ message; }}</div>
-    {% endif %}
-    <form method="post" enctype="multipart/form-data"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
-        <?php echo form->createHTML(); //création du formulaire de façon automatique avec un framework?>
-        <div class="mt-2 text-end"><!-- style du boutton "continuer" -->
+    {% if saved %}
+        <div class="alert alert-success">Restaurant enregistré avec succès</div>
+    {% endif %} 
+    <form method="post" enctype="multipart/form-data" class="row row-cols-1 row-cols-md-2"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
+        {% csrf_token %}        
+        {{ form|crispy}}
+        <div class="mt-2 text-end col-12 col-md-12"><!-- style du boutton "continuer" -->
             <button type="submit" class="btn btn-primary">Continuer</button>
         </div>
     </form>

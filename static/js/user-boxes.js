@@ -128,7 +128,7 @@ function openMessagesBox(){
  * Clic sur une conversation
  */
 $MESSAGES_BOX.delegate(".conversation", "click",function(){
-    openChat($(this).attr("data-id"), $(this).attr("data-nom"));
+    openChat($(this).attr("data-id"), 0, $(this).attr("data-nom"));
 });
 
 

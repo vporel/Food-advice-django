@@ -21,18 +21,18 @@
         <div class="col-12 col-md-5">
             <img src="/{{ repas.image }}" alt="" id="food-image">
         </div>
-        <div class="col-12 col-md-7 text-center text-md-start" id="details">
-            <div id="description">
+        <div class="col-12 col-md-7" id="details">
+            <div id="description" class="text-start">
                 {{ repas.description }}
             </div>
             <hr>
-            <div>
+            <div class="text-center text-md-start">
                 <span class="label">Origine : </span>
                 <span class="value">{% if repas.origine is not null %}{{ repas.origine }} {%else%}Non renseignée{% endif%}</span>
             </div>
-            <div>
+            <div class="text-center text-md-start">
                 <span class="label">Moment de la journée : </span>
-                <span class="value">{% if repas.momentJournee is not null %}{{ repas.momentJourneeText }} {%else%}Non renseigné{% endif%}</span>
+                <span class="value">{% if repas.momentJournee is not null %}{{ repas.get_momentJournee_display }} {%else%}Non renseigné{% endif%}</span>
             </div>
             {% if repas.contributeur is not null %}
                 <div>
@@ -40,9 +40,8 @@
                     <span class="value">{{ repas.contributeur }}</span>
                 </div>
             {% endif %}
-            {{repas.recette}}
             {% if repas.recette is not null %}
-                <div id="composition" class="mt-3 text-center text-md-start"  data-aos="zoom-out" >
+                <div id="composition" class="mt-3 text-start"  data-aos="fade-up" >
                     <h5 class="">Composition</h5>
                     {% if repas.recette.aliments.count > 0 %}
                         <div>
@@ -153,10 +152,10 @@
             <span><strong id="notesCount">{{ repas.nombreNotes }}</strong> personne{% if repas.nombreNotes > 1 %}s ont{% else %}a{% endif %} noté</span><br>
             <div id="user-note">
                 {% call_method repas 'getNoteContributeur' appUser as note %}
-                {%if appUser is not null or note == 0 %}
+                {%if appUser is null or note == 0 %}
                     <button class="btn btn-primary btn-noter">Noter</button>
                 {% else %}
-                    <span>Vous avez donné une note de <strong>{% call_method repas 'getNoteContributeur' appUser %}. <a class="btn-noter text-primary">Changer</a></strong></span>
+                    <span>Vous avez donné une note de <strong>{{ note }}. <a class="btn-noter text-primary">Changer</a></strong></span>
                 {% endif %}
             </div>
         </div>

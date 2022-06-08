@@ -1,21 +1,20 @@
 <!-- 
    recommendation des aliments
 -->   
-{% block title %}Recommendation aliments | Food-advice {% endblock %}
+{% extends 'base.html' %}
+{% block title %}Recommandation aliments | Food-advice {% endblock %}
 
 {%block body%}
     <!-- Contenu de la page ici -->
 <div class="container">
       
     <h4 class="title">Recommandation d'un aliment</h4>
-    {% if message != "" %}
-        <div class="alert alert-warning">{{ $message; }}</div>
+    {% if saved %}
+        <div class="alert alert-success">Aliment enregistré avec succès</div>
     {% endif %} 
-    <?php if app->existFlash("aliment-saved")){ ?>
-        <div class="alert alert-success">{{ $app->getFlash("aliment-saved"); }}</div>
-    {% endif %}
     <form method="post" enctype="multipart/form-data" class="row row-cols-1 row-cols-md-2"><!-- enctype : permet au formulaire gerer l'envoie de fichiers -->
-        <?php echo $form->createHTML(); //création du formulaire de façon automatique avec un framework?>
+        {% csrf_token %}
+        {{ form|crispy }}
         <div class="mt-2 text-end col-12 col-md-12"><!-- style du boutton "continuer" -->
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>

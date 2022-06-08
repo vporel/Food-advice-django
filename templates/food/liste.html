@@ -4,11 +4,6 @@
 {% extends 'base.html' %}
 {% block title %}Accueil | Food-advice{% endblock %}
 
-{% block styles %}
-    <!-- Inclusions css ici -->  
-    {% css "css/repas-liste.css" %}
-
-{% endblock %}
 
 {% block body %}
 <!-- Contenu de la page ici -->
@@ -38,15 +33,15 @@
             <label>Pays origine</label> 
             <select id="filtre-pays-origine" class="form-select">
                 <option value="">Peu importe</option>
-                {% for origineRepas in originesRepas %}
-                    <option value="{{ origineRepas.pays }}">{{ origineRepas.pays }}</option>
+                {% for paysOrigine in paysOrigines %}
+                    <option value="{{ paysOrigine }}">{{ paysOrigine }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="col-12 col-md-3">
             <label>Region origine</label> 
             <select id="filtre-region-origine" class="form-select">
-                <option "">Choisissez un pays</option>
+                <option value="">Choisissez un pays</option>
                 {% for origineRepas in originesRepas %}
                     <option value="{{ origineRepas.region }}" data-pays="{{ origineRepas.pays }}" hidden>{{ origineRepas.region }}</option>
                 {% endfor %}
@@ -74,8 +69,8 @@
             $('#list #repass').html("");
             $.post("/repas/filtre", {
                 nom:$("#filtre-nom").val().trim(),
-                composition:$("#filtre-composition").val()
-                paysOrigine:$("#filtre-pays-origine").val()
+                composition:$("#filtre-composition").val(),
+                paysOrigine:$("#filtre-pays-origine").val(),
                 regionOrigine:$("#filtre-region-origine").val()
             }, function(response){
                 $('#list #repass').html(response);
@@ -95,6 +90,9 @@
             $("#filtre-region-origine option[data-pays='"+pays+"'").each(function(){
                 $(this).removeAttr("hidden");
             });
+            if(pays == ""){
+                $("#filtre-region-origine").val("");
+            }
         });
     </script>
 

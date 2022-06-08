@@ -10,13 +10,13 @@
     <h2 class="title">
         Souscription à la newsletter
     </h2>
-    <p>
-        {% if alreadySubscriber == true %}
+    <div class="alert alert-success">
+        {% if alreadySubscriber %}
             L'adresse <strong class='text-primary'>{{email}}</strong> est déjà enregistrée pour la newsletter
         {% else %}
             Vous avez souscrit avec succès à la newsltter. votre adresse ne sera pas partagée
         {% endif %}
-    </p>
+    </div>
     <h5 class="">
         Quelles informations allez-vous recevoir ?
     </h5>

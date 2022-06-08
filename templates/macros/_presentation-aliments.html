@@ -1,5 +1,5 @@
 <a href="{% url "show-aliment" aliment.id %}" class="col-4 col-md-3 aliment aliment-little-presentation text-center" data-aos="zoom-in">
-    {% if aliment.approuve is true %}
+    {% if aliment.approuve != True %}
         <span class="badge-non-approuve">Non approuvé</span>
     {% endif %}
     <div class="image-div">
@@ -9,15 +9,15 @@
     <div class="composition">
         <div>
             <span class="label">Lipides : </span>
-            <span class="value">{{ aliment.tauxLipides }}</span>
+            <span class="value">{{ aliment.tauxLipides }} %</span>
         </div>
         <div>
             <span class="label">Glucides : </span>
-            <span class="value">{{ aliment.tauxGlucides }}</span>
+            <span class="value">{{ aliment.tauxGlucides }} %</span>
         </div>
         <div>
             <span class="label">Proteines : </span>
-            <span class="value">{{ aliment.tauxProteines }}</span>
+            <span class="value">{{ aliment.tauxProteines }} %</span>
         </div>
         <div>
             <span class="label">Calories : </span>
