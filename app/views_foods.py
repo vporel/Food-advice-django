@@ -44,9 +44,9 @@ def rate(request, id, rating):
         "moyenneNotes": repas.moyenneNotes()
     }))
 
-@csrf_exempt
-def addComment():
-    pass
+@csrf_exempt#pour appeler la méthode en ajax
+def addComment(request, id):
+    pass   
 @csrf_exempt
 def getComments():
     pass
