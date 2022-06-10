@@ -1,4 +1,5 @@
 
+from datetime import date
 from django import forms
 from django.shortcuts import redirect, render
 from app.models import Contributeur
@@ -13,23 +14,27 @@ class LoginForm(forms.Form):
     motDePasse = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
     
 class SigninForm(forms.ModelForm):
-    email = forms.EmailField()
+    confirmerMotDePasse = forms.CharField(label="Confirmer le mot de passe", widget=forms.PasswordInput)
     class Meta:
         model=Contributeur
-        fields = ["nom", "nomUtilisateur", "professionnelSante","motDePasse"]
+        fields = ["nom", "nomUtilisateur", "dateNaissance", "sexe", "email", "professionnelSante", "motDePasse", "confirmerMotDePasse"]
         widgets = {
             "motDePasse": forms.PasswordInput,
-        },
+            "email":forms.EmailInput,
+            "dateNaissance":forms.DateInput(attrs={'type':'date'})
+        }
         error_messages = {
             "nomUtilisateur":{
                 "unique":"Un autre contributeur a déjà ce nom d'utilisateur"
             }
         }
-    confirmerMotDePasse = forms.CharField(label="Confirmer le mot de passe", widget=forms.PasswordInput)
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data["confirmerMotDePasse"] != cleaned_data["motDePasse"]:
             self.add_error("confirmerMotDePasse", "Les mots de passe ne sont pas identiques")
+        print(cleaned_data["dateNaissance"].year)
+        if (date.today() - cleaned_data["dateNaissance"]).days < 0:
+            self.add_error("dateNaissance", "Entrez une date avant l'instant présent")
 
 # Create your views here.
 

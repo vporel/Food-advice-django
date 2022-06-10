@@ -90,11 +90,11 @@
                     {% endif %}
                 </h6>
                 
-                {% if user.restaurant_set > 0 %}
+                {% if user.restaurant_set.count > 0 %}
                     <div class="row">
                         {% for restaurant in user.restaurant_set.all %}
-                            {% if appUser == user and restaurant.approuve %}
-                                {% include "macros/_food-little-presentation.php" with restaurant=restaurant %}
+                            {% if appUser == user or restaurant.approuve == True %}
+                                {% include "macros/_Restaurant-presentation.html" with restaurant=restaurant %}
                             {% endif %}
                         {% endfor %}
                     </div>

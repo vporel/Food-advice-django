@@ -47,7 +47,7 @@
          */
 
         const USER_CONNECTED = ("{%if appUser is null %}0{%else%}1{%endif%}" == "1") ? true : false;
-        const ON_MOBILE = window.innerWidth < 768;
+        function ON_MOBILE(){ return window.innerWidth < 768; }
         
 	</script>
 

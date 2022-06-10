@@ -18,8 +18,9 @@ urlpatterns = [
     ])),
 
     #Routes pour les conversations
-    path("conversations/", views_conversations.conversations, name="conversations"), 
-    path("nbre-messages-non-lus/", views_conversations.unreadMessagesCount, name="unread-messages-count"),
+    path("conversations", views_conversations.conversations, name="conversations"), 
+    path("nbre-messages-non-lus", views_conversations.unreadMessagesCount, name="unread-messages-count"),
+    path("chat", views_conversations.chat, name="chat"),
     path("conversation/", include([
         path("recherche/<int:idProfessionnel>", views_conversations.search, name="search-conversation"),
         path("nouvelle/<int:idProfessionnel>", views_conversations.new, name="new-conversation"),

@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %}</title>
+    {% css 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}
+	{% css 'node_modules/aos/dist/aos.css' %}
+	{% css 'node_modules/@fortawesome/fontawesome-free/css/all.min.css' %}
+	{% css 'css/chat.css' %}
+	{% js 'node_modules/jquery/dist/jquery.min.js' %}
+</head>
+<body>
+    <div class="popup-window" id="messages-window">
+        <div class="popup-window-topbar">
+            <div class="popup-window-topbar-left">
+                <i class="fas fa-arrow-left popup-window-btn-back icon"></i> 
+                <h6 class="popup-window-title">Messages</h6>  
+            </div>
+            <div class="popup-window-topbar-right">  
+                <i class="fas fa-times popup-window-btn-close icon"></i>  
+            </div>
+        </div>
+        <div class="popup-window-content">
+            <div class="popup-window-screen popup-window-first-screen"id="messages-home-screen">
+                <div id="messages-conversations">
+                        <!-- Liste des conversations -->
+                </div>
+                <div id="messages-professional-search">
+                    <div id="messages-professional-search-result">
+                        <div class="elements">
+                            <!-- 
+                                Résutat de la recherche des professionnels
+                            -->
+                        </div>
+                    </div>
+                    <form class="h-100 w-100">
+                        <input type="text" class="h-100" placeholder="Chercher un professionnel"/>
+                        <button class="btn" type="button"><i class="fas fa-times icon"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="popup-window-screen popup-window-second-screen" id="messages-chat-screen">
+                <div id="messages">
+                    <div id="select-conversation">
+                        {% include "components/_loading.html" %}
+                        Sélectionnez une conversation
+                    </div>
+                </div>
+                <form>
+                    <textarea id="message-text"placeholder="Votre message ici"></textarea>
+                    <button type="button"class="btn btn-primary" id="message-send-btn"><i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% js 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}
+    {% js 'node_modules/aos/dist/aos.js' %}
+    {% js 'node_modules/@fortawesome/fontawesome-free/js/all.min.js' %}
+    {% js 'js/PopupWindow.class.js' %}
+    {% js 'js/chat.js' %}
+    <script type="text/javascript">
+        /**
+         * Définitions des constantes qui peuevent être utilisées par tous les autres scripts
+         */
+
+        const USER_CONNECTED = ("{%if appUser is null %}0{%else%}1{%endif%}" == "1") ? true : false;
+        fucntion ON_MOBILE(){ return window.innerWidth < 768;}
+        
+	</script>
+
+	<script async type="text/javascript">
+		AOS.init({
+			anchorPlacement:"top-center",
+            once: true,
+		});
+	</script>
+</body>
+</html>

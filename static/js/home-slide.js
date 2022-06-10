@@ -1,10 +1,10 @@
 var currentSlideIndex = 0; //Repésente l'indice du slide courant
 var $slides = $('#slide .slide-element'); // Stocke les slides dans un objet
 var delay = 7000; // Taille d'apparition d'une image
-var shownImageRight = ON_MOBILE ? "" : "20%", //MArge à droite pour l'image lorsqu'elle est affichée
-    hiddenImageRight = ON_MOBILE ? "-100%" : "-30%"; // ..................
-var shownTextLeft = ON_MOBILE ? "0" : "15%", //MArge à gauche pour le texte lorsqu'il est affiché
-    hiddenTextLeft = ON_MOBILE ? "-100%" : "-30%"; //...............
+function shownImageRight(){ return ON_MOBILE() ? "" : "20%";} //MArge à droite pour l'image lorsqu'elle est affichée
+function hiddenImageRight(){return  ON_MOBILE() ? "-100%" : "-30%";} // ..................
+function shownTextLeft(){return  ON_MOBILE() ? "0" : "15%";} //MArge à gauche pour le texte lorsqu'il est affiché
+function hiddenTextLeft(){return  ON_MOBILE() ? "-100%" : "-30%";} //...............
 var animationSpeed = 1000;// Durée de l'animation 
 var timer;
 
@@ -17,10 +17,10 @@ var timer;
 function showSlide($slide, callback = null){
    
     $slide.find("img").animate({
-        right:shownImageRight,
+        right:shownImageRight(),
     }, animationSpeed);
     $slide.find(".slide-element-text").animate({
-        left:shownTextLeft// Affiche l'image
+        left:shownTextLeft()// Affiche l'image
     }, animationSpeed);
     $slide.find(".slide-element-text h4").animate(
         {step:4},
@@ -77,11 +77,11 @@ function showSlide($slide, callback = null){
  */
  function hideSlide($slide, callback = null){
     $slide.find("img").animate({
-        right:hiddenImageRight // Masque l'image
+        right:hiddenImageRight() // Masque l'image
     }, animationSpeed);
 
     $slide.find(".slide-element-text").animate({
-        left:hiddenTextLeft// Masque l'image
+        left:hiddenTextLeft()// Masque l'image
     }, animationSpeed);
     $slide.find(".slide-element-text h4").animate(
         {step:7},
@@ -135,8 +135,8 @@ function changeSlide(targetIndex = null){
  function init(){
     $slides.each(function(){
         $(this).hide(-1);
-        $(this).find("img").css("right", hiddenImageRight);
-        $(this).find(".slide-element-text").css("left", hiddenTextLeft);
+        $(this).find("img").css("right", hiddenImageRight());
+        $(this).find(".slide-element-text").css("left", hiddenTextLeft());
     });
     showSlide($slides.eq(currentSlideIndex));
     timer = setInterval(changeSlide, delay); //Appel du slideshow après le delay

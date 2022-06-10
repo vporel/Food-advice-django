@@ -9,6 +9,9 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 
 
+def chat(request):
+    return render(request, template_name="chat.html")
+
 @csrf_exempt
 def sendMessage(request, id):
     conversation = Conversation.objects.get(pk=id)

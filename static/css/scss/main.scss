@@ -1,11 +1,36 @@
 
 @import "./utils/variables";
-@import "./general";
+@import "./components/others";
 @import "./layouts/header";
 @import "./layouts/footer";
+@import "./components/buttons";
+@import "./components/forms";
 @import "./components/presentations";
 @import "./components/dialog-boxes";
 @import "./components/user-boxes";
 @import "./components/loading";
 @import "./components/loads";
 @import "./components/extra";
+
+
+body {
+    font-size: 13px;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width:100%!important;
+    font-family: $global-font;
+}
+
+.title {
+  font-family: $title-font;
+  font-weight:bold;
+  color:black;
+}
+
+
+#content{
+  padding-top:10px;
+  padding-bottom:10px;
+}
