@@ -32,9 +32,27 @@ class SigninForm(forms.ModelForm):
         cleaned_data = super().clean()
         if cleaned_data["confirmerMotDePasse"] != cleaned_data["motDePasse"]:
             self.add_error("confirmerMotDePasse", "Les mots de passe ne sont pas identiques")
-        print(cleaned_data["dateNaissance"].year)
-        if (date.today() - cleaned_data["dateNaissance"]).days < 0:
+        if cleaned_data["dateNaissance"] != None and (date.today() - cleaned_data["dateNaissance"]).days < 0:
             self.add_error("dateNaissance", "Entrez une date avant l'instant présent")
+
+class UpdateDataForm(forms.ModelForm):
+    class Meta:
+        model=Contributeur
+        fields = ["nom", "nomUtilisateur", "dateNaissance", "sexe", "email", "professionnelSante"]
+        widgets = {
+            "email":forms.EmailInput,
+            "dateNaissance":forms.DateInput(attrs={'type':'date'})
+        }
+        error_messages = {
+            "nomUtilisateur":{
+                "unique":"Un autre contributeur a déjà ce nom d'utilisateur"
+            }
+        }
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data["dateNaissance"] != None and (date.today() - cleaned_data["dateNaissance"]).days < 0:
+            self.add_error("dateNaissance", "Entrez une date avant l'instant présent")
+
 
 # Create your views here.
 
@@ -68,7 +86,6 @@ def login(request):
                         form.add_error("motDePasse", "Mot de passe incorrect")
                 except Contributeur.DoesNotExist:
                     form.add_error("nomUtilisateur", "Utilisateur non reconnu")
-                    print("ssdqsdqsdqsd")
         return render(request, template_name="account/login.html", context={"form":form})
     else:
         return redirect("myaccount")
@@ -76,7 +93,8 @@ def login(request):
 def logout(request):
     disconnectUser(request.session)
     return redirect("login")
-    
+
+
 
 def signin(request):
     if isUserConnected(request.session):
@@ -93,6 +111,19 @@ def signin(request):
             connectUser(request.session, contributeur.id)
             return redirect("myaccount")
     return render(request, template_name="account/signin.html", context={"form":form, "msg":msg})
+
+def updateData(request):
+    contributeur = getUser(request.session)
+    form = UpdateDataForm(instance=contributeur)
+    msg = ""
+    if request.method == "POST":
+        form = UpdateDataForm(request.POST, instance=contributeur)
+        if form.is_valid():
+            contributeur = form.save(commit=False)
+            contributeur.save()
+    return render(request, template_name="account/update-user-data.html", context={"form":form, "msg":msg})
+
+    
 
 def professionalsList(request):
     nom = request_get(request, "nom")

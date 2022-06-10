@@ -303,7 +303,7 @@ class RepasConsomme(models.Model):
     contributeur = models.ForeignKey(Contributeur, models.CASCADE)
 
     class Meta:
-        unique_together=["date", "momentJournee", "repas", "contributeur"]
+        unique_together=[["date", "momentJournee", "contributeur"]]
 
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)

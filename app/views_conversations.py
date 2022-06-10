@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def chat(request):
-    return render(request, template_name="chat.html")
+    return render(request, template_name="popup-windows/chat.html")
 
 @csrf_exempt
 def sendMessage(request, id):

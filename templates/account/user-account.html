@@ -23,7 +23,7 @@
                 {% if user.professionnelSante %}
                     <span class="badge mt-2" id="badge-professionnel">Professionnel de la santé</span>
                     {% if appUser != user %}
-                        <button class="btn btn-action mt-2" onclick="openChat(0, {{ user.id }},'{{ user.nom }}')">Envoyer un message</button>
+                        <button class="btn btn-action mt-2" onclick="openChatBox(0, {{ user.id }},'{{ user.nom }}')">Envoyer un message</button>
                     
                     {% endif %}
                 {% endif %}
@@ -31,7 +31,8 @@
             {% if appUser == user %}
                 <hr>
                 <nav id="menu">
-                    <a id="show-messages-btn" onclick="openMessagesBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
+                    <a href="{% url 'update-user-data' %}"><i class="fas fa-edit"></i> Modifier mes informations </a>
+                    <a id="show-messages-btn" onclick="openChatBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
                     <a id="show-alimentation-tracking-btn" onclick="openAlimentationTrackingBox()"><i class="fas fa-bowl-food"></i> Suivre mon alimentation</a>
                 </nav>
             {% endif %}

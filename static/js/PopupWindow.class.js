@@ -18,10 +18,10 @@ class PopupWindow{
      */
     init(){
         let self = this;
-        this.$box.find(".user-box-btn-back").hide(-1); // On début on masque le bouton back
-        this.$box.delegate(".user-box-btn-close", "click", () => this.close()); // On début on masque le bouton back
+        this.$box.find(".popup-window-btn-back").hide(-1); // On début on masque le bouton back
+        this.$box.delegate(".popup-window-btn-close", "click", () => this.close()); // On début on masque le bouton back
         
-        this.$box.delegate(".user-box-btn-back", "click",function(){
+        this.$box.delegate(".popup-window-btn-back", "click",function(){
             if(self.onBack != null)
                 self.onBack()
         });
@@ -32,11 +32,9 @@ class PopupWindow{
      */
     close(){
         if(this.opened){
-            this.$box.slideUp(300);
-            this.opened = false;
-            UserBox.boxClosed(this);
-            if(this.onClose != null)
-                this.onClose()
+            if(this.onBeforeClose != null)
+                this.onBeforeClose()
+            window.close()
         }
     }
 
@@ -46,8 +44,8 @@ class PopupWindow{
     setOnBack(onBack){
         this.onBack = onBack;
     }
-    setOnClose(onClose){
-        this.onClose = onClose;
+    setOnBeforeClose(onBeforeClose){
+        this.onBeforeClose = onBeforeClose;
     }
     
 

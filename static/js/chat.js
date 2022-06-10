@@ -6,6 +6,9 @@ let $MESSAGES_CHAT_SCREEN = $("#messages-window #messages-chat-screen");
  * Creation de l'objet PopupWindow qui gère la boite des messages
  */
 let messagesWindow = new PopupWindow($BOX);
+messagesWindow.setOnBeforeClose(() => {
+    closeChat();
+})
 
 let loadMessagesTimer = null;
 
@@ -93,6 +96,7 @@ function loadConversations(){
  * Masque le bouton back à l'initialisation
  */
  $BOX.find(".popup-window-btn-back").hide(-1);
+ $BOX.delegate(".popup-window-btn-back", "click", closeChat);
 /**
  * Clic sur une conversation
  */
@@ -127,10 +131,6 @@ $BOX.delegate(".conversation .show-more-options", "click",function(e){
     }
 });
 
-/**
- * Définition de l'action lorsqu'on clique sur le bouton back
- */
-messagesWindow.setOnBack(closeChat);
 
 function closeMessagesProfessionalSearch(){
     $BOX.find("#messages-professional-search-result .elements").html("");

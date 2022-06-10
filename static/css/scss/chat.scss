@@ -7,22 +7,20 @@
 @import "./components/loading";
 @import "./components/loads";
 
-
-body {
-    font-size: 13px;
-    color: $text-color;
-    margin: 0;
-    padding: 0;
-    width:100%!important;
-    font-family: $global-font;
-}
-
 .loading{
   display:block;
 }
 
 #messages-window{
   #messages-home-screen{
+      #user-infos{
+        background:rgb(220,220,220);
+          height:80px;
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+      }
       
       #messages-conversations{
           flex-grow: 1;
@@ -83,7 +81,7 @@ body {
 
   }
   #messages-chat-screen{
-      #select-conversation{
+      #select-conversation-loading{
         display:flex;
         flex-direction: column;
         width:100%;

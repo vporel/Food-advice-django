@@ -1,3 +1,12 @@
+body {
+    font-size: 13px;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
+    width:100%!important;
+    font-family: $global-font;
+}
+
 .popup-window{
     position:fixed;
     width:100%;
@@ -54,7 +63,7 @@
         display:flex;
         flex-direction: column;
         height:100%;
-        width:30%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
+        width:35%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
         border-right:1px solid rgba(black, .2);
         transition: all .3s ease;
         @media #{$mobile}{
@@ -67,7 +76,7 @@
     .popup-window-screen.popup-window-second-screen{
         transition: all .3s ease;
         z-index:1;
-        width:70%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
+        width:65%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
         display:flex;
         flex-direction: column;
         
@@ -75,5 +84,28 @@
             left:100%;
             z-index:5;
         }
+    }
+}
+#opener-loading{
+    background:white;
+    position:fixed;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:50;
+    font-size:30px;
+    animation:disappear 2.5s forwards;
+}
+@keyframes disappear {
+    from{
+        opacity:1;visibility: visible;
+    }
+    to{
+        opacity:0;visibility: hidden;
     }
 }
