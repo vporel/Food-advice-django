@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views, views_foods, views_aliments, views_restaurants, views_account, views_extra, views_conversations, views_recommendations
+from . import views, views_alimentation_tracking, views_foods, views_aliments, views_restaurants, views_account, views_extra, views_conversations, views_recommendations
 
 urlpatterns = [
     #Route page d'accueil
@@ -15,11 +15,19 @@ urlpatterns = [
         path("connexion/", views_account.login, name="login"), #Page de connexion
         path("inscription/", views_account.signin, name="signin"), # Page d'enregistrement
         path("deconnexion/", views_account.logout, name="logout"), 
+        path("modifier-informations", views_account.updateData, name="update-user-data"), 
+    ])),
+    path("suivre-alimentation/", include([
+        path("", views_alimentation_tracking.index, name="alimentation-tracking"),
+        path("repas-consommes", views_alimentation_tracking.consumedFoodsList, name="consumed-foods-list"),
+        path("ajouter-repas-consomme/<int:idRepas>", views_alimentation_tracking.addConsumedFood, name="add-consumed-food"),
+        path("recommandations", views_alimentation_tracking.getRecommendations, name="get-recommendations")
     ])),
 
     #Routes pour les conversations
-    path("conversations/", views_conversations.conversations, name="conversations"), 
-    path("nbre-messages-non-lus/", views_conversations.unreadMessagesCount, name="unread-messages-count"),
+    path("conversations", views_conversations.conversations, name="conversations"), 
+    path("nbre-messages-non-lus", views_conversations.unreadMessagesCount, name="unread-messages-count"),
+    path("chat", views_conversations.chat, name="chat"),
     path("conversation/", include([
         path("recherche/<int:idProfessionnel>", views_conversations.search, name="search-conversation"),
         path("nouvelle/<int:idProfessionnel>", views_conversations.new, name="new-conversation"),

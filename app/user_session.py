@@ -12,7 +12,7 @@ def connectUser(session, id):
 def disconnectUser(session):
     session.__delitem__("user_id")
 
-def getUser(session):
+def getUser(session) -> Contributeur:
     if isUserConnected(session):
         try:
             return Contributeur.objects.get(id=session["user_id"])

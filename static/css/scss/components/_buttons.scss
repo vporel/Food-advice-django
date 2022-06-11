@@ -1,0 +1,42 @@
+/*
+    STYLES DES BOUTONS, FORMULAIRES
+*/
+
+.btn{
+    border-radius:20px;
+    padding:8px 12px!important;
+    border:none;
+    .icon, span{
+        display:inline-block;
+    }
+    span{
+        margin-left:5px;
+    }
+}
+.btn-primary{
+    background:$primary-color;
+    &:hover, &:focus{
+        background:darken($primary-color, 5%);
+    }
+}
+.btn-secondary{
+    background:$secondary-color;
+    text-shadow: 0.5px 0.5px 0.5px black;
+    &:hover, &:focus{
+        background:darken($secondary-color, 5%);
+    }
+}
+.btn-secondary-dark{
+    background:darken($secondary-color, 15%);
+    &:hover, &:focus{
+        background:darken($secondary-color, 10%);
+    }
+}
+.btn-action{
+    background:$text-color;
+    color:white;
+    &:hover, &:focus{
+        background:$primary-color;
+        color:white;
+    }
+}

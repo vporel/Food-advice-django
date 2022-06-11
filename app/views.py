@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
 from app.models import Aliment, Repas, Restaurant
@@ -6,7 +7,7 @@ from app.user_session import isUserConnected
 """
     Retourne le paramètre 'key' de la requete en cherchant dans POST et GET
 """
-def request_get(request, key):
+def request_get(request:HttpRequest, key:str):
     return  request.POST.get(key) if request.method == "POST" else request.GET.get(key)
 
 
@@ -22,3 +23,4 @@ def index(request):
         "aliments":aliments,
         "restaurants":restaurants
     })
+ 

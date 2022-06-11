@@ -34,6 +34,21 @@
   font-weight: normal bold;
   font-display: block;
   src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+/**
+    AUTRES STYLES
+*/
+.c-black {
+  color: black; }
+
+strong {
+  font-family: "century gothic Bold"; }
+
+.icon {
+  cursor: pointer;
+  transition: all .2s ease; }
+  .icon:hover {
+    color: #54ab00; }
+
 a {
   text-decoration: none;
   color: inherit;
@@ -59,114 +74,6 @@ a {
 
 .border-4 {
   border-width: 4px !important; }
-
-/*
-    STYLES DES BOUTONS, FORMULAIRES
-*/
-.btn {
-  border-radius: 20px;
-  padding: 8px 12px !important;
-  border: none; }
-  .btn .icon, .btn span {
-    display: inline-block; }
-  .btn span {
-    margin-left: 5px; }
-
-.btn-primary {
-  background: #54ab00; }
-  .btn-primary:hover, .btn-primary:focus {
-    background: #479200; }
-
-.btn-secondary {
-  background: yellow;
-  text-shadow: 0.5px 0.5px 0.5px black; }
-  .btn-secondary:hover, .btn-secondary:focus {
-    background: #e6e600; }
-
-.btn-secondary-dark {
-  background: #b3b300; }
-  .btn-secondary-dark:hover, .btn-secondary-dark:focus {
-    background: #cccc00; }
-
-.btn-action {
-  background: #505050;
-  color: white; }
-  .btn-action:hover, .btn-action:focus {
-    background: #54ab00;
-    color: white; }
-
-form .asteriskField {
-  color: red; }
-form label {
-  font-size: 15px !important; }
-form .text-muted {
-  position: relative;
-  color: #3b7800 !important;
-  transition: all .2s ease; }
-  form .text-muted:hover {
-    font-size: 14px; }
-  form .text-muted::after {
-    content: "?";
-    background: #54ab00;
-    color: white;
-    font-family: sans-serif;
-    padding: 1px 5px;
-    margin-left: 5px;
-    border-radius: 50%;
-    font-weight: bold; }
-
-#breadcrumb {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center; }
-  #breadcrumb .breadcrumb-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto; }
-  @media screen and (max-width: 768px) {
-    #breadcrumb .breadcrumb-right {
-      width: 100%;
-      justify-content: center;
-      border-top: 1px solid lightgray; } }
-  #breadcrumb a {
-    font-weight: bold;
-    display: inline-block;
-    padding: 7px 5px;
-    color: #b4b4b4; }
-    #breadcrumb a:hover, #breadcrumb a.active {
-      color: inherit !important; }
-
-body {
-  font-size: 13px;
-  color: #505050;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  width: 100% !important;
-  font-family: "century gothic"; }
-
-.title {
-  font-family: "mayeka";
-  font-weight: bold;
-  color: black; }
-
-.c-black {
-  color: black; }
-
-strong {
-  font-family: "century gothic Bold"; }
-
-#content {
-  padding-top: 10px;
-  padding-bottom: 10px; }
-
-.icon {
-  cursor: pointer;
-  transition: all .2s ease; }
-  .icon:hover {
-    color: #54ab00; }
 
 header {
   padding: 0 !important; }
@@ -398,6 +305,61 @@ footer {
         justify-content: center; }
         footer .logo img {
           width: 50px; } }
+
+/*
+    STYLES DES BOUTONS, FORMULAIRES
+*/
+.btn {
+  border-radius: 20px;
+  padding: 8px 12px !important;
+  border: none; }
+  .btn .icon, .btn span {
+    display: inline-block; }
+  .btn span {
+    margin-left: 5px; }
+
+.btn-primary {
+  background: #54ab00; }
+  .btn-primary:hover, .btn-primary:focus {
+    background: #479200; }
+
+.btn-secondary {
+  background: yellow;
+  text-shadow: 0.5px 0.5px 0.5px black; }
+  .btn-secondary:hover, .btn-secondary:focus {
+    background: #e6e600; }
+
+.btn-secondary-dark {
+  background: #b3b300; }
+  .btn-secondary-dark:hover, .btn-secondary-dark:focus {
+    background: #cccc00; }
+
+.btn-action {
+  background: #505050;
+  color: white; }
+  .btn-action:hover, .btn-action:focus {
+    background: #54ab00;
+    color: white; }
+
+form .asteriskField {
+  color: red; }
+form label {
+  font-size: 15px !important; }
+form .text-muted {
+  position: relative;
+  color: #3b7800 !important;
+  transition: all .2s ease; }
+  form .text-muted:hover {
+    font-size: 14px; }
+  form .text-muted::after {
+    content: "?";
+    background: #54ab00;
+    color: white;
+    font-family: sans-serif;
+    padding: 1px 5px;
+    margin-left: 5px;
+    border-radius: 50%;
+    font-weight: bold; }
 
 .badge-non-approuve {
   position: absolute;
@@ -920,5 +882,23 @@ footer {
       border: 1.4px solid #54ab00;
       opacity: .5;
       width: 40%; }
+
+body {
+  font-size: 13px;
+  color: #505050;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100% !important;
+  font-family: "century gothic"; }
+
+.title {
+  font-family: "mayeka";
+  font-weight: bold;
+  color: black; }
+
+#content {
+  padding-top: 10px;
+  padding-bottom: 10px; }
 
 /*# sourceMappingURL=main.css.map */

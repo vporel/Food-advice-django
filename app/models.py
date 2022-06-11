@@ -2,19 +2,25 @@
     FICHIER DE DEFINITIONS DE TOUTES LES CLASSES UTILISEES DANS LE PROJET
 """
 
+from datetime import date
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.db.models import Sum, Count, Case, When, F
 
 IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif"]
 
+SEXES = [
+    (1, "Masculin"),
+    (2, "Feminin")
+]
 class Contributeur(models.Model):
     nom = models.CharField(max_length=50, verbose_name="Nom complet")
     nomUtilisateur = models.CharField(max_length=30, verbose_name="Nom d'utilisateur", unique=True)
     motDePasse = models.CharField(max_length=255, verbose_name="Mot de passe")
+    dateNaissance = models.DateField(null=True, blank=True,verbose_name="Date de naissance", help_text="Utile pour le suivi de l'alimentation")
+    sexe = models.IntegerField(choices=SEXES, null=True, blank=True,verbose_name="Sexe", help_text="Utile pour le suivi de l'alimentation")
     email = models.CharField(max_length=255, null=True, blank=True, verbose_name="Adresse email")
     professionnelSante = models.BooleanField(default=False, verbose_name="Professionnel de la santé")
-
     """
         Retourne les contributeurs professionels
     """
@@ -33,6 +39,9 @@ class Contributeur(models.Model):
             for conversation in self.conversationsContributeurs.all():
                 nbreMessagesNonLus += conversation.nbreMessagesNonLus(self)
         return nbreMessagesNonLus
+    
+    def age(self):
+        return date.today().year - self.dateNaissance.year if self.dateNaissance != None else 0
 
     def __str__(self):
         return self.nomUtilisateur
@@ -251,7 +260,7 @@ class Aliment(Commentable):
         return self.nom + (" (en "+self.uniteComptage+")" if self.uniteComptage != None else "")
 class Recette(models.Model):
     repas = models.OneToOneField(Repas, models.CASCADE, primary_key=True)
-    nombrePersonnes = models.IntegerField()
+    nombrePersonnes = models.IntegerField(verbose_name="Nombre de personnes")
     tempsPreparation = models.IntegerField(null=True)
     tempsCuisson = models.IntegerField(null=True)
     detailPreparation = models.TextField(null=True, blank=True)
@@ -292,6 +301,9 @@ class RepasConsomme(models.Model):
     momentJournee = models.IntegerField(choices=MOMENTS_JOURNEE)
     repas = models.ForeignKey(Repas, models.CASCADE)
     contributeur = models.ForeignKey(Contributeur, models.CASCADE)
+
+    class Meta:
+        unique_together=[["date", "momentJournee", "contributeur"]]
 
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)
@@ -348,6 +360,10 @@ class Message(models.Model):
             return self.conversation.contributeur
         else:
             return self.conversation.professionnel
+    
+    def messageCourt(self):
+        nbreMaxCarac = 65
+        return self.message[:nbreMaxCarac]+("..." if len(self.message) > nbreMaxCarac else "")
     
     def __setattr__(self, name:str, value):
         if name == "expediteur":

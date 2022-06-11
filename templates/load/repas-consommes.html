@@ -1,0 +1,25 @@
+
+{% if repasConsommesGroupes|length > 0 %}
+    {% for date, repasConsommes in repasConsommesGroupes.items %}
+        <div class="consumed-foods-group">
+            <span class="date">{{ date }}</span>
+            <div class="consumed-foods">
+            {% for repasConsomme in repasConsommes %}               
+                <div class="consumed-food" data-date="{{ repasConsomme.date }}"data-repas="{{ repasConsomme.repas.id }}" data-momentJournee="{{ repasConsomme.momentJournee }}">
+                    <span class="moment-journee"><strong>{{ repasConsomme.get_momentJournee_display }}</strong></span> 
+                    <span class="nom-repas">{{ repasConsomme.repas }}</span> 
+                    <div class="btns">
+                        <button class="btn"><i class="fas fa-edit icon"></i></button>
+                        <button class="btn"><i class="fas fa-trash icon"></i></button>
+                    </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info m-3" data-aos="zoom-in">
+        Aucun repas consommé enregistré
+    </div>
+{% endif %}

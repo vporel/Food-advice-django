@@ -1,0 +1,128 @@
+
+@import "./utils/variables";
+@import "./components/others";
+@import "./layouts/_popup-window";
+@import "./components/buttons";
+@import "./components/forms";
+@import "./components/loading";
+@import "./components/loads";
+@import "./components/dialog-boxes";
+@import "./components/extra";
+
+
+
+
+.loading{
+  display:block;
+}
+
+.popup-window-first-screen{
+    #user-infos{
+    background:rgb(220,220,220);
+        height:80px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+
+#consumed-foods-loading{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+    font-size:20px;
+}
+
+.popup-window-second-screen{
+
+    #consumed-foods{
+        flex-grow: 1;
+        padding:5px;
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    #recommendations-btn-box{
+        background:white;
+        border-top:2px solid gray;
+        height:50px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+#add-consumed-food-form{
+    padding:10px;
+    h6{
+        font-family: $global-font-bold;
+    }
+}
+
+#recommendations-box{
+    position:fixed;
+    z-index:15;
+    width:100%;height:100%;
+    top:0;left:0;
+    background:rgba(black, .2);
+    
+    .content{
+        width:50%;
+        height: 90%;
+        margin:auto;
+        margin-top:2.5%;
+        background:white;
+        border-radius:10px;
+        box-shadow: 0 0 6px gray;
+        display:flex;
+        flex-direction: column;
+        overflow: hidden;
+        &.maximized{
+            width:90%;
+            height: 90%;
+            top:5%;
+            left:5%;
+        }
+        h3{
+            padding:5px;
+            color:$primary-color!important;
+            text-align:center;
+            .custom-line{
+                margin-top:5px;
+            }
+            .icon{
+                float:right;transition:all .2s ease;
+                &:hover{color:red;transform: scale(1.2);}
+            }
+        }
+        #steps{
+            flex-grow: 1;
+            position:relative;
+            .step{
+                position:absolute;
+                padding:5px;
+                h4{
+                    position:relative;
+                    &::after{
+                        content:"";
+                        display:block;
+                        height:4px;
+                        width:100px;
+                        position:relative;
+                        bottom:-3px;
+                        left:0;
+                        background:$primary-color;
+                    }
+                }
+            }
+        }
+    }
+}
