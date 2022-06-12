@@ -34,6 +34,45 @@
   font-weight: normal bold;
   font-display: block;
   src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: block;
+  src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/CenturyGothic.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Century Gothic Bold';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/century-gothic/gothicb.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Godfeem';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/godfeem/Godfeem.ttf") format("truetype"); }
+@font-face {
+  font-family: 'Mayeka';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/mayeka/Mayeka Regular Demo.otf") format("truetype"); }
+@font-face {
+  font-family: 'Kitahara Script';
+  font-style: normal;
+  font-weight: normal bold;
+  font-display: block;
+  src: url("./fonts/kitahara-script/KitaharaScript.otf") format("truetype"); }
+:root {
+  --primary:$primary-color; }
+
 /**
     AUTRES STYLES
 */
@@ -65,6 +104,9 @@ a {
 
 .bg-primary {
   background-color: #54ab00 !important; }
+
+.bg-primary-light {
+  background: rgba(84, 171, 0, 0.4) !important; }
 
 .border-2 {
   border-width: 2px !important; }
@@ -388,7 +430,13 @@ form .text-muted {
       transition: all .3s ease;
       cursor: pointer; }
   .food-little-presentation .food-title {
-    font-size: 18px; }
+    font-size: 18px;
+    font-family: "century gothic Bold";
+    margin: 0; }
+  .food-little-presentation .moment-journee {
+    font-size: 12px;
+    margin: 0;
+    font-style: italic; }
   .food-little-presentation .description {
     max-height: 100px;
     padding: 5px;
@@ -553,167 +601,6 @@ form .text-muted {
 .dialog-box-buttons button {
   margin: 2px; }
 
-.user-box {
-  position: fixed;
-  width: 50%;
-  height: 95%;
-  bottom: 10px;
-  right: 10px;
-  background: white;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  overflow: hidden;
-  z-index: 55; }
-  @media screen and (max-width: 768px) {
-    .user-box {
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      right: 0;
-      bottom: 0; } }
-  .user-box .user-box-frame {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column; }
-    .user-box .user-box-frame .user-box-topbar {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px;
-      font-size: 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
-      .user-box .user-box-frame .user-box-topbar > div {
-        display: flex;
-        align-items: center; }
-        .user-box .user-box-frame .user-box-topbar > div * {
-          margin: 0 8px; }
-        .user-box .user-box-frame .user-box-topbar > div .icon {
-          transition: all .2s ease;
-          margin: 0 8px;
-          cursor: pointer; }
-          .user-box .user-box-frame .user-box-topbar > div .icon:hover {
-            color: #54ab00;
-            transform: scale(1.15); }
-  .user-box .user-box-content {
-    overflow: hidden;
-    display: flex;
-    flex-grow: 1;
-    position: relative; }
-  .user-box .user-box-screen {
-    background: white;
-    height: 100%; }
-    @media screen and (max-width: 768px) {
-      .user-box .user-box-screen {
-        width: 100% !important;
-        position: absolute;
-        left: 0;
-        top: 0; } }
-  .user-box .user-box-screen.user-box-first-screen {
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    border-right: none;
-    transition: all .3s ease; }
-    @media screen and (max-width: 768px) {
-      .user-box .user-box-screen.user-box-first-screen {
-        border-right: none;
-        z-index: 1; } }
-    .user-box .user-box-screen.user-box-first-screen.second-screen-opened {
-      border-right: 1px solid rgba(0, 0, 0, 0.2);
-      width: 40%; }
-    .user-box .user-box-screen.user-box-first-screen > div {
-      width: 100%; }
-  .user-box .user-box-screen.user-box-second-screen {
-    transition: all .3s ease;
-    z-index: 1;
-    width: 0%;
-    display: flex;
-    flex-direction: column; }
-    .user-box .user-box-screen.user-box-second-screen.second-screen-opened {
-      width: 65%; }
-    @media screen and (max-width: 768px) {
-      .user-box .user-box-screen.user-box-second-screen {
-        left: 100%;
-        z-index: 5; } }
-
-#messages-box {
-  display: none; }
-  #messages-box #messages-home-screen #messages-conversations {
-    flex-grow: 1; }
-  #messages-box #messages-home-screen #messages-professional-search {
-    height: 40px; }
-    #messages-box #messages-home-screen #messages-professional-search form {
-      display: flex;
-      overflow: hidden;
-      border-top: 1px solid lightgray; }
-      #messages-box #messages-home-screen #messages-professional-search form * {
-        transition: all .3s ease; }
-      #messages-box #messages-home-screen #messages-professional-search form input {
-        flex-grow: 1;
-        border-radius: 0;
-        font-size: 15px;
-        border: none;
-        padding-left: 5px; }
-      #messages-box #messages-home-screen #messages-professional-search form button {
-        padding: 0 !important;
-        margin-right: 10px !important; }
-  #messages-box #messages-home-screen #messages-professional-search-result {
-    position: absolute;
-    bottom: 50px;
-    left: 2%;
-    width: 55%;
-    min-height: 50px;
-    max-height: 95%;
-    background: white;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    display: none; }
-    #messages-box #messages-home-screen #messages-professional-search-result .elements {
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
-      overflow-y: auto; }
-    #messages-box #messages-home-screen #messages-professional-search-result::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 0;
-      left: 10%;
-      bottom: -11px;
-      border: 10px solid transparent;
-      border-bottom: none;
-      border-top-color: lightgray; }
-    @media screen and (max-width: 768px) {
-      #messages-box #messages-home-screen #messages-professional-search-result {
-        width: 96%; } }
-  #messages-box #messages-chat-screen #messages {
-    flex-grow: 1;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    overflow-x: hidden;
-    overflow-y: auto; }
-  #messages-box #messages-chat-screen form {
-    display: flex;
-    align-items: flex-end; }
-    #messages-box #messages-chat-screen form #message-text {
-      height: 40px;
-      flex-grow: 1;
-      font-family: "century gothic";
-      border: none;
-      border-top: 1px solid lightgray;
-      padding: 3px; }
-    #messages-box #messages-chat-screen form button {
-      border-radius: 0; }
-
-#alimentation-tracking-box {
-  display: none; }
-
 .loading {
   display: none;
   width: 100%;
@@ -862,6 +749,33 @@ form .text-muted {
   .message-load.by-user {
     align-self: flex-end;
     background: rgba(255, 255, 0, 0.3); }
+
+.consumed-foods-group {
+  width: 100%; }
+  .consumed-foods-group .date {
+    display: block;
+    width: 100%;
+    background: rgba(84, 171, 0, 0.4);
+    padding: 3px;
+    color: #54ab00;
+    font-family: "century gothic Bold"; }
+  .consumed-foods-group .consumed-foods {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 2px; }
+  .consumed-foods-group .consumed-food {
+    margin: 5px 0 5px 5px;
+    width: 32%;
+    background: #c8c8c8;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: all .2s ease; }
+    .consumed-foods-group .consumed-food .btn {
+      padding: 3px !important; }
+    .consumed-foods-group .consumed-food:hover {
+      background: gainsboro; }
 
 .custom-line {
   display: flex;

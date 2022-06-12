@@ -40,6 +40,9 @@ $("#add-consumed-food-form #submit-btn").click(function(){
 })
 
 $("#show-recommendations-btn").click(function(){
+
+    $("#recommendations-box #step1").slideDown(-1);
+    $("#recommendations-box #step2").slideUp(-1);
     $("#recommendations-box").fadeIn(500);
 });
 
@@ -50,10 +53,14 @@ $("#recommendations-box .duree").click(function(){
             showConfirmDialog("", "Pour faire des recommandations, votre âge est nécessaire. Vous allez être redirigé vers une autre page pour l'ajout de votre date de naissance", function(){
                 window.open("/mon-compte/modifier-informations", "_blank");
             });
+        }else if(response == "sexe_error"){
+            showConfirmDialog("", "Pour faire des recommandations, votre sexe est nécessaire. Vous allez être redirigé vers une autre page pour l'ajout de votre date de naissance", function(){
+                window.open("/mon-compte/modifier-informations", "_blank");
+            });
         }else if(response.indexOf("fill_error") == 0){
             let splitResponse = response.split(":");
             if(splitResponse.length == 2)
-                "Vous n'avez pas entré de repas pour la date <strong>"+splitResponse[1]+"</strong>. <br><i>Les estimations seront moins correctes.</i> <br>Voulez-vous quand même continuer ?";
+                msg ="Vous n'avez pas entré de repas pour la date <strong>"+splitResponse[1]+"</strong>. <br><i>Les estimations seront moins correctes.</i> <br>Voulez-vous quand même continuer ?";
             else if(splitResponse.length == 3)
                 msg = "Vous n'avez pas entré de repas pour <strong>"+splitResponse[2]+"</strong> à la date <strong>"+splitResponse[1]+"</strong>. <br><i>Les estimations seront moins correctes.</i> <br>Voulez-vous quand même continuer ?";
             
@@ -70,5 +77,7 @@ function showRecommendations(duree){
     
     $.get("/suivre-alimentation/recommandations", {duree:duree}, function(response){
         $("#recommendations").html(response);
+        $("#recommendations-box #step1").slideUp(500);
+        $("#recommendations-box #step2").slideDown(500);
     })
 }

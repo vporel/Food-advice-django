@@ -1,0 +1,64 @@
+<div id="recommandations-result">
+    <div class="bg-primary-light p-2">
+        <h4>Contributeur : <strong class="value">{{ appUser.nom }}</strong></h4>
+        <h5>Vous avez <strong class="value">{{ appUser.age }}</strong> ans et vous êtes de sexe : <strong class="value">{{ appUser.get_sexe_display }}</strong></h4>
+        <i class="d-block text-center">Votre age et votre sexe sont pris en compte</i>
+    </div>
+    <h5 class="mt-3 text-center">Détails de la consommation durant les <strong>{{ nbreJours }}</strong> derniers jours</h5>
+    <table id="details" cellspacing="0">
+        <tr>
+            <th>Element</th>
+            <th>Moyenne consommée</th>
+            <th>Moyenne conseillée par jour</th>
+            <th>Marge accordée</th>
+        </tr>
+        <tr>
+            <td>Glucides</td>
+            <td class="value">{{ glucides.moyenne }} %</td>
+            <td class="value">{{ glucides.conseil }} %</td>
+            <td class="value">{{ glucides.marge }} %</td>
+        </tr>
+        <tr>
+            <td>Lipides</td>
+            <td class="value">{{ lipides.moyenne }} %</td>
+            <td class="value">{{ lipides.conseil }} %</td>
+            <td class="value">{{ lipides.marge }} %</td>
+        </tr>
+        <tr>
+            <td>Proteines</td>
+            <td class="value">{{ proteines.moyenne }} %</td>
+            <td class="value">{{ proteines.conseil }} %</td>
+            <td class="value">{{ proteines.marge }} %</td>
+        </tr>
+        <tr>
+            <td>Calories</td>
+            <td class="value">{{ calories.moyenne }} Kcal</td>
+            <td class="value">{{ calories.conseil }} Kcal</td>
+            <td class="value">{{ calories.marge }} Kcal</td>
+        </tr>
+    </table>
+    <h5 class="text-center mt-4">
+        
+    </h5>
+    <center><hr class="w-75"></center>
+
+    {% if alimentationCorrecte == False %}
+        <h5>Pour votre prochain repas, nous vous recommandons </h5>
+        {% for element, repass in elementsEnMoinsRepas.items %}
+            <div>
+                <h6>Pour ples de {{ element }} - repas en taux de {{ element }} décroissant</h6>
+                <div class="row row-cols-3 row-cols-md-4">
+                    {% include "load/foods.html" with repass=repass %}
+                </div>
+            </div>
+        {% endfor %}
+        {% for element, repass in elementsEnPlusRepas.items %}
+            <div>
+                <h6>Repas en taux de {{ element }} croissant</h6>
+                <div class="row row-cols-3 row-cols-md-4">
+                    {% include "load/foods.html" with repass=repass %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

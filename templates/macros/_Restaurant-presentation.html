@@ -1,13 +1,13 @@
 
 <a href="{% url "show-restaurant" restaurant.id %}" class="col-4 col-md-3 restaurant restaurant-little-presentation text-center" data-aos="zoom-in">
-    {% if restaurant.approuve%}
+    {% if not restaurant.approuve %}
         <span class="badge-non-approuve">Non approuvé</span>
     {% endif %}
     <div class="image-div">
         <img src="/{{ restaurant.image }}" alt="">
     </div>
     <h4 class="restaurant-title">{{ restaurant.nom }}</h4>
-    <h5 class="restaurant-address title">Situé à {{ restaurant.adresse }}</h5>
+    <h5 class="restaurant-address">Situé à {{ restaurant.adresse }}</h5>
     {% if restaurant.description.strip != "" %}
         <div class="description">
             {{ restaurant.description }}

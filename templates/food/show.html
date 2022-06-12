@@ -110,7 +110,8 @@
                                     <img src="/{{ aliment.image }}" alt="" class="aliment-image">
                                 </div>
                                 <h5>{{ aliment.nom }}</h5>
-                                <h6>{{ alimentRecette.quantite }} ({{ aliment.uniteComptage}})</h6>
+                                <h6>{{ alimentRecette.quantite }} {% if aliment.uniteComptage != None %}({{ aliment.uniteComptage}}){% endif %}</h6>
+                                
                                 <div class="composition">
                                     <div>
                                         <span class="label">Lipides : </span>
@@ -161,10 +162,14 @@
         </div>
     </div>
     <div class="row mt-3">
+        {% if autresRepas.count > 0 %}
         <div class="col-12 col-md-6 order-2 order-md-1">
             <h5 class="title">Repas du même genre</h5>
-            {% include "load/foods.html" with repass=autresRepas%}
+            <div class="row row-cols-3">
+                {% include "load/foods.html" with repass=autresRepas%}
+            </div>
         </div>
+        {% endif %}
         <div class="col-12 col-md-6 order-1 order-md-2">
             <h5 class="title">Commentaires</h5>
             {%if appUser is not null %}

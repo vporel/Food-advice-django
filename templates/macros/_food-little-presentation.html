@@ -1,6 +1,6 @@
 
 
-<a href="{% url 'show-food' repas.id %}" class="col-4 col-md-3 food food-little-presentation text-center" data-aos="zoom-in">
+<a href="{% url 'show-food' repas.id %}" class="food food-little-presentation text-center" data-aos="zoom-in">
     {% if not repas.approuve %}
         <span class="badge-non-approuve">Non approuvé</span>
     {% endif %}
@@ -8,6 +8,9 @@
         <img src="/{{repas.image}}" alt="">
     </div>
     <h4 class="food-title">{{ repas.nom }}</h4>
+    {% if repas.momentJournee != None %}
+        <h5 class="moment-journee"><i>A consommer le {{ repas.get_momentJournee_display }}</i></h5>
+    {% endif %}
     {% if repas.description != "" %}
         <div class="description">  {{repas.description}}
         </div>

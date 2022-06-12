@@ -26,7 +26,7 @@ def show(request, id):
     return render(request, template_name="food/show.html", context={
         'repas':repas,
         'commentaires':commentaires,
-        'autresRepas':Repas.objects.filter(~Q(pk=id), momentJournee=repas.momentJournee)[0:6]
+        'autresRepas':Repas.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)), momentJournee=repas.momentJournee)[0:6]
     })
 
 @csrf_exempt

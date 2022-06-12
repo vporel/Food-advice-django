@@ -35,6 +35,16 @@
             {% endif %}
             <div id="composition" class="mt-3">
                 <h5>Composition</h5>
+                {% if aliment.uniteComptage != None %}
+                    <div>
+                        <span class="label">Se compte en : </span>
+                        <span class="value">{{ aliment.uniteComptage }}</span>
+                    </div>
+                {% endif %}
+                <div>
+                    <span class="label">Masse à l'unité : </span>
+                    <span class="value">{{ aliment.masseUnite }} g</span>
+                </div>
                 <div>
                     <span class="label">Taux de glucides : </span>
                     <span class="value">{{ aliment.tauxGlucides }}%</span>
@@ -48,12 +58,16 @@
                     <span class="value">{{ aliment.tauxProteines }}%</span>
                 </div>
                 <div>
+                    <span class="label">Calories : </span>
+                    <span class="value">{{ aliment.calories }} Kcal (dans {{ aliment.masseUnite }} g)</span>
+                </div>
+                <div>
                     <span class="label">Minéraux : </span>
-                    <span class="value">{{ aliment.minerauxText }}</span>
+                    <span class="value">{{ aliment.mineraux }}</span>
                 </div>
                 <div>
                     <span class="label">Vitamines : </span>
-                    <span class="value">{{ aliment.vitaminesText }}</span>
+                    <span class="value">{{ aliment.vitamines }}</span>
                 </div>
             </div>
                 
@@ -61,7 +75,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-12 col-md-6 order-2 order-md-1">
-            <h5 class="title">Aliments du même genre</h5>
+            <h5 class="title">Aliments du même type</h5>
         </div>
         <div class="col-12 col-md-6 order-1 order-md-2">
             <h5 class="title">Commentaires</h5>
