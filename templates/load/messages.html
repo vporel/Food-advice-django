@@ -1,7 +1,7 @@
 
 {% for message in messages %}
                 
-    <div class="message message-load {%if message.objetExpediteur.id == appUser.id %}by-user{%endif%}">
+    <div data-aos="zoom-in" class="message message-load {%if message.objetExpediteur.id == appUser.id %}by-user{%endif%}">
         
         <p>
             {{ message.message|linebreaks }}

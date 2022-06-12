@@ -1,0 +1,93 @@
+@import "./utils/variables";
+
+#food-title{
+    background:$secondary-color;
+    text-shadow: 1px 1px 1px black;
+    font-family: $title-font;
+    color:white;
+    padding:20px 0;
+    text-align:center;
+}
+.value{
+    font-family:$global-font-bold;
+    color:black;
+}
+
+#food-image{
+    width:100%;
+}
+
+#details{
+    font-size: 15px;
+
+}
+
+#composition{
+    margin:5px 0;
+    padding:10px;
+    background:rgba($primary-color,.2);
+    box-shadow :0 0 5px darken($primary-color, 5%);
+    border-radius:10px;
+    h5{
+        color:$primary-color;
+        font-family: $global-font-bold;
+    }
+}
+
+#detail-preparation{
+    font-size:17px;
+    padding:20px;
+    background:rgba($secondary-color,.3);
+    margin: 0 0 10px 0;
+}
+
+#ratings{
+    font-size:20px;
+    #stars{
+        .star{
+            font-size:25px;
+            color:rgb(180,180,180);
+            &.active{color:gold;}
+        }
+    }
+    .star{
+        color:rgb(180,180,180);
+        font-size:25px;
+        &.active{
+            color:gold;
+        }
+    }
+
+    #user-note{
+        font-size:16px;
+        a{
+            cursor: pointer;
+        }
+    }
+}
+
+
+.aliment{
+    &::after{
+        position:absolute;
+        top:100%;
+        width:100%;
+        left:0;
+        height:3px;
+        border-radius:50%;
+        box-shadow: 0 0 4px black;
+        content:"";
+    }
+
+}
+
+#new-comment-form{
+    textarea{
+        border:1px solid lightgray;
+        border-radius: 5px;
+        width:100%;
+        height:100px;
+        font-family: $global-font;
+        padding:3px;
+    }
+}

@@ -1,10 +1,8 @@
 
-<div class="row" class="aliments-list">
     {% if aliments.count > 0 %}
         {% for aliment in aliments %}
             {% include "macros/_presentation-aliments.html" %}
         {% endfor %}
     {% else %}
-        <div class="col-12 alert alert-warning mt-3">Aucun résultat</div>
+        <div class="col-12 col-md-12 alert alert-warning mt-3">Aucun résultat</div>
     {% endif %}
-</div>

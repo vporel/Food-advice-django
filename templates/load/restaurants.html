@@ -1,10 +1,8 @@
 
-<div class="row" class="restaurants-list">
     {% if restaurants.count > 0 %}
         {% for restaurant in restaurants %}
             {% include "macros/_Restaurant-presentation.html" %}
         {% endfor %}
     {% else %}
-        <div class="col-12 alert alert-warning mt-3">Aucun résultat</div>
+        <div class="col-12 col-md-12 alert alert-warning mt-3">Aucun résultat</div>
     {% endif %}
-</div>

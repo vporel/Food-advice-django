@@ -1,0 +1,52 @@
+
+
+/**
+    AUTRES STYLES
+*/
+
+.c-black{
+    color:black;
+  }
+  strong{
+    font-family:$global-font-bold;
+  }
+
+.icon{
+    cursor:pointer;
+    transition:all .2s ease;
+    &:hover{
+        color:$primary-color;
+    }
+}
+
+
+a{
+    text-decoration: none; color:inherit;cursor:pointer;
+    &:hover{text-decoration: none;color:inherit;}
+  }
+  
+  .text-blue{
+    color:blue;
+  }
+  
+  .text-primary{
+    color:$primary-color!important;
+  }
+  .bg-primary{
+    background-color:$primary-color!important;
+  }
+  
+  .bg-primary-light{
+    background:rgba($primary-color, .4)!important;
+  }
+  
+
+.border-2{
+  border-width:2px!important;
+}
+.border-3{
+  border-width:3px!important;
+}
+.border-4{
+  border-width:4px!important;
+}

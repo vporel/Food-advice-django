@@ -1,0 +1,111 @@
+body {
+    font-size: 13px;
+    color: $text-color;
+    margin: 0;
+    padding: 0;
+    width:100%!important;
+    font-family: $global-font;
+}
+
+.popup-window{
+    position:fixed;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background:white;
+    overflow: hidden;
+    z-index:10;
+    display:flex;
+    flex-direction: column;
+    .popup-window-topbar{
+        display: flex;
+        justify-content: space-between;
+        padding:10px 5px;
+        font-size:20px;
+        border-bottom:1px solid rgba(black, .2);
+        >div{
+            display: flex;
+            align-items: center;
+            *{
+                margin:0 8px;
+            }
+            .icon{
+                transition:all .2s ease;
+                margin:0 8px;
+                cursor: pointer;
+                &:hover{
+                    color:$primary-color;
+                    transform:scale(1.15);
+                }
+            }
+        }
+    }
+    .popup-window-content{
+        overflow: hidden;
+        display:flex;
+        flex-grow: 1;
+        position:relative;
+        
+    }
+    .popup-window-screen{
+        background:white;
+        height:100%;
+        @media #{$mobile}{
+            width:100%!important;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    }
+    .popup-window-screen.popup-window-first-screen{
+        z-index:5;
+        display:flex;
+        flex-direction: column;
+        height:100%;
+        width:35%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
+        border-right:1px solid rgba(black, .2);
+        transition: all .3s ease;
+        @media #{$mobile}{
+            border-right:none;
+            z-index:1;
+        }
+        >div{width:100%;}      
+
+    }
+    .popup-window-screen.popup-window-second-screen{
+        transition: all .3s ease;
+        z-index:1;
+        width:65%; // A l'initialisation la home screen prend tout l'espace que ce soit sur pc ou mobile
+        display:flex;
+        flex-direction: column;
+        
+        @media #{$mobile}{
+            left:100%;
+            z-index:5;
+        }
+    }
+}
+#opener-loading{
+    background:white;
+    position:fixed;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:50;
+    font-size:30px;
+    animation:disappear 2.5s forwards;
+}
+@keyframes disappear {
+    from{
+        opacity:1;visibility: visible;
+    }
+    to{
+        opacity:0;visibility: hidden;
+    }
+}

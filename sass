@@ -1,0 +1,11 @@
+"""
+    Fichier qui prend en paramètre le nom du fichier dans le dossier static/css/scss
+    sans l'extension et le compile en css dans le dossier static/css
+"""
+
+import os
+from sys import argv
+if len(argv) > 1:
+    os.system("sass -w static/css/scss/"+argv[1]+".scss:static/css/"+argv[1]+".css")
+else:
+    print("Nom du fichier non renseigné")

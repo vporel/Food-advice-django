@@ -143,3 +143,34 @@
         background:rgba($secondary-color, .3);
     }
 }
+
+.consumed-foods-group{
+    width:100%;
+    .date{
+        display:block;
+        width:100%;
+        background:rgba($primary-color, .4);
+        padding:3px;
+        color:$primary-color;
+        font-family: $global-font-bold;
+    }
+    .consumed-foods{
+        display:flex;
+        justify-content: flex-start;
+        width:100%;
+        padding:2px;
+    }
+    .consumed-food{
+        margin:5px 0 5px 5px;
+        width:32%;
+        background:rgb(200,200,200);
+        padding:5px;
+        display:flex;
+        flex-direction: column;
+        transition:all .2s ease;
+        .btn{padding:3px!important;}
+        &:hover{
+            background:rgb(220,220,220);
+        }
+    }
+}

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--&9ki&wowifr09mop%0m&bs(qm#n3zwie%f%d3mqp+(ypp4*_&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.9']
 
 
 # Application definition
@@ -39,13 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    'crispy_forms' #vpnote - Application pour la prise en compte du style bootstrap dans les formulaires
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #vpnote - Choix de la version de bootstrap pour crispy
 
 MIDDLEWARE = [
-    'custom_middlewares.authentication_middleware',
+    'custom_middlewares.authentication_middleware', #vpnote - Middleware perso
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,9 +68,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'context_processors.globals'
+                'context_processors.globals' #vpnote - inclusion variables persos pour les templates
             ],
-            'builtins':[
+            'builtins':[ #Chargement automatique de librairies qui auraient été chargés par l'instruction {% load ... %} dans les templates
                 'django.templatetags.static', #vpnote - Chargement automatique de la librairie static dans les templates (Plus besoin de faire un load static)
                 'app.custom_tags_filters',
                 'crispy_forms.templatetags.crispy_forms_tags'
@@ -133,7 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATICFILES_DIRS = ['static/']
+STATICFILES_DIRS = ['static/'] #Choix du dossier pour les fichiers statiques
 STATIC_URL = '/static/'
 
 # Default primary key field type

@@ -1,0 +1,20 @@
+{% extends "account/login-signin-base.html"%}
+{%block title %}Modification des informations | Food-advice {% endblock%}; 
+
+{% block form_section %}
+    <!-- Contenu de la page ici -->
+
+    <h4 class="title text-center text-md-start">Modification des informations</h4>
+    {% if msg %}
+        <div class="alert alert-info">{{msg}}</div>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="d-flex justify-content-center justify-content-md-end mt-2">
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
+        </div>
+    </form>
+{% endblock %}

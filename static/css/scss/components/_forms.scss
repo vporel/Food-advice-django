@@ -1,0 +1,25 @@
+
+form{
+    .asteriskField{
+        color:red;
+    }
+    label{font-size:15px!important;}
+    .text-muted{
+        position:relative;
+        color:darken($primary-color, 10%)!important;
+        transition: all .2s ease;
+        &:hover{
+            font-size:14px;
+        }
+        &::after{
+            content:"?";
+            background:$primary-color;
+            color:white;
+            font-family:sans-serif;
+            padding:1px 5px;
+            margin-left:5px;
+            border-radius:50%;
+            font-weight: bold;
+        }
+    }
+}

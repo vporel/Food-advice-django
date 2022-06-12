@@ -2,19 +2,25 @@
     FICHIER DE DEFINITIONS DE TOUTES LES CLASSES UTILISEES DANS LE PROJET
 """
 
+from datetime import date
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.db.models import Sum, Count, Case, When, F
 
 IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif"]
 
+SEXES = [
+    (1, "Masculin"),
+    (2, "Feminin")
+]
 class Contributeur(models.Model):
     nom = models.CharField(max_length=50, verbose_name="Nom complet")
     nomUtilisateur = models.CharField(max_length=30, verbose_name="Nom d'utilisateur", unique=True)
     motDePasse = models.CharField(max_length=255, verbose_name="Mot de passe")
+    dateNaissance = models.DateField(null=True, blank=True,verbose_name="Date de naissance", help_text="Utile pour le suivi de l'alimentation")
+    sexe = models.IntegerField(choices=SEXES, null=True, blank=True,verbose_name="Sexe", help_text="Utile pour le suivi de l'alimentation")
     email = models.CharField(max_length=255, null=True, blank=True, verbose_name="Adresse email")
     professionnelSante = models.BooleanField(default=False, verbose_name="Professionnel de la santé")
-
     """
         Retourne les contributeurs professionels
     """
@@ -33,6 +39,9 @@ class Contributeur(models.Model):
             for conversation in self.conversationsContributeurs.all():
                 nbreMessagesNonLus += conversation.nbreMessagesNonLus(self)
         return nbreMessagesNonLus
+    
+    def age(self):
+        return date.today().year - self.dateNaissance.year if self.dateNaissance != None else 0
 
     def __str__(self):
         return self.nomUtilisateur
@@ -104,13 +113,27 @@ MOMENTS_JOURNEE = [
     (2, 'Midi'),
     (3, 'Soir')
 ]
+
+def momentJourneeText(num):
+    for momentJournee in MOMENTS_JOURNEE:
+        if momentJournee[0] == num:
+            return momentJournee[1]
+    raise Exception(str(num)+" n'est oas un numéro reconnu pour les moments de journée")
+
 class Repas(Evaluable):
     image = models.FileField(upload_to="static/images/repas/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     momentJournee = models.IntegerField(choices=MOMENTS_JOURNEE, null=True, blank = True, verbose_name="Moment de la journée", help_text="Moment habituel de consommation de ce repas")
-    origine = models.ForeignKey(OrigineRepas, models.CASCADE, null=True)
+    origine = models.ForeignKey(OrigineRepas, models.CASCADE, null=True, blank=True)
     
+    def hasRecette(self):
+        try:
+            recette = self.recette 
+            return True
+        except Exception: #Erreur lors de la recupération de la recette
+            return False
+
     def tauxGlucides(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
@@ -119,8 +142,8 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def tauxLipides(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
-                return None
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
+            return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
         for aliment in aliments:
@@ -128,8 +151,8 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def tauxProteines(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
-                return None
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
+            return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
         for aliment in aliments:
@@ -137,7 +160,7 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def calories(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         alimentsRecettes = self.recette.alimentrecette_set.all()
         somme = 0
@@ -146,7 +169,7 @@ class Repas(Evaluable):
         return somme
 
     def caloriesUnePersonne(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         return round(self.calories() / self.recette.nombrePersonnes, 2);
 
@@ -251,7 +274,7 @@ class Aliment(Commentable):
         return self.nom + (" (en "+self.uniteComptage+")" if self.uniteComptage != None else "")
 class Recette(models.Model):
     repas = models.OneToOneField(Repas, models.CASCADE, primary_key=True)
-    nombrePersonnes = models.IntegerField()
+    nombrePersonnes = models.IntegerField(verbose_name="Nombre de personnes")
     tempsPreparation = models.IntegerField(null=True)
     tempsCuisson = models.IntegerField(null=True)
     detailPreparation = models.TextField(null=True, blank=True)
@@ -278,7 +301,7 @@ class CommentaireAliment(Commentaire):
 class Restaurant(Evaluable):
     image = models.FileField(upload_to="static/images/restaurants/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     adresse = models.CharField(max_length=100)
-    repass = models.ManyToManyField(Repas)
+    repass = models.ManyToManyField(Repas, blank=True)
 
 class CommentaireRestaurant(Commentaire):
     restaurant = models.ForeignKey(Restaurant, models.CASCADE)
@@ -292,6 +315,20 @@ class RepasConsomme(models.Model):
     momentJournee = models.IntegerField(choices=MOMENTS_JOURNEE)
     repas = models.ForeignKey(Repas, models.CASCADE)
     contributeur = models.ForeignKey(Contributeur, models.CASCADE)
+
+    class Meta:
+        unique_together=[["date", "momentJournee", "contributeur"]]
+    
+    @staticmethod
+    def grouperParDates(repasConsommes):
+        repasConsommesGroupes = {}
+        for repasConsomme in repasConsommes:
+            date = repasConsomme.date
+            if not repasConsommesGroupes.__contains__(date):
+                repasConsommesGroupes[date] = []
+            repasConsommesGroupes[date].append(repasConsomme)
+        return repasConsommesGroupes
+
 
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)
@@ -348,6 +385,10 @@ class Message(models.Model):
             return self.conversation.contributeur
         else:
             return self.conversation.professionnel
+    
+    def messageCourt(self):
+        nbreMaxCarac = 65
+        return self.message[:nbreMaxCarac]+("..." if len(self.message) > nbreMaxCarac else "")
     
     def __setattr__(self, name:str, value):
         if name == "expediteur":

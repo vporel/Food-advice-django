@@ -29,13 +29,9 @@
             <button class="btn btn-primary" onclick="filter()">Appliquer</button>
         </div>
     </div>
-    <?php 
-        include VIEW_DIR."/components/_loading.php";
-    ?>
-    <div id="elements" class="mt-3">
-        <?php 
-            include VIEW_DIR."/load/restaurants.php";
-        ?>
+    {% include "components/_loading.html" %}
+    <div id="restaurants">
+        {% include "load/restaurants.html" with restaurants=restaurants %}
     </div>
     <hr>
 </div>
@@ -44,8 +40,6 @@
 
 {% block scripts %}
     <!-- Code javascript ici -->
-
-    <?= $js("js/home-slide.js"); ?>
     <script>
         /**
          * Fonction pour l'application du filtre

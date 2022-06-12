@@ -30,6 +30,13 @@
     }
     .food-title{
         font-size:18px;
+        font-family: $global-font-bold;
+        margin:0;
+    }
+
+    .moment-journee{
+        font-size:12px;margin:0;
+        font-style:italic;
     }
     .description{
         max-height:100px;

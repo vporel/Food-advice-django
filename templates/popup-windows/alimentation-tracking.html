@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Suivi alimentation | Food-advice</title>
+    {% css 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}
+	{% css 'node_modules/aos/dist/aos.css' %}
+	{% css 'node_modules/@fortawesome/fontawesome-free/css/all.min.css' %}
+	{% css 'css/alimentation-tracking.css' %}
+	{% js 'node_modules/jquery/dist/jquery.min.js' %}
+</head>
+<body>
+    {% include "components/_dialog-boxes.html" %}
+    <div id="recommendations-box" data-step="1">
+        <div class="content">
+            <h3 class="box-title">
+                Recommandations pour votre santé 
+                <i class="fas fa-times icon" onclick="$('#recommendations-box').fadeOut(500);"></i>
+                {% include "components/_custom-line.html" %}
+            </h3>
+            
+            <div id="steps">
+                <div class="step text-center" id="step1">
+                    <h4 class="title">Choix de la durée</h4>
+                    <div>
+                        <button class="btn btn-primary duree" data-value="1">Les trois derniers jours</button>
+                        <button class="btn btn-primary duree" data-value="2">La dernière semaine</button>
+                    </div>
+                </div>
+                <div class="step" id="step2">
+                    <div id="recommendations">
+                        <!-- Recommandations ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-window" id="alimentation-tracking-window">
+        <div class="popup-window-topbar">
+            <div class="popup-window-topbar-left">
+                <i class="fas fa-arrow-left popup-window-btn-back icon"></i> 
+                <h6 class="popup-window-title">Suivi de l'alimentation</h6>  
+            </div>
+            <div class="popup-window-topbar-right">  
+                <i class="fas fa-times popup-window-btn-close icon"></i>  
+            </div>
+        </div>
+        <div class="popup-window-content">
+            <div class="popup-window-screen popup-window-first-screen">
+                <div id="user-infos">
+                    <i class="fas fa-user icon"></i>
+                    <h5 class="text-primary" class="name">{{ appUser.nomUtilisateur }}</h5>
+                    <h6 class="username">{{ appUser.nom }}</h6>
+                </div>
+                <div id="add-consumed-food-form">
+                    <h6>Ajouter un repas consommé</h6>
+                    <form>
+                        {{ addConsumedFoodForm | crispy }}
+                        <div class="text-end mt-2">
+                            <button type="button" class="btn btn-primary " id="submit-btn"><i class="fas fa-plus icon"></i><span>Ajouter</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="popup-window-screen popup-window-second-screen">
+                <!-- <div id="consumed-foods-loading">
+                    {% include "components/_loading.html" %}
+                    Chargement des repas consommés
+                </div>-->
+                <div id="consumed-foods">
+                    <!-- Repas consommés ici -->
+                </div>
+                <div id="recommendations-btn-box">
+                    <button class="btn btn-primary" id="show-recommendations-btn"> Voir les recommandations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% js 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}
+    {% js 'node_modules/aos/dist/aos.js' %}
+    {% js 'node_modules/@fortawesome/fontawesome-free/js/all.min.js' %}
+    {% js 'js/dialog-boxes.js' %}
+    {% js 'js/alimentation-tracking.js' %}
+    <script type="text/javascript">
+        /**
+         * Définitions des constantes qui peuevent être utilisées par tous les autres scripts
+         */
+
+        const USER_CONNECTED = ("{%if appUser is null %}0{%else%}1{%endif%}" == "1") ? true : false;
+        function ON_MOBILE(){ return window.innerWidth < 768;}
+        
+	</script>
+
+	<script async type="text/javascript">
+		AOS.init({
+			anchorPlacement:"top-center",
+            once: true,
+		});
+	</script>
+</body>
+</html>

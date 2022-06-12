@@ -23,7 +23,7 @@
                 {% if user.professionnelSante %}
                     <span class="badge mt-2" id="badge-professionnel">Professionnel de la santé</span>
                     {% if appUser != user %}
-                        <button class="btn btn-action mt-2" onclick="openChat(0, {{ user.id }},'{{ user.nom }}')">Envoyer un message</button>
+                        <button class="btn btn-action mt-2" onclick="openChatBox(0, {{ user.id }},'{{ user.nom }}')">Envoyer un message</button>
                     
                     {% endif %}
                 {% endif %}
@@ -31,7 +31,8 @@
             {% if appUser == user %}
                 <hr>
                 <nav id="menu">
-                    <a id="show-messages-btn" onclick="openMessagesBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
+                    <a href="{% url 'update-user-data' %}"><i class="fas fa-edit"></i> Modifier mes informations </a>
+                    <a id="show-messages-btn" onclick="openChatBox()"><i class="fas fa-message"></i> Messagerie <span class="badge bg-primary">0</span></a>
                     <a id="show-alimentation-tracking-btn" onclick="openAlimentationTrackingBox()"><i class="fas fa-bowl-food"></i> Suivre mon alimentation</a>
                 </nav>
             {% endif %}
@@ -47,7 +48,7 @@
                 </h6>
                 
                 {% if user.repas_set.count > 0 %}
-                    <div class="row">
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for repas in user.repas_set.all %}
                             {% if appUser == user or repas.approuve == True %}
                                 {% include "macros/_food-little-presentation.html" with repas=repas %}
@@ -69,7 +70,7 @@
                 </h6>
                 
                 {% if user.aliment_set.count > 0 %}
-                    <div class="row">
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for aliment in user.aliment_set.all %}
                             {% if appUser == user or aliment.approuve == True %}
                                 {% include "macros/_presentation-aliments.html" with aliment=aliment %}
@@ -90,11 +91,11 @@
                     {% endif %}
                 </h6>
                 
-                {% if user.restaurant_set > 0 %}
-                    <div class="row">
+                {% if user.restaurant_set.count > 0 %}
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for restaurant in user.restaurant_set.all %}
-                            {% if appUser == user and restaurant.approuve %}
-                                {% include "macros/_food-little-presentation.php" with restaurant=restaurant %}
+                            {% if appUser == user or restaurant.approuve == True %}
+                                {% include "macros/_Restaurant-presentation.html" with restaurant=restaurant %}
                             {% endif %}
                         {% endfor %}
                     </div>

@@ -68,7 +68,6 @@ def recommendFoodRecipe(request, id):
             return redirect("recommend-food-recipe-aliment", repas.id)
         else:
             error = form.errors.get("repas")
-            form.errors.a
         
     return render(request, template_name="recommendation/recommend-food-recipe.html", context={
         "form": form,
