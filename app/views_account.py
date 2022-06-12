@@ -134,7 +134,7 @@ def professionalsList(request):
         professionnels = Contributeur.professionnels
     return render(request,template_name="account/professionals-list.html", context={
         "professionnels":professionnels,
-        "nom": nom
+        "nom": nom if nom != None else "" 
     })
 
 """

@@ -10,19 +10,11 @@
 <div class="container mt-2" id="list">
     <h5 class="title">Filtres</h5>
     <div id="filtres" class="row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-5">
             <label>Nom </label>
             <input type="text" id="filtre-nom"class="form-control"value="{{ nom }}">
         </div>
-        <div class="col-12 col-md-4">
-            <label>Régime</label> 
-            <select id="filtre-regime" class="form-select">
-                <option value="">Peu importe</option>
-                <option value="RM">Regime Minceur</option>
-                <option value="RG">Regime Grosseur</option>
-            </select>
-        </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-5">
             <label>Composition</label> 
             <select id="filtre-composition" class="form-select">
                 <option value="">Peu importe</option>
@@ -36,7 +28,7 @@
                 <option value="ACD">Apport calorifique décroissant</option>
             </select>
         </div>
-        <div class="col-12 col-md-1 d-flex align-items-end">
+        <div class="col-12 col-md-2 d-flex align-items-end">
             <button class="btn btn-primary" onclick="filter()">Appliquer</button>
         </div>
     </div>
@@ -60,7 +52,6 @@
             $('#list #elements').html("");
             $.post("{% url "aliments-filter" %}", {
                 nom:$("#filtre-nom").val().trim(),
-                regime:$("#filtre-regime").val(),
                 composition:$("#filtre-composition").val()
             }, function(response){
                 $('#list #elements').html(response);

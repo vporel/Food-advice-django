@@ -200,15 +200,14 @@ class Repas(Evaluable):
     def vitamines(self):
         return ", ".join(self.vitaminesTableau())
 
-
     @staticmethod
     def filterList(nom=None, composition = None, paysOrigine = None, regionOrigine = None):
         filterDict = {}
-        if nom != None:
+        if nom != None and nom != "":
             filterDict["nom__contains"] = nom
-        if paysOrigine != None:
+        if paysOrigine != None and paysOrigine != "":
             filterDict["origine__pays__contains"] = paysOrigine
-        if regionOrigine != None:
+        if regionOrigine != None and regionOrigine != "":
             filterDict["origine__region__contains"] = regionOrigine
         objects = Repas.objects.filter(approuve=True, **filterDict)
         filtreComposition = None
@@ -272,6 +271,36 @@ class Aliment(Commentable):
 
     def __str__(self):
         return self.nom + (" (en "+self.uniteComptage+")" if self.uniteComptage != None else "")
+    
+
+    @staticmethod
+    def filterList(nom=None, composition = None):
+        filterDict = {}
+        if nom != None and nom != "":
+            filterDict["nom__contains"] = nom
+        objects = Aliment.objects.filter(approuve=True, **filterDict)
+        filtreComposition = None
+        if composition == "TGC" or composition == "TGD":
+            filtreComposition = "tauxGlucides"
+        elif composition == "TLC" or composition == "TLD":
+            filtreComposition = "tauxLipides"
+        elif composition == "TPC" or composition == "TPD":
+            filtreComposition = "tauxProteines"
+        prefixeOrdreFiltreComposition = "-" if composition == "TGD" or composition == "TLD" or composition == "TPD" or composition == "ACD" else ""
+        if(filtreComposition != None):
+            objects = objects.annotate(elementComposition=Sum("recette__alimentrecette__aliment__"+filtreComposition)/Count("recette__alimentrecette"))
+            objects = objects.order_by(prefixeOrdreFiltreComposition+"elementComposition")
+            
+        if composition == "ACC" or composition == "ACD":
+            objects = objects.annotate(apportCalorifique=(
+                (
+                    (Sum("recette__alimentrecette__aliment__tauxGlucides") + Sum("recette__alimentrecette__aliment__tauxProteines")) * 4
+                    + Sum("recette__alimentrecette__aliment__tauxLipides") * 9
+                ) * (F("recette__alimentrecette__aliment__masseUnite") / 100)
+            ) /Count("recette__alimentrecette"))
+            objects = objects.order_by(prefixeOrdreFiltreComposition+"apportCalorifique")
+        return objects
+
 class Recette(models.Model):
     repas = models.OneToOneField(Repas, models.CASCADE, primary_key=True)
     nombrePersonnes = models.IntegerField(verbose_name="Nombre de personnes")
@@ -302,6 +331,18 @@ class Restaurant(Evaluable):
     image = models.FileField(upload_to="static/images/restaurants/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     adresse = models.CharField(max_length=100)
     repass = models.ManyToManyField(Repas, blank=True)
+
+
+    @staticmethod
+    def filterList(nom=None, nomRepas=None):
+        filterDict = {}
+        if nom != None and nom != "":
+            filterDict["nom__contains"] = nom
+        if nomRepas != None and nomRepas != "":
+            filterDict["repass__nom__contains"] = nomRepas
+        objects = Restaurant.objects.filter(approuve=True, **filterDict)
+        return objects
+
 
 class CommentaireRestaurant(Commentaire):
     restaurant = models.ForeignKey(Restaurant, models.CASCADE)
