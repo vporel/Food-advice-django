@@ -21,11 +21,12 @@ urlpatterns = [
         path("", views_alimentation_tracking.index, name="alimentation-tracking"),
         path("repas-consommes", views_alimentation_tracking.consumedFoodsList, name="consumed-foods-list"),
         path("ajouter-repas-consomme/<int:idRepas>", views_alimentation_tracking.addConsumedFood, name="add-consumed-food"),
+        path("verifier-remplissage", views_alimentation_tracking.checkConsumedFoodsFilling, name="check-consumed-foods-filling"),
         path("recommandations", views_alimentation_tracking.getRecommendations, name="get-recommendations")
     ])),
 
     #Routes pour les conversations
-    path("conversations", views_conversations.conversations, name="conversations"), 
+    path("conversations/", views_conversations.conversations, name="conversations"), 
     path("nbre-messages-non-lus", views_conversations.unreadMessagesCount, name="unread-messages-count"),
     path("chat", views_conversations.chat, name="chat"),
     path("conversation/", include([

@@ -1,9 +1,8 @@
-
-{% block title %}Alments | Food-advice{% endblock %}
+{% extends "base.html" %}
+{% block title %}Aliments | Food-advice{% endblock %}
 
 {% block styles %}
     {% css "css/aliments-liste.css" %}
-    ]) ?>
 {% endblock %}
 
 {%block body%}
@@ -13,7 +12,7 @@
     <div id="filtres" class="row">
         <div class="col-12 col-md-3">
             <label>Nom </label>
-            <input type="text" id="filtre-nom"class="form-control"value="{{ $nom ?? "" }}">
+            <input type="text" id="filtre-nom"class="form-control"value="{{ nom }}">
         </div>
         <div class="col-12 col-md-4">
             <label>Régime</label> 

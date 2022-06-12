@@ -66,6 +66,9 @@ a {
 .bg-primary {
   background-color: #54ab00 !important; }
 
+.bg-primary-light {
+  background: rgba(84, 171, 0, 0.4) !important; }
+
 .border-2 {
   border-width: 2px !important; }
 
@@ -257,6 +260,168 @@ form .text-muted {
     transform: translateY(0%); }
   100% {
     transform: translateY(-100%); } }
+.badge-non-approuve {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  transform: rotate(-40deg);
+  background: rgba(255, 0, 0, 0.7);
+  font-family: "century gothic Bold";
+  color: white;
+  padding: 5px;
+  display: block;
+  font-size: 9px;
+  z-index: 2; }
+
+.food-little-presentation {
+  margin: 5px 0;
+  position: relative; }
+  .food-little-presentation .image-div {
+    overflow: hidden;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .food-little-presentation .image-div img {
+      height: 98%;
+      transition: all .3s ease;
+      cursor: pointer; }
+  .food-little-presentation .food-title {
+    font-size: 18px;
+    font-family: "century gothic Bold";
+    margin: 0; }
+  .food-little-presentation .moment-journee {
+    font-size: 12px;
+    margin: 0;
+    font-style: italic; }
+  .food-little-presentation .description {
+    max-height: 100px;
+    padding: 5px;
+    text-align: left;
+    background: #e6fae6;
+    border-radius: 10px;
+    bottom: 100%;
+    left: 5%;
+    width: 90%;
+    box-shadow: 0 0 2px black;
+    position: absolute;
+    opacity: 0;
+    transition: all .3s ease;
+    visibility: hidden;
+    z-index: 3; }
+  .food-little-presentation:hover img {
+    transform: scale(1.2); }
+  @media screen and (min-width: 768px) {
+    .food-little-presentation:hover .description {
+      opacity: 1;
+      visibility: visible; } }
+
+.aliment-little-presentation {
+  position: relative;
+  text-align: center; }
+  .aliment-little-presentation .value {
+    font-family: "century gothic Bold";
+    color: black; }
+  .aliment-little-presentation .image-div {
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap; }
+    .aliment-little-presentation .image-div img {
+      height: 98%;
+      transition: all .5s ease; }
+  .aliment-little-presentation .aliment-title {
+    font-size: 18px; }
+  .aliment-little-presentation .composition {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transition: all .3s ease; }
+  .aliment-little-presentation:hover .composition {
+    opacity: 1; }
+  .aliment-little-presentation:hover img {
+    transform: scale(1.5); }
+
+.restaurant-little-presentation {
+  margin: 5px 0;
+  position: relative; }
+  .restaurant-little-presentation .image-div {
+    overflow: hidden;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .restaurant-little-presentation .image-div img {
+      height: 98%;
+      transition: all .3s ease;
+      cursor: pointer; }
+  .restaurant-little-presentation .restaurant-title {
+    font-size: 18px;
+    margin: 0; }
+  .restaurant-little-presentation .restaurant-address {
+    font-size: 12px;
+    margin: 0;
+    font-style: italic; }
+  .restaurant-little-presentation .description {
+    max-height: 100px;
+    padding: 5px;
+    text-align: left;
+    background: #e6fae6;
+    border-radius: 10px;
+    bottom: 100%;
+    left: 5%;
+    width: 90%;
+    box-shadow: 0 0 2px black;
+    position: absolute;
+    opacity: 0;
+    transition: all .3s ease;
+    visibility: hidden;
+    z-index: 3; }
+  .restaurant-little-presentation:hover img {
+    transform: scale(1.2); }
+  @media screen and (min-width: 768px) {
+    .restaurant-little-presentation:hover .description {
+      opacity: 1;
+      visibility: visible; } }
+
+.professional-little-presentation {
+  margin: 3px 0;
+  padding: 5px;
+  background: #f0f0f0;
+  transition: all 0.2s ease !important;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-between; }
+  .professional-little-presentation .name {
+    display: flex;
+    align-items: center; }
+  .professional-little-presentation .icon {
+    font-size: 20px;
+    margin: 0 8px 0 4px; }
+  .professional-little-presentation .nom-utilisateur {
+    color: gray;
+    font-size: 13px;
+    margin-left: 5px;
+    color: inherit; }
+  .professional-little-presentation .send-message-btn:hover {
+    color: white; }
+  .professional-little-presentation:hover {
+    background: #54ab00; }
+    .professional-little-presentation:hover .name {
+      color: white; }
+
 .comment-load {
   padding: 5px;
   background: #ebebeb;
@@ -511,7 +676,7 @@ form .text-muted {
   left: 0;
   background: rgba(0, 0, 0, 0.2); }
   #recommendations-box .content {
-    width: 50%;
+    width: 90%;
     height: 90%;
     margin: auto;
     margin-top: 2.5%;
@@ -520,40 +685,49 @@ form .text-muted {
     box-shadow: 0 0 6px gray;
     display: flex;
     flex-direction: column;
-    overflow: hidden; }
-    #recommendations-box .content.maximized {
-      width: 90%;
-      height: 90%;
-      top: 5%;
-      left: 5%; }
-    #recommendations-box .content h3 {
+    overflow-y: auto;
+    overflow-x: hidden; }
+    #recommendations-box .content .box-title {
       padding: 5px;
       color: #54ab00 !important;
       text-align: center; }
-      #recommendations-box .content h3 .custom-line {
+      #recommendations-box .content .box-title .custom-line {
         margin-top: 5px; }
-      #recommendations-box .content h3 .icon {
+      #recommendations-box .content .box-title .icon {
         float: right;
         transition: all .2s ease; }
-        #recommendations-box .content h3 .icon:hover {
+        #recommendations-box .content .box-title .icon:hover {
           color: red;
           transform: scale(1.2); }
     #recommendations-box .content #steps {
       flex-grow: 1;
-      position: relative; }
+      position: relative;
+      width: 100%; }
       #recommendations-box .content #steps .step {
         position: absolute;
-        padding: 5px; }
-        #recommendations-box .content #steps .step h4 {
-          position: relative; }
-          #recommendations-box .content #steps .step h4::after {
-            content: "";
-            display: block;
-            height: 4px;
-            width: 100px;
-            position: relative;
-            bottom: -3px;
-            left: 0;
-            background: #54ab00; }
+        padding: 5px;
+        background: white;
+        width: 100%;
+        height: 100%;
+        display: block; }
+      #recommendations-box .content #steps #step2 {
+        display: none; }
+  #recommendations-box #details {
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    font-size: 14px; }
+    #recommendations-box #details th, #recommendations-box #details td {
+      padding: 7px; }
+    #recommendations-box #details th {
+      background: #54ab00;
+      padding: 5px;
+      color: white;
+      font-family: "century gothic Bold";
+      font-size: 16px; }
+    #recommendations-box #details td {
+      border-bottom: 2px solid rgba(84, 171, 0, 0.5); }
+    #recommendations-box #details .value {
+      font-family: "century gothic Bold"; }
 
 /*# sourceMappingURL=alimentation-tracking.css.map */

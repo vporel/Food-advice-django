@@ -75,6 +75,14 @@ a {
 .border-4 {
   border-width: 4px !important; }
 
+body {
+  font-size: 13px;
+  color: #505050;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  font-family: "century gothic"; }
+
 .popup-window {
   position: fixed;
   width: 100%;
@@ -158,6 +166,13 @@ a {
   font-size: 30px;
   animation: disappear 2.5s forwards; }
 
+@keyframes disappear {
+  from {
+    opacity: 1;
+    visibility: visible; }
+  to {
+    opacity: 0;
+    visibility: hidden; } }
 /*
     STYLES DES BOUTONS, FORMULAIRES
 */
@@ -362,24 +377,72 @@ form .text-muted {
     align-self: flex-end;
     background: rgba(255, 255, 0, 0.3); }
 
-body {
-  font-size: 13px;
-  color: #505050;
-  margin: 0;
-  padding: 0;
-  width: 100% !important;
-  font-family: "century gothic"; }
+.consumed-foods-group {
+  width: 100%; }
+  .consumed-foods-group .date {
+    display: block;
+    width: 100%;
+    background: rgba(84, 171, 0, 0.4);
+    padding: 3px;
+    color: #54ab00;
+    font-family: "century gothic Bold"; }
+  .consumed-foods-group .consumed-foods {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 2px; }
+  .consumed-foods-group .consumed-food {
+    margin: 5px 0 5px 5px;
+    width: 32%;
+    background: #c8c8c8;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: all .2s ease; }
+    .consumed-foods-group .consumed-food .btn {
+      padding: 3px !important; }
+    .consumed-foods-group .consumed-food:hover {
+      background: gainsboro; }
+
+.dialog-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  display: none; }
+
+.dialog-box-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.dialog-box-container {
+  margin-top: -50px;
+  background: white;
+  width: 50%;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px; }
+  @media screen and (max-width: 768px) {
+    .dialog-box-container {
+      width: 90%; } }
+
+.dialog-box-title {
+  color: #54ab00; }
+
+.dialog-box-content {
+  font-size: 22px; }
+
+.dialog-box-buttons button {
+  margin: 2px; }
 
 .loading {
   display: block; }
 
-@keyframes disappear {
-  from {
-    opacity: 1;
-    visibility: visible; }
-  to {
-    opacity: 0;
-    visibility: hidden; } }
 #messages-window #messages-home-screen #user-infos {
   background: gainsboro;
   height: 80px;
@@ -435,7 +498,7 @@ body {
   @media screen and (max-width: 768px) {
     #messages-window #messages-home-screen #messages-professional-search-result {
       width: 96%; } }
-#messages-window #messages-chat-screen #select-conversation {
+#messages-window #messages-chat-screen #select-conversation-loading {
   display: flex;
   flex-direction: column;
   width: 100%;

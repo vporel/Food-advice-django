@@ -121,6 +121,7 @@ def updateData(request):
         if form.is_valid():
             contributeur = form.save(commit=False)
             contributeur.save()
+            msg = "Modifications effectuées"
     return render(request, template_name="account/update-user-data.html", context={"form":form, "msg":msg})
 
     

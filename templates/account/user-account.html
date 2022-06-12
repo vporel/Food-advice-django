@@ -48,7 +48,7 @@
                 </h6>
                 
                 {% if user.repas_set.count > 0 %}
-                    <div class="row">
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for repas in user.repas_set.all %}
                             {% if appUser == user or repas.approuve == True %}
                                 {% include "macros/_food-little-presentation.html" with repas=repas %}
@@ -70,7 +70,7 @@
                 </h6>
                 
                 {% if user.aliment_set.count > 0 %}
-                    <div class="row">
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for aliment in user.aliment_set.all %}
                             {% if appUser == user or aliment.approuve == True %}
                                 {% include "macros/_presentation-aliments.html" with aliment=aliment %}
@@ -92,7 +92,7 @@
                 </h6>
                 
                 {% if user.restaurant_set.count > 0 %}
-                    <div class="row">
+                    <div class="row row-cols-3 row-cols-md-4">
                         {% for restaurant in user.restaurant_set.all %}
                             {% if appUser == user or restaurant.approuve == True %}
                                 {% include "macros/_Restaurant-presentation.html" with restaurant=restaurant %}

@@ -1,5 +1,6 @@
 
 @import "./utils/variables";
+@import "./custom-root.scss";
 @import "./components/others";
 @import "./layouts/header";
 @import "./layouts/footer";
@@ -7,13 +8,12 @@
 @import "./components/forms";
 @import "./components/presentations";
 @import "./components/dialog-boxes";
-@import "./components/user-boxes";
 @import "./components/loading";
 @import "./components/loads";
 @import "./components/extra";
 
 
-body {
+body { 
     font-size: 13px;
     color: $text-color;
     margin: 0;

@@ -16,21 +16,23 @@
     {% include "components/_dialog-boxes.html" %}
     <div id="recommendations-box" data-step="1">
         <div class="content">
-            <h3 class="title">
+            <h3 class="box-title">
                 Recommandations pour votre santé 
                 <i class="fas fa-times icon" onclick="$('#recommendations-box').fadeOut(500);"></i>
                 {% include "components/_custom-line.html" %}
             </h3>
             
             <div id="steps">
-                <div class="step" id="step1">
+                <div class="step text-center" id="step1">
                     <h4 class="title">Choix de la durée</h4>
-                    <p style="font-size:20px;">
-                        Recommendations sur : 
-                    </p>
                     <div>
                         <button class="btn btn-primary duree" data-value="1">Les trois derniers jours</button>
                         <button class="btn btn-primary duree" data-value="2">La dernière semaine</button>
+                    </div>
+                </div>
+                <div class="step" id="step2">
+                    <div id="recommendations">
+                        <!-- Recommandations ici -->
                     </div>
                 </div>
             </div>
@@ -82,7 +84,6 @@
     {% js 'node_modules/aos/dist/aos.js' %}
     {% js 'node_modules/@fortawesome/fontawesome-free/js/all.min.js' %}
     {% js 'js/dialog-boxes.js' %}
-    {% js 'js/PopupWindow.class.js' %}
     {% js 'js/alimentation-tracking.js' %}
     <script type="text/javascript">
         /**

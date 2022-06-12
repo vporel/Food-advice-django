@@ -113,13 +113,27 @@ MOMENTS_JOURNEE = [
     (2, 'Midi'),
     (3, 'Soir')
 ]
+
+def momentJourneeText(num):
+    for momentJournee in MOMENTS_JOURNEE:
+        if momentJournee[0] == num:
+            return momentJournee[1]
+    raise Exception(str(num)+" n'est oas un numéro reconnu pour les moments de journée")
+
 class Repas(Evaluable):
     image = models.FileField(upload_to="static/images/repas/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     momentJournee = models.IntegerField(choices=MOMENTS_JOURNEE, null=True, blank = True, verbose_name="Moment de la journée", help_text="Moment habituel de consommation de ce repas")
-    origine = models.ForeignKey(OrigineRepas, models.CASCADE, null=True)
+    origine = models.ForeignKey(OrigineRepas, models.CASCADE, null=True, blank=True)
     
+    def hasRecette(self):
+        try:
+            recette = self.recette 
+            return True
+        except Exception: #Erreur lors de la recupération de la recette
+            return False
+
     def tauxGlucides(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
@@ -128,8 +142,8 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def tauxLipides(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
-                return None
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
+            return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
         for aliment in aliments:
@@ -137,8 +151,8 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def tauxProteines(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
-                return None
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
+            return None
         aliments = self.recette.aliments.all()
         sommeTaux = 0
         for aliment in aliments:
@@ -146,7 +160,7 @@ class Repas(Evaluable):
         return round(sommeTaux/aliments.count(), 2)
 
     def calories(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         alimentsRecettes = self.recette.alimentrecette_set.all()
         somme = 0
@@ -155,7 +169,7 @@ class Repas(Evaluable):
         return somme
 
     def caloriesUnePersonne(self):
-        if self.recette is None or self.recette.aliments.count()== 0:
+        if not self.hasRecette() or self.recette.aliments.count()== 0:
             return None
         return round(self.calories() / self.recette.nombrePersonnes, 2);
 
@@ -287,7 +301,7 @@ class CommentaireAliment(Commentaire):
 class Restaurant(Evaluable):
     image = models.FileField(upload_to="static/images/restaurants/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     adresse = models.CharField(max_length=100)
-    repass = models.ManyToManyField(Repas)
+    repass = models.ManyToManyField(Repas, blank=True)
 
 class CommentaireRestaurant(Commentaire):
     restaurant = models.ForeignKey(Restaurant, models.CASCADE)
@@ -304,6 +318,17 @@ class RepasConsomme(models.Model):
 
     class Meta:
         unique_together=[["date", "momentJournee", "contributeur"]]
+    
+    @staticmethod
+    def grouperParDates(repasConsommes):
+        repasConsommesGroupes = {}
+        for repasConsomme in repasConsommes:
+            date = repasConsomme.date
+            if not repasConsommesGroupes.__contains__(date):
+                repasConsommesGroupes[date] = []
+            repasConsommesGroupes[date].append(repasConsomme)
+        return repasConsommesGroupes
+
 
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)

@@ -13,6 +13,7 @@
 	{% js 'node_modules/jquery/dist/jquery.min.js' %}
 </head>
 <body>
+    {% include "components/_dialog-boxes.html" %}
     <div id="opener-loading">
         {% include "components/_loading.html" %}
         Chargement de la ChatBox
@@ -69,7 +70,7 @@
     {% js 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}
     {% js 'node_modules/aos/dist/aos.js' %}
     {% js 'node_modules/@fortawesome/fontawesome-free/js/all.min.js' %}
-    {% js 'js/PopupWindow.class.js' %}
+    {% js 'js/dialog-boxes.js' %}
     {% js 'js/chat.js' %}
     <script type="text/javascript">
         /**

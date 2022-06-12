@@ -79,17 +79,23 @@
     <div class="elements-set" id="repas">
         <h4 class="title text-center">Repas</h4>
         {% include "components/_custom-line.html" %}
-        {% include "load/foods.html" %}
+        <div class="row row-cols-3 row-cols-md-4 mt-3">
+            {% include "load/foods.html" with repass=repass%}
+        </div>
     </div>
     <div class="elements-set" id="aliments">
         <h4 class="title text-center">Aliments</h4>
         {% include "components/_custom-line.html" %}
-        {% include "load/aliments.html" %}
+        <div class="row row-cols-3 row-cols-md-5 mt-3">
+            {% include "load/aliments.html" with aliments=aliments %}
+        </div>
     </div>
     <div class="elements-set" id="restaurants">
         <h4 class="title text-center">Restaurants</h4>
         {% include "components/_custom-line.html" %}
-        {% include "load/restaurants.html" %}
+        <div class="row row-cols-3 row-cols-md-4 mt-3">
+            {% include "load/restaurants.html" %}
+        </div>
     </div>
 </div>
 

@@ -2,19 +2,20 @@
 let $BOX = $("#alimentation-tracking-window");
 let $FIRST_SCREEN = $(".popup-window-first-screen");
 let $SECOND_SCREEN = $(".popup-window-second-screen");
-/**
- * Creation de l'objet PopupWindow qui gère la boite des messages
- */
-let windowObject = new PopupWindow($BOX);
 
 /**
  * Masque le bouton back à l'initialisation
  */
- $BOX.find(".popup-window-btn-back").hide(-1);
+$BOX.find(".popup-window-btn-back").hide(-1);
+$BOX.delegate(".popup-window-btn-close", "click", function(){
+    showConfirmDialog("", "Voulez-vous vraiment quitter cette fenêtre ? ", function(){
+        window.close();
+    });
+});
 
- $.get("/suivre-alimentation/repas-consommes", function(response){
-    $("#consumed-foods").html(response);
- })
+$.get("/suivre-alimentation/repas-consommes", function(response){
+$("#consumed-foods").html(response);
+})
 
 $("#add-consumed-food-form #submit-btn").click(function(){
     let formData = new FormData($("#add-consumed-food-form form")[0]);
@@ -39,16 +40,44 @@ $("#add-consumed-food-form #submit-btn").click(function(){
 })
 
 $("#show-recommendations-btn").click(function(){
+
+    $("#recommendations-box #step1").slideDown(-1);
+    $("#recommendations-box #step2").slideUp(-1);
     $("#recommendations-box").fadeIn(500);
 });
 
 $("#recommendations-box .duree").click(function(){
     let duree = $(this).attr("data-value");
-    $.get("/suivre-alimentation/recommandations", {duree:duree}, function(response){
+    $.get("/suivre-alimentation/verifier-remplissage", {duree:duree}, function(response){
         if(response == "age_error"){
             showConfirmDialog("", "Pour faire des recommandations, votre âge est nécessaire. Vous allez être redirigé vers une autre page pour l'ajout de votre date de naissance", function(){
                 window.open("/mon-compte/modifier-informations", "_blank");
             });
+        }else if(response == "sexe_error"){
+            showConfirmDialog("", "Pour faire des recommandations, votre sexe est nécessaire. Vous allez être redirigé vers une autre page pour l'ajout de votre date de naissance", function(){
+                window.open("/mon-compte/modifier-informations", "_blank");
+            });
+        }else if(response.indexOf("fill_error") == 0){
+            let splitResponse = response.split(":");
+            if(splitResponse.length == 2)
+                msg ="Vous n'avez pas entré de repas pour la date <strong>"+splitResponse[1]+"</strong>. <br><i>Les estimations seront moins correctes.</i> <br>Voulez-vous quand même continuer ?";
+            else if(splitResponse.length == 3)
+                msg = "Vous n'avez pas entré de repas pour <strong>"+splitResponse[2]+"</strong> à la date <strong>"+splitResponse[1]+"</strong>. <br><i>Les estimations seront moins correctes.</i> <br>Voulez-vous quand même continuer ?";
+            
+            showConfirmDialog("", msg, function(){
+                showRecommendations(duree)
+            });
+        }else{
+            showRecommendations(duree)
         }
     })
 })
+
+function showRecommendations(duree){
+    
+    $.get("/suivre-alimentation/recommandations", {duree:duree}, function(response){
+        $("#recommendations").html(response);
+        $("#recommendations-box #step1").slideUp(500);
+        $("#recommendations-box #step2").slideDown(500);
+    })
+}

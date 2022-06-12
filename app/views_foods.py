@@ -1,13 +1,14 @@
 import json
+from re import template
 from django.http import HttpResponse
 from django.shortcuts import render
 from app.user_session import getUser
 
 from app.views import request_get
-from .models import CommentaireRepas, EvaluationRepas, OrigineRepas, Repas
+from .models import Commentaire, CommentaireRepas, EvaluationRepas, OrigineRepas, Repas
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 # Create your views here.
-
 def list(request):
     paysOrigines = []
     originesRepas = OrigineRepas.objects.order_by("pays")
@@ -24,7 +25,8 @@ def show(request, id):
     commentaires = CommentaireRepas.objects.filter(repas=repas).order_by("-date")
     return render(request, template_name="food/show.html", context={
         'repas':repas,
-        'commentaires':commentaires
+        'commentaires':commentaires,
+        'autresRepas':Repas.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)), momentJournee=repas.momentJournee)[0:6]
     })
 
 @csrf_exempt
@@ -46,10 +48,18 @@ def rate(request, id, rating):
 
 @csrf_exempt#pour appeler la méthode en ajax
 def addComment(request, id):
-    pass   
+    commentaire = CommentaireRepas()
+    commentaire.repas = Repas.objects.get(pk=id)
+    commentaire.texte = request_get(request, "comment")
+    commentaire.contributeur = getUser(request.session)
+    commentaire.save()
+    return render(request, template_name="load/comments.html", context={"commentaires":[commentaire]});      
+
 @csrf_exempt
-def getComments():
-    pass
+def getComments(request):
+    repas = Repas.objects.get(pk=id)
+    commentaires = CommentaireRepas.objects.filter(repas=repas).order_by("-date") 
+    return render(request, template_name="load/comments.html", context={"commentaires":commentaires})
 
 @csrf_exempt
 def filter(request):

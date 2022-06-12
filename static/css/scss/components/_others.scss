@@ -36,6 +36,9 @@ a{
     background-color:$primary-color!important;
   }
   
+  .bg-primary-light{
+    background:rgba($primary-color, .4)!important;
+  }
   
 
 .border-2{

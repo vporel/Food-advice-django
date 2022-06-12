@@ -5,10 +5,6 @@ let $MESSAGES_CHAT_SCREEN = $("#messages-window #messages-chat-screen");
 /**
  * Creation de l'objet PopupWindow qui gère la boite des messages
  */
-let messagesWindow = new PopupWindow($BOX);
-messagesWindow.setOnBeforeClose(() => {
-    closeChat();
-})
 
 let loadMessagesTimer = null;
 
@@ -97,6 +93,11 @@ function loadConversations(){
  */
  $BOX.find(".popup-window-btn-back").hide(-1);
  $BOX.delegate(".popup-window-btn-back", "click", closeChat);
+ $BOX.delegate(".popup-window-btn-close", "click", function(){
+     showConfirmDialog("", "Voulez-vous vraiment quitter cette fenêtre ? ", function(){
+        window.close();
+     });
+ });
 /**
  * Clic sur une conversation
  */
@@ -144,7 +145,7 @@ function closeMessagesProfessionalSearch(){
 $BOX.find("#messages-professional-search form input").keyup(function(){
     let value = $(this).val().trim();
     if(value != ""){
-        $BOX.find("#messages-professional-search-result .elements").load("/filtre-professionnels", {nom:value, messagesWindow:true});
+        $BOX.find("#messages-professional-search-result .elements").load("/filtre-professionnels", {nom:value, messagesBox:true});
         $BOX.find("#messages-professional-search-result").fadeIn(200);
         $BOX.find("#messages-professional-search form button").show(-1);
     }else{
