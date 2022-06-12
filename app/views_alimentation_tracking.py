@@ -144,7 +144,7 @@ def getRecommendations(request):
             composition = "TPD"
         else:
             composition = "TCD" #Calories
-        elementsEnMoinsRepas[element] = Repas.filterList(composition=composition)
+        elementsEnMoinsRepas[element] = Repas.filterList(composition=composition)[0:4]
     for element in elementsEnPlus:
         if element == "glucides":
             composition = "TGC" #taux de glucides décroissant
@@ -154,7 +154,7 @@ def getRecommendations(request):
             composition = "TPC"
         else:
             composition = "TCC" #Calories
-        elementsEnPlusRepas[element] = Repas.filterList(composition=composition)
+        elementsEnPlusRepas[element] = Repas.filterList(composition=composition)[0:4]
 
     repassAConsommer = []
     return render(request, template_name="load/recommendations-result.html", context={

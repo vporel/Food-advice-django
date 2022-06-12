@@ -87,7 +87,7 @@
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
-        
+        padding:5px;
         .box-title{
             padding:5px;
             color:$primary-color!important;
@@ -111,6 +111,9 @@
                 width:100%;
                 height:100%;
                 display:block;
+                &.on-top{
+                    z-index:20;
+                }
             }
             #step2{
                 display:none;

@@ -686,7 +686,8 @@ form .text-muted {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    overflow-x: hidden; }
+    overflow-x: hidden;
+    padding: 5px; }
     #recommendations-box .content .box-title {
       padding: 5px;
       color: #54ab00 !important;
@@ -710,6 +711,8 @@ form .text-muted {
         width: 100%;
         height: 100%;
         display: block; }
+        #recommendations-box .content #steps .step.on-top {
+          z-index: 20; }
       #recommendations-box .content #steps #step2 {
         display: none; }
   #recommendations-box #details {
