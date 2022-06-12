@@ -79,12 +79,12 @@
     <div class="elements-set" id="repas">
         <h4 class="title text-center">Repas</h4>
         {% include "components/_custom-line.html" %}
-        {% include "load/foods.html" %}
+        {% include "load/foods.html" with repass=repass%}
     </div>
     <div class="elements-set" id="aliments">
         <h4 class="title text-center">Aliments</h4>
         {% include "components/_custom-line.html" %}
-        {% include "load/aliments.html" %}
+        {% include "load/aliments.html" with aliments=aliments %}
     </div>
     <div class="elements-set" id="restaurants">
         <h4 class="title text-center">Restaurants</h4>

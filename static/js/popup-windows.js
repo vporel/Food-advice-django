@@ -1,5 +1,6 @@
 
 var CHAT_BOX = null;
+var ALIMENTATION_TRACKING_BOX = null;
 
 function openChatBox(idConversation, idProfessionnel, nomProfessionnel){
     if(!USER_CONNECTED){ // constante globale définie dans le fichier base.php
@@ -7,12 +8,13 @@ function openChatBox(idConversation, idProfessionnel, nomProfessionnel){
             window.location="/mon-compte/connexion";
         });
     }else{
-        CHAT_BOX = window.open("/chat", "", "width=1000, height=600");
+        CHAT_BOX = window.open("/chat", "chat", "width=1000, height=600");
         if(idConversation != undefined || idProfessionnel != undefined){
             CHAT_BOX.onload = function(){
                 CHAT_BOX.openChat(idConversation, idProfessionnel, nomProfessionnel)
             }
         }
+        
     }
 }
 
@@ -22,7 +24,7 @@ function openAlimentationTrackingBox(){
             window.location="/mon-compte/connexion";
         });
     }else{
-        CHAT_BOX = window.open("/suivre-alimentation", "", "width=1000, height=600");
+        ALIMENTATION_TRACKING_BOX = window.open("/suivre-alimentation", "alimentation-tracking", "width=1000, height=600");
         
     }
 }

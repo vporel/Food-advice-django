@@ -113,6 +113,13 @@ MOMENTS_JOURNEE = [
     (2, 'Midi'),
     (3, 'Soir')
 ]
+
+def momentJourneeText(num):
+    for momentJournee in MOMENTS_JOURNEE:
+        if momentJournee[0] == num:
+            return momentJournee[1]
+    raise Exception(str(num)+" n'est oas un numéro reconnu pour les moments de journée")
+
 class Repas(Evaluable):
     image = models.FileField(upload_to="static/images/repas/", validators=[FileExtensionValidator(allowed_extensions=IMAGE_EXTENSIONS)])
     momentJournee = models.IntegerField(choices=MOMENTS_JOURNEE, null=True, blank = True, verbose_name="Moment de la journée", help_text="Moment habituel de consommation de ce repas")
@@ -304,6 +311,17 @@ class RepasConsomme(models.Model):
 
     class Meta:
         unique_together=[["date", "momentJournee", "contributeur"]]
+    
+    @staticmethod
+    def grouperParDates(repasConsommes):
+        repasConsommesGroupes = {}
+        for repasConsomme in repasConsommes:
+            date = repasConsomme.date
+            if not repasConsommesGroupes.__contains__(date):
+                repasConsommesGroupes[date] = []
+            repasConsommesGroupes[date].append(repasConsomme)
+        return repasConsommesGroupes
+
 
 class Conversation(models.Model):
     visiblePourContributeur = models.BooleanField(default=True)

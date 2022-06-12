@@ -511,7 +511,7 @@ form .text-muted {
   left: 0;
   background: rgba(0, 0, 0, 0.2); }
   #recommendations-box .content {
-    width: 50%;
+    width: 90%;
     height: 90%;
     margin: auto;
     margin-top: 2.5%;
@@ -521,11 +521,6 @@ form .text-muted {
     display: flex;
     flex-direction: column;
     overflow: hidden; }
-    #recommendations-box .content.maximized {
-      width: 90%;
-      height: 90%;
-      top: 5%;
-      left: 5%; }
     #recommendations-box .content h3 {
       padding: 5px;
       color: #54ab00 !important;
@@ -540,10 +535,15 @@ form .text-muted {
           transform: scale(1.2); }
     #recommendations-box .content #steps {
       flex-grow: 1;
-      position: relative; }
+      position: relative;
+      width: 100%; }
       #recommendations-box .content #steps .step {
         position: absolute;
-        padding: 5px; }
+        padding: 5px;
+        background: red;
+        width: 100;
+        height: 100%;
+        display: block; }
         #recommendations-box .content #steps .step h4 {
           position: relative; }
           #recommendations-box .content #steps .step h4::after {
