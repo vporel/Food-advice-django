@@ -82,6 +82,16 @@
             </div>
         </div>
     </div>
+    {% if restaurant.repass.count > 0 %}
+    <div class="row mt-4">
+        <div cl&ss="col-12">
+            <h5 class="title text-center">Les repas proposés par ce restaurant</h5>
+            <div class="row row-cols-3 row-cols-md-4 mt-4">
+                {% include 'load/foods.html' with repass=restaurant.repass.all %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
      
 {% endblock %}
