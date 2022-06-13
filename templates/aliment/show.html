@@ -27,6 +27,10 @@
                 {{ aliment.description }}
             </div>
             <hr>
+            <div>
+                <span class="label">Type : </span>
+                <span class="value">{{ aliment.type }}</span>
+            </div>
             {%if aliment.contributeur is not null %}
                 <div>
                     <span class="label">Recommandé par : </span>
@@ -74,9 +78,14 @@
         </div>
     </div>
     <div class="row mt-3">
+        {% if autresAliments.count > 0 %}
         <div class="col-12 col-md-6 order-2 order-md-1">
             <h5 class="title">Aliments du même type</h5>
+            <div class="row row-cols-3">
+                {% include "load/aliments.html" with aliments=autresAliments%}
+            </div>
         </div>
+        {% endif %}
         <div class="col-12 col-md-6 order-1 order-md-2">
             <h5 class="title">Commentaires</h5>
             {% if appUser is not null %}
@@ -102,7 +111,5 @@
     <script>
         const ALIMENT_ID = parseInt("{{ aliment.id }}");
     </script>
-    <script>
-        updateStarsWithAverage(NOTES_AVERAGE);
-    </script>
+    <script src="{% static "js/aliment-show.js" %}"></script>
 {% endblock %}

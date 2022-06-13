@@ -26,7 +26,7 @@ def show(request, id):
     return render(request, template_name="restaurant/show.html", context={
         'restaurant':restaurant,
         'commentaires':commentaires,
-        'autresRestaurant':Restaurant.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)))[0:6]
+        'autresRestaurants':Restaurant.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)))[0:6]
     })
 
 @csrf_exempt

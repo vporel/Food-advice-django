@@ -7,6 +7,9 @@
 
 {%block body%}
 <!-- Contenu de la page ici -->
+<h2 class="heading-title" data-aos="flip-up">
+    Restaurants
+</h2>
 <div class="container mt-2" id="list">
     <h5 class="title">Filtres</h5>
     <div id="filtres" class="row">
@@ -22,6 +25,7 @@
             <button class="btn btn-primary" onclick="filter()">Appliquer</button>
         </div>
     </div>
+    <hr>
     {% include "components/_loading.html" %}
     <div id="elements" class="mt-3 row row-cols-3 row-cols-md-4">
         {% include "load/restaurants.html" with restaurants=restaurants%}

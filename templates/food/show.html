@@ -150,7 +150,7 @@
                 <i class="far fa-star star"></i>
                 <i class="far fa-star star"></i>
             </div>
-            <span><strong id="notesCount">{{ repas.nombreNotes }}</strong> personne{% if repas.nombreNotes > 1 %}s ont{% else %}a{% endif %} noté</span><br>
+            <span><strong id="notesCount">{{ repas.nombreNotes }}</strong> personne {% if repas.nombreNotes > 1 %}s ont{% else %}a{% endif %} noté</span><br>
             <div id="user-note">
                 {% call_method repas 'noteContributeur' appUser as note %}
                 {%if appUser is null or note == 0 %}

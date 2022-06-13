@@ -22,10 +22,11 @@ def list(request):
 def show(request, id):#présentation d'un aliment
     aliment = Aliment.objects.get(id=id)
     commentaires = CommentaireAliment.objects.filter(aliment=aliment).order_by("-date")
+    autresAliments = Aliment.objects.filter(~Q(pk=id), Q(approuve=True) | Q(contributeur=getUser(request.session)), type=aliment.type)[0:6]
     return render(request, template_name="aliment/show.html", context={
         'aliment':aliment,
         'commentaires':commentaires,
-        'autresAliments':Aliment.objects.filter(~Q(pk=id), Q(approuve=True) | Q(contributeur=getUser(request.session)), type=aliment.type)[0:6]
+        'autresAliments':autresAliments
     })
 @csrf_exempt #pour appeler la méthode en ajax
 def addComment(request, id):
