@@ -16,6 +16,11 @@
 <h2 id="food-title" data-aos="zoom-in">
     {{ repas.nom }}
 </h2>
+<div class="floating-recommendation-link">
+    Vous pouvez recommander un repas qui n'est pas dans notre liste<br>
+    <a href="{% url 'recommend-food' %}"><strong>Cliquez ici</strong></a>
+    <span class="toggle-btn"><i class="fas fa-arrow-right icon-2"></i></span>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-5">
@@ -188,6 +193,17 @@
             </div>
         </div>
     </div>
+    {% if restaurants.count > 0 %}
+    <div class="row mt-4">
+        <div cl&ss="col-12">
+            <h5 class="title text-center">Les restaurants qui proposent ce repas</h5>
+            {% include "components/_custom-line.html" %}
+            <div class="row row-cols-3 row-cols-md-4 mt-3">
+                {% include 'load/restaurants.html' with restaurants=restaurants %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {%endblock%}
 {% block scripts %}

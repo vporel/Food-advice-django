@@ -117,6 +117,36 @@ a {
 .border-4 {
   border-width: 4px !important; }
 
+.floating-recommendation-link {
+  position: fixed;
+  background: linear-gradient(-90deg, #54ab00, #baff78);
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 0 3px gray;
+  padding: 30px;
+  text-align: center;
+  color: black;
+  z-index: 10;
+  font-size: 17px;
+  top: 40%;
+  width: 30%;
+  left: -30%;
+  transition: all .3s ease; }
+  .floating-recommendation-link.shown {
+    left: 0%; }
+  .floating-recommendation-link a {
+    color: white; }
+  .floating-recommendation-link .toggle-btn {
+    position: absolute;
+    right: -30px;
+    background: #54ab00;
+    padding: 10px;
+    top: 30%;
+    border-radius: 0 20px 20px 0;
+    transition: all .2s ease;
+    cursor: pointer; }
+    .floating-recommendation-link .toggle-btn:hover {
+      color: white; }
+
 header {
   padding: 0 !important; }
   header #navbar {

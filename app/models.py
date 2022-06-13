@@ -452,7 +452,7 @@ class Message(models.Model):
                 else:
                     value = 2
             else:
-                raise Exception("Type de la propriété 'expediteur' non pris en compte");
+                raise Exception("Type de la propriété 'expediteur' "+str(value)+" non pris en compte");
         super().__setattr__(name, value)
         
 

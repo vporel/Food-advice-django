@@ -5,7 +5,7 @@ from django.shortcuts import render
 from app.user_session import getUser
 
 from app.views import request_get
-from .models import CommentaireRepas, EvaluationRepas, OrigineRepas, Repas
+from .models import CommentaireRepas, EvaluationRepas, OrigineRepas, Repas, Restaurant
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 # Create your views here.
@@ -32,7 +32,8 @@ def show(request, id):
     return render(request, template_name="food/show.html", context={
         'repas':repas,
         'commentaires':commentaires,
-        'autresRepas':Repas.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)), momentJournee=repas.momentJournee)[0:6]
+        'autresRepas':Repas.objects.filter(~Q(pk=id), Q(approuve=True) | Q(~Q(contributeur=None), contributeur=getUser(request.session)), momentJournee=repas.momentJournee)[0:6],
+        'restaurants':Restaurant.objects.filter(repass__pk=repas.id)
     })
 
 @csrf_exempt

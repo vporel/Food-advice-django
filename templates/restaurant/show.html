@@ -12,6 +12,11 @@
     <h2 id="restaurant-title">
         {{ restaurant.nom }}
     </h2>
+    <div class="floating-recommendation-link">
+        Vous pouvez recommander un restaurant qui n'est pas dans notre liste<br>
+        <a href="{% url 'recommend-restaurant' %}"><strong>Cliquez ici</strong></a>
+        <span class="toggle-btn"><i class="fas fa-arrow-right icon-2"></i></span>
+    </div>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-5">
@@ -82,6 +87,16 @@
             </div>
         </div>
     </div>
+    {% if restaurant.repass.count > 0 %}
+    <div class="row mt-4">
+        <div cl&ss="col-12">
+            <h5 class="title text-center">Les repas proposés par ce restaurant</h5>
+            <div class="row row-cols-3 row-cols-md-4 mt-4">
+                {% include 'load/foods.html' with repass=restaurant.repass.all %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
      
 {% endblock %}
