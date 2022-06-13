@@ -28,6 +28,14 @@ body {
   font-weight:bold;
   color:black;
 }
+.heading-title{
+  background:gray;
+  text-shadow: 1px 1px 1px black;
+  font-family: $title-font;
+  color:white;
+  padding:20px 0;
+  text-align:center;
+}
 
 
 #content{

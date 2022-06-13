@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} $aliment->nom." | Food-advice{%endblock%}
+{% block title %} {{ restaurant.nom }}{%endblock%}
 
 {% block styles %}
     <!-- Inclusions css ici -->  
-    {{ $css([
-        "css/restaurant-show.css"
-    ]) }}
-
+    {% css "css/restaurant-show.css" %}
 {% endblock %}
  
 {% block body %}
@@ -18,30 +15,58 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-5">
-            <img src="{{ $asset("images/restaurants/".$restaurant->image) }}" alt="" id="restaurant-image">
+            <img src="/{{ restaurant.image }}" alt="" id="restaurant-image">
         </div>
         <div class="col-12 col-md-7" id="details">
             <div id="description">
-                {{ $restaurant->description }}
+                {{ restaurant.description }}
             </div>
             <hr>
-            {% if $restaurant->contributeur != null %}
+            {% if restaurant.contributeur != null %}
                 <div>
                     <span class="label">Recommandé par : </span>
-                    <span class="value">{{ $restaurant->contributeur }}</span>
+                    <span class="value">{{ restaurant.contributeur }}</span>
                 </div>
             {% endif %}
-            
+            <div>
+                <span class="label">Adresse : </span>
+                <span class="value">{{ restaurant.adresse }}</span>
+            </div>
                 
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-12 col-md-6 order-2 order-md-1">
-            <h5 class="title">Restaurant du meme genre</h5>
+    <div class="row mt-2">
+        <div id="ratings" class="col-12 text-center" data-aos="zoom-out">
+            <div id="stars"class="d-flex justify-content-center">
+                <i class="far fa-star star"></i>
+                <i class="far fa-star star"></i>
+                <i class="far fa-star star"></i>
+                <i class="far fa-star star"></i>
+                <i class="far fa-star star"></i>
+            </div>
+            <span><strong id="notesCount">{{ restaurant.nombreNotes }}</strong> personne {% if restaurant.nombreNotes > 1 %}s ont{% else %}a{% endif %} noté</span><br>
+            <div id="user-note">
+                {% call_method restaurant 'noteContributeur' appUser as note %}
+                {%if appUser is null or note == 0 %}
+                    <button class="btn btn-primary btn-noter">Noter</button>
+                {% else %}
+                    <span>Vous avez donné une note de <strong>{{ note }}. <a class="btn-noter text-primary">Changer</a></strong></span>
+                {% endif %}
+            </div>
         </div>
+    </div>
+    <div class="row mt-3">
+        {% if autresRestaurants.count > 0 %}
+        <div class="col-12 col-md-6 order-2 order-md-1">
+            <h5 class="title">Autres restaurants</h5>
+            <div class="row row-cols-3">
+                {% include "load/restaurants.html" with restaurants=autresRestaurants%}
+            </div>
+        </div>
+        {% endif %}
         <div class="col-12 col-md-6 order-1 order-md-2">
             <h5 class="title">Commentaires</h5>
-            {% if $app->user != null %}
+            {% if appUser != null %}
                 <span>Ajouter un commentaire</span>
                 <form id="new-comment-form">
                     <textarea id="comment-text" placeholder="Votre commentaire ici"></textarea>
@@ -49,11 +74,11 @@
                         <button class="btn btn-primary" id="add-comment" type="button">Ajouter</button>
                     </div>
                 </form>
-            <?php }else{ ?>
+            {% else %}
                 <a id="btn-commenter" class="text-primary">Ajouter un commentaire</a>
             {% endif %}
             <div id="commentaires" class="mt-2">
-                <?php include VIEW_DIR."/load/comments.php"; ?>
+                {% include "load/comments.html" %}
             </div>
         </div>
     </div>
@@ -64,9 +89,9 @@
 {% block scripts %}
     <!-- Code javascript ici -->
     <script>
-        const ALIMENT_ID = parseInt("{{ $aliment->id }}");
+        const RESTAURANT_ID = parseInt("{{ restaurant.id }}");
     </script>
-    <script src="{{ $asset("js/restaurant-show.js") }}"></script>
+    <script src="{% static "js/restaurant-show.js" %}"></script>
     <script>
         updateStarsWithAverage(NOTES_AVERAGE);
     </script>

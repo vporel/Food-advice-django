@@ -674,7 +674,8 @@ form .text-muted {
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.2); }
+  background: rgba(0, 0, 0, 0.2);
+  display: none; }
   #recommendations-box .content {
     width: 90%;
     height: 90%;
@@ -686,7 +687,8 @@ form .text-muted {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    overflow-x: hidden; }
+    overflow-x: hidden;
+    padding: 5px; }
     #recommendations-box .content .box-title {
       padding: 5px;
       color: #54ab00 !important;
@@ -710,6 +712,8 @@ form .text-muted {
         width: 100%;
         height: 100%;
         display: block; }
+        #recommendations-box .content #steps .step.on-top {
+          z-index: 20; }
       #recommendations-box .content #steps #step2 {
         display: none; }
   #recommendations-box #details {

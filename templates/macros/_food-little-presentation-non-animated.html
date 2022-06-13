@@ -1,5 +1,5 @@
 
-<a href="{% url 'show-food' repas.id %}" class="food food-little-presentation text-center" data-aos="zoom-in">
+<a href="{% url 'show-food' repas.id %}" class="food food-little-presentation text-center">
     {% if not repas.approuve %}
         <span class="badge-non-approuve">Non approuvé</span>
     {% endif %}

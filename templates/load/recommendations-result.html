@@ -38,7 +38,17 @@
         </tr>
     </table>
     <h5 class="text-center mt-4">
-        
+        {% if alimentationCorrecte %}
+            Vous alimentation est correcte. Vous pouvez prendre le repas que vous voulez dans notre liste. <br>
+            <a href="{% url 'foods-list' %}" target="_blank">Cliquez ici</a>
+        {% else %}
+            {% if elementsEnMoins|length != 0 %}
+                Vous n'avez pas consommé assez de <strong class="text-primary">{{ elementsEnMoins }}</strong>
+            {% endif %}
+            {% if elementsEnPlus|length != 0 %}
+                Vous avez consommé trop de <strong class="text-primary">{{ elementsEnplus }}</strong>
+            {% endif %}
+        {% endif %}
     </h5>
     <center><hr class="w-75"></center>
 
@@ -46,17 +56,29 @@
         <h5>Pour votre prochain repas, nous vous recommandons </h5>
         {% for element, repass in elementsEnMoinsRepas.items %}
             <div>
-                <h6>Pour ples de {{ element }} - repas en taux de {{ element }} décroissant</h6>
+                <h6>Avec plus de {{ element }}</h6>
                 <div class="row row-cols-3 row-cols-md-4">
-                    {% include "load/foods.html" with repass=repass %}
+                    {% if repass.count > 0 %}
+                        {% for repas in repass %}
+                            {% include "macros/_food-little-presentation-non-animated.html" with repas=repas animate=animate %}
+                        {% endfor %}
+                    {% else %}
+                    <div class="col-12 col-md-12 alert alert-warning mt-3">Aucun repas dans la base de données</div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
         {% for element, repass in elementsEnPlusRepas.items %}
             <div>
-                <h6>Repas en taux de {{ element }} croissant</h6>
+                <h6>Avec moins de {{ element }}</h6>
                 <div class="row row-cols-3 row-cols-md-4">
-                    {% include "load/foods.html" with repass=repass %}
+                    {% if repass.count > 0 %}
+                        {% for repas in repass %}
+                            {% include "macros/_food-little-presentation-non-animated.html" with repas=repas animate=animate %}
+                        {% endfor %}
+                    {% else %}
+                    <div class="col-12 col-md-12 alert alert-warning mt-3">Aucun repas dans la base de données</div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

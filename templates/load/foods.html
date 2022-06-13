@@ -1,7 +1,7 @@
 
 {% if repass.count > 0 %}
     {% for repas in repass %}
-        {% include "macros/_food-little-presentation.html" with repas=repas %}
+        {% include "macros/_food-little-presentation.html" with repas=repas animate=animate %}
     {% endfor %}
 {% else %}
 <div class="col-12 col-md-12 alert alert-warning mt-3">Aucun résultat</div>

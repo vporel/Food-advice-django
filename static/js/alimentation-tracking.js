@@ -41,8 +41,8 @@ $("#add-consumed-food-form #submit-btn").click(function(){
 
 $("#show-recommendations-btn").click(function(){
 
-    $("#recommendations-box #step1").slideDown(-1);
-    $("#recommendations-box #step2").slideUp(-1);
+    $("#recommendations-box #step1").slideDown(-1).addClass("on-top");
+    $("#recommendations-box #step2").slideUp(-1).removeClass("on-top");
     $("#recommendations-box").fadeIn(500);
 });
 
@@ -77,7 +77,7 @@ function showRecommendations(duree){
     
     $.get("/suivre-alimentation/recommandations", {duree:duree}, function(response){
         $("#recommendations").html(response);
-        $("#recommendations-box #step1").slideUp(500);
-        $("#recommendations-box #step2").slideDown(500);
+        $("#recommendations-box #step1").slideUp(500).removeClass("on-top");
+        $("#recommendations-box #step2").slideDown(500).addClass("on-top");
     })
 }

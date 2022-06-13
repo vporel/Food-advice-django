@@ -5,20 +5,26 @@ from django.shortcuts import render
 from app.user_session import getUser
 
 from app.views import request_get
-from .models import Commentaire, CommentaireRepas, EvaluationRepas, OrigineRepas, Repas
+from .models import CommentaireRepas, EvaluationRepas, OrigineRepas, Repas
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 # Create your views here.
 def list(request):
+    nom = request_get(request, "nom")
+    if nom != None:
+        repass = Repas.objects.filter(approuve=True, nom__contains=nom)
+    else:
+        repass = Repas.objects.filter(approuve=True)
     paysOrigines = []
     originesRepas = OrigineRepas.objects.order_by("pays")
     for origineRepas in originesRepas:
         if not paysOrigines.__contains__(origineRepas.pays):
             paysOrigines.append(origineRepas.pays)
     return render(request, template_name="food/liste.html", context={
-        "repass": Repas.objects.filter(approuve=True), 
+        "repass": repass, 
         "originesRepas": originesRepas,
-        "paysOrigines": paysOrigines
+        "paysOrigines": paysOrigines,
+        "nom":nom if nom != None else "" 
     })
 def show(request, id):
     repas = Repas.objects.get(id=id)
