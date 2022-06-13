@@ -16,6 +16,11 @@
 <h2 id="food-title" data-aos="zoom-in">
     {{ repas.nom }}
 </h2>
+<div class="floating-recommendation-link">
+    Vous pouvez recommander un repas qui n'est pas dans notre liste<br>
+    <a href="{% url 'recommend-food' %}"><strong>Cliquez ici</strong></a>
+    <span class="toggle-btn"><i class="fas fa-arrow-right icon-2"></i></span>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-5">

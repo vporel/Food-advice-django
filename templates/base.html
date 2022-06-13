@@ -96,6 +96,14 @@
                 window.location = "/"+elementType+"?nom="+searchText;
             }
         });
+
+        $('.floating-recommendation-link').each(function(){
+            let $box = $(this);
+            $box.find('.toggle-btn').click(function(){
+                $box.toggleClass("shown");
+                $(this).find('.icon-2').toggleClass("fa-arrow-right").toggleClass("fa-arrow-left");
+            })
+        })
 	</script>
 	{% block scripts %}{% endblock %}
 </body>

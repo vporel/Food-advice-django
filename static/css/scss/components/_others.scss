@@ -50,3 +50,38 @@ a{
 .border-4{
   border-width:4px!important;
 }
+
+.floating-recommendation-link{
+  position:fixed;
+  background:linear-gradient(-90deg, $primary-color,lighten($primary-color, 40%));
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 0 3px gray;
+  padding:30px;
+  text-align:center;
+  color:black;
+  z-index:10;
+  font-size:17px;
+  top:40%;
+  width:30%;
+  left:-30%;
+  transition:all .3s ease;
+  &.shown{
+    left:0%;
+  }
+  a{
+    color:white;
+  }
+  .toggle-btn{
+    position:absolute;
+    right:-30px;
+    background:$primary-color;
+    padding:10px;
+    top:30%;
+    border-radius: 0 20px 20px 0;
+    transition:all .2s ease;
+    cursor:pointer;
+    &:hover{
+      color:white;
+    }
+  }
+}
