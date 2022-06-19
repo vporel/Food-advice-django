@@ -87,7 +87,7 @@ def getRecommendations(request):
         SP += repas.tauxProteines()
         SC += repas.caloriesUnePersonne()
     # M =Moyenne
-    MG, ML, MP, MC = SG/nbreRepas, SL/nbreRepas, SP/nbreRepas, SC/nbreRepas
+    MG, ML, MP, MC = round(SG/nbreRepas, 2), round(SL/nbreRepas, 2), round(SP/nbreRepas, 2), round(SC/nbreRepas, 2)
     margeProteines = 5
     if age <= 12:
         glucidesAge, lipidesAge, proteinesAge = 50, 35, 15
@@ -167,7 +167,8 @@ def getRecommendations(request):
         "elementsEnPlusRepas": elementsEnPlusRepas,
         "glucides":elements["glucides"],
         "lipides":elements["lipides"],
-        "proteines":elements["proteines"]
+        "proteines":elements["proteines"],
+        "calories":elements["calories"],
     })
     
 
